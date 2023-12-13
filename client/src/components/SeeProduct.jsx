@@ -1,7 +1,11 @@
+import { Link } from "react-router-dom"
 
-const SeeProduct = () => {
+
+const SeeProduct = ({link}) => {
   return (
-    <div>SeeProduct</div>
+    <Link to="#" className="uppercase bg-orange text-white text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%]">
+        see product
+    </Link>
   )
 }
 

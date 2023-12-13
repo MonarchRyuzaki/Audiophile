@@ -7,3 +7,25 @@
 body {
     font-family: 'Manrope', sans-serif;
 }
+
+.bg-hero {
+    background-image: url("./assets/home/mobile/image-header.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 640px) {
+    .bg-hero{
+        background-image: url("./assets/home/tablet/image-header.jpg");
+    }
+}
+
+@media (min-width: 1024px) {
+    .bg-hero {
+        background-color: #101010;
+        /* Change the background color above lg */
+        background-image: none;
+        /* Remove the background image above lg */
+    }
+}
