@@ -54,7 +54,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="xl:hidden flex justify-between items-center py-5 border-b-[#fafafa1a] border-b-[3px]">
-          <img src={hamburger} alt="" onClick={() => setToggle(prev => !prev)} />
+          <img
+            src={hamburger}
+            alt=""
+            onClick={() => setToggle((prev) => !prev)}
+          />
           <Link to=".">
             <img src={logo} alt="" className="cursor-pointer" />
           </Link>
@@ -62,31 +66,35 @@ const Navbar = () => {
             <img src={cart} alt="" className="cursor-pointer" />
           </Link>
         </div>
-        <div className={`${toggle?"flex" : "hidden"} xl:hidden flex flex-col gap-5 py-5 `}>
-        <NavLink
-              className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
-              to="."
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
-              to="headphones"
-            >
-              Headphones
-            </NavLink>
-            <NavLink
-              className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
-              to="speakers"
-            >
-              Speaker
-            </NavLink>
-            <NavLink
-              className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
-              to="earphones"
-            >
-              Earphones
-            </NavLink>
+        <div
+          className={`${
+            toggle ? "flex" : "hidden"
+          } xl:hidden flex flex-col gap-5 py-5 `}
+        >
+          <NavLink
+            className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
+            to="."
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
+            to="headphones"
+          >
+            Headphones
+          </NavLink>
+          <NavLink
+            className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
+            to="speakers"
+          >
+            Speaker
+          </NavLink>
+          <NavLink
+            className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
+            to="earphones"
+          >
+            Earphones
+          </NavLink>
         </div>
       </div>
     </div>
