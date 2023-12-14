@@ -4,16 +4,18 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { MainLayout } from "./Layouts";
-import { Earphones, Headphones, Home, Speakers } from "./Pages";
+import { MainLayout, ProductListLayout } from "./Layouts";
+import { Earphones, Headphones, Home, Speakers, earphonesLoader, headphonesLoader, speakersLoader } from "./Pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Home />} />
-      <Route path="headphones" element={<Headphones />}/>
-      <Route path="speakers" element={<Speakers />}/>
-      <Route path="earphones" element={<Earphones />}/>
+      <Route element={<ProductListLayout />}>
+        <Route path="headphones" element={<Headphones />} loader={headphonesLoader}/>
+        <Route path="speakers" element={<Speakers />} loader={speakersLoader}/>
+        <Route path="earphones" element={<Earphones />} loader={earphonesLoader}/>
+      </Route>
     </Route>
   )
 );

@@ -1,7 +1,12 @@
 import { ItemsList, Description } from "../../components";
 import { Hero, ZX9Speaker, ZX7Speaker, YX1Earphone } from "./components";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+  }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
   return (
     <div className="w-full overflow-hidden">
       <div className="bg-hero flex justify-center items-center px-6 sm:px-16 min-h-[83vh]">
