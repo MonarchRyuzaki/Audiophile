@@ -1,4 +1,4 @@
-import { ItemsList } from "../../components";
+import { ItemsList, Description } from "../../components";
 import { Hero, ZX9Speaker, ZX7Speaker, YX1Earphone } from "./components";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
           <ZX9Speaker />
           <ZX7Speaker />
           <YX1Earphone />
-          Description {/* From main component */}
+          <Description />
         </div>
       </div>
     </div>
