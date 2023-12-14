@@ -17,7 +17,7 @@ const ZX9Speaker = () => {
         />
       </div>
       <div className="flex-1 flex justify-center items-center flex-col lg:block">
-        <h1 className="text-4xl sm:text-6xl text-primary font-semibold">
+        <h1 className="text-4xl sm:text-6xl text-primary font-semibold tracking-wider">
           ZX9 <br className="hidden lg:block" /> SPEAKER
         </h1>
         <div className="text-gray font-medium my-8 max-w-[350px]">
