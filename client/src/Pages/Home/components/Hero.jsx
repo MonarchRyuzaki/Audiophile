@@ -15,7 +15,7 @@ const Hero = () => {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <SeeProduct bg="orange" text="primary" />
+          <SeeProduct bg="orange" text="primary" border="black"/>
         </div>
         <div className="hidden lg:block">
           <img src={HeroImage} alt="" />
@@ -31,7 +31,7 @@ const Hero = () => {
           Experience natural, lifelike audio and exceptional build quality made
           for the passionate music enthusiast.
         </div>
-        <SeeProduct bg="orange" text="primary" />
+        <SeeProduct bg="orange" text="primary" border="black"/>
       </section>
     </>
   );

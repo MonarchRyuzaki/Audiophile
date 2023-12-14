@@ -24,7 +24,7 @@ const ZX9Speaker = () => {
           Upgrade to premium speakers that are phenomenally built to deliver
           truly remarkable sound.
         </div>
-        <SeeProduct bg="black" text="primary" />
+        <SeeProduct bg="black" text="primary" border="black"/>
       </div>
     </div>
   );

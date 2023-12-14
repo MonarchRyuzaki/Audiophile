@@ -7,7 +7,7 @@ import {
 import { MainLayout, ProductListLayout } from "./Layouts";
 import { Earphones, Headphones, Home, Speakers, earphonesLoader, headphonesLoader, speakersLoader } from "./Pages";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Home />} />
