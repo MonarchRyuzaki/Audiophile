@@ -1,7 +1,7 @@
 import {
   Route,
   RouterProvider,
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout } from "./Layouts";
