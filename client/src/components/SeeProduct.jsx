@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
 
-const SeeProduct = ({link}) => {
+const SeeProduct = ({link, bg="orange", text="white"}) => {
   return (
-    <Link to="#" className="uppercase bg-orange text-white text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%]">
+    <Link to="#" className={`uppercase bg-${bg} text-${text} text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-black`}>
         see product
     </Link>
   )

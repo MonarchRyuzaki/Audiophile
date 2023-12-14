@@ -31,7 +31,7 @@ const Hero = () => {
           Experience natural, lifelike audio and exceptional build quality made
           for the passionate music enthusiast.
         </div>
-        <SeeProduct />
+        <SeeProduct bg="orange" text="primary"/>
     </section>
     </>
   );

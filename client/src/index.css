@@ -15,8 +15,13 @@ body {
     background-repeat: no-repeat;
 }
 
+.bg-pattern {
+    background-image: url("./assets/home/desktop/pattern-circles.svg");
+    background-position: center;
+}
+
 @media (min-width: 640px) {
-    .bg-hero{
+    .bg-hero {
         background-image: url("./assets/home/tablet/image-header.jpg");
     }
 }

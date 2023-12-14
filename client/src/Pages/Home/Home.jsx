@@ -1,5 +1,5 @@
 import { ItemsList } from "../../components";
-import { Hero } from "./components";
+import { Hero, ZX9Speaker } from "./components";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <div className="bg-primary flex justify-center items-center px-6 sm:px-16">
         <div className="w-full xl:max-w-[1280px]">
           <ItemsList />
-          ZX9 Speaker 
+          <ZX9Speaker /> 
           ZX7 Speaker 
           YX1 Earphone 
           Description{" "}
