@@ -13,7 +13,7 @@ const YX1Earphone = () => {
           <h1 className="text-black text-4xl font-semibold mb-14 tracking-wider">
             YX1 EARPHONE
           </h1>
-          <SeeProduct text="black" />
+          <SeeProduct text="black" border="black"/>
         </div>
       </div>
     </div>
