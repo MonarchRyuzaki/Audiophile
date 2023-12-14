@@ -11,7 +11,8 @@ export default {
         primary: "#fafafa",
         gray: "#fafafa80", // on black background
         dimGray: "#10101080", // on white background 
-        black: "#101010"
+        black: "#101010",
+        lightGray: "#f1f1f1"
       }
     },
   },
