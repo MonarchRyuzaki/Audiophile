@@ -20,9 +20,19 @@ body {
     background-position: center;
 }
 
+.bg-zx7{
+    background-image: url("./assets//home/mobile/image-speaker-zx7.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 @media (min-width: 640px) {
     .bg-hero {
         background-image: url("./assets/home/tablet/image-header.jpg");
+    }
+    .bg-zx7{
+        background-image: url("./assets//home/tablet/image-speaker-zx7.jpg");
     }
 }
 
@@ -32,5 +42,8 @@ body {
         /* Change the background color above lg */
         background-image: none;
         /* Remove the background image above lg */
+    }
+    .bg-zx7{
+        background-image: url("./assets//home/desktop/image-speaker-zx7.jpg");
     }
 }

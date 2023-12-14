@@ -8,7 +8,7 @@ const img = selectImage(desktop, tablet, mobile);
 
 const ZX9Speaker = () => {
   return (
-    <div className="bg-orange flex flex-col lg:flex-row  overflow-hidden px-16 pt-24 justify-center lg:justify-between items-center rounded-lg mt-24 pb-10 lg:pb-0 gap-10">
+    <div className="bg-orange flex flex-col lg:flex-row  overflow-hidden px-16 pt-10 justify-center lg:justify-between items-center rounded-lg mt-24 pb-10 lg:pb-0 gap-10">
       <div className="relative flex-1">
         <img
           src={img}
