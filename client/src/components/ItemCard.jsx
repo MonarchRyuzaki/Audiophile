@@ -27,7 +27,7 @@ const ItemCard = ({ item, idx }) => {
           </h2>
           <div className="text-dimGray text-lg my-9">{item.description}</div>
           <Link
-            to="#"
+            to={`/product/${item.slug}`}
             className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-orange transition duration-300 ease-in-out`}
           >
             see product

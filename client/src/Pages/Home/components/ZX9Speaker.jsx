@@ -25,8 +25,8 @@ const ZX9Speaker = () => {
           truly remarkable sound.
         </div>
         <Link
-          to="#"
-          className={`uppercase bg-black text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:bg-primary hover:border-primary hover:text-black border-2 border-black`}
+          to="product/zx9-speaker"
+          className={`uppercase bg-black text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:bg-orange hover:bg-opacity-10 hover:text-primary hover:border-[1px] hover:border-primary`}
         >
           see product
         </Link>

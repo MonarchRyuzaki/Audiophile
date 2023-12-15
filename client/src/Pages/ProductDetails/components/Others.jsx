@@ -29,7 +29,7 @@ const Others = ({ data }) => {
               {item.name}
             </h3>
             <Link
-              to="#"
+              to={`/product/${item.slug}`}
               className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] transition duration-300 ease-in-out`}
             >
               see product

@@ -8,7 +8,7 @@ const ZX7Speaker = () => {
           ZX7 SPEAKER
         </h1>
         <Link
-          to="#"
+          to="product/zx7-speaker"
           className={`uppercase text-black text-[.8125rem] px-8 py-4 mt-[-10px] hover:bg-black hover:text-white transition duration-300 ease-in-out border-2 border-black`}
         >
           see product

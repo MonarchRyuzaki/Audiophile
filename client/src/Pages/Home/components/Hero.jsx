@@ -16,7 +16,7 @@ const Hero = () => {
             made for the passionate music enthusiast.
           </p>
           <Link
-            to="#"
+            to="product/xx99-mark-two-headphones"
             className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-black transition duration-300 ease-in-out`}
           >
             see product
