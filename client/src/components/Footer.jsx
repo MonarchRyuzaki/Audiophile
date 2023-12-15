@@ -7,7 +7,7 @@ import logo from "../assets/shared/desktop/logo.svg";
 const Footer = () => {
   return (
     <div className="bg-black flex justify-center items-center px-6 sm:px-16">
-      <div className="w-full xl:max-w-[1280px] text-gray">
+      <div className="w-full xl:max-w-[1100px] text-gray">
         <div className="sm:flex justify-between sm:pt-6">
           <div className="flex justify-center items-center pb-6 pt-8 sm:py-0">
             <img src={logo} alt="" className="object-contain " />

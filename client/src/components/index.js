@@ -16,5 +16,5 @@ export {
     Description,
     ProductHeader,
     ItemCardList,
-    ItemCard
+    ItemCard,
 }

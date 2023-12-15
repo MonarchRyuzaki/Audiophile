@@ -14,7 +14,7 @@ const Navbar = () => {
   };
   return (
     <div className="bg-black flex justify-center items-center px-6 sm:px-16 sticky top-0 z-50">
-      <div className="w-full max-w-[1280px]">
+      <div className="w-full max-w-[1100px]">
         <div className="xl:flex justify-between py-8 border-b-[#fafafa1a] border-b-[3px] hidden">
           <Link to=".">
             <img src={logo} alt="" className="cursor-pointer" />

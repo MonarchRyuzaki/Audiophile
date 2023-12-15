@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout } from "./Layouts";
-import { Earphones, Headphones, Home, Speakers, earphonesLoader, headphonesLoader, speakersLoader } from "./Pages";
+import { Earphones, Headphones, Home, ProductDetails, Speakers, earphonesLoader, headphonesLoader, productsLoader, speakersLoader } from "./Pages";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -15,6 +15,7 @@ const router = createHashRouter(
         <Route path="headphones" element={<Headphones />} loader={headphonesLoader}/>
         <Route path="speakers" element={<Speakers />} loader={speakersLoader}/>
         <Route path="earphones" element={<Earphones />} loader={earphonesLoader}/>
+        <Route path="product/:slug" element={<ProductDetails />} loader={productsLoader}/>
       </Route>
     </Route>
   )

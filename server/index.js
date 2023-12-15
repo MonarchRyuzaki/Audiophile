@@ -25,6 +25,12 @@ app.get("/:category", (req, res) => {
   res.json({ data });
 });
 
+app.get("/product/:slug", (req, res) => {
+  const { slug } = req.params;
+  const data = jsonArray.find((item) => item.slug === slug);
+  res.json({ data });
+});
+
 app.listen(8080, () => {
   console.log("Server has started");
 });

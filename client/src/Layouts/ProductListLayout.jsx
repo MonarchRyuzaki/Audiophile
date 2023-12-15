@@ -7,7 +7,7 @@ const ProductListLayout = () => {
     <>
       <Outlet />
       <div className="flex justify-center items-center px-6 sm:px-16">
-        <div className="w-full xl:max-w-[1280px]">
+        <div className="w-full xl:max-w-[1100px]">
           <ItemsList />
           <Description />
         </div>

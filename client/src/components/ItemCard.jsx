@@ -21,6 +21,7 @@ const ItemCard = ({ item, idx }) => {
       />
       <div className="flex flex-1 flex-col justify-center">
         <div>
+          {item.new && <h2 className="text-orange tracking-[.625rem] mb-4">NEW PRODUCT</h2>}
           <h2 className="text-5xl text-black font-semibold uppercase leading-[60px]">
             {item.name} <br /> {item.category}
           </h2>

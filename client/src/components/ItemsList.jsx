@@ -6,9 +6,9 @@ import earphoneImg from "../assets/shared/desktop/image-category-thumbnail-earph
 const ItemsList = () => {
   return (
     <div className='flex flex-col sm:flex-row justify-between items-center sm:gap-4 mt-28 gap-20'>
-        <Items title="Headphones" img={headphoneImg}/>
-        <Items title="Speaker" img={speakerImg}/>
-        <Items title="Earphone" img={earphoneImg}/>
+        <Items title="Headphones" img={headphoneImg} link="headphones"/>
+        <Items title="Speaker" img={speakerImg} link="speakers"/>
+        <Items title="Earphone" img={earphoneImg} link="earphones"/>
     </div>
   )
 }
