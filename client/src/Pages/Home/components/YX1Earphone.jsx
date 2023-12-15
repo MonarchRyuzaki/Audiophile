@@ -1,8 +1,5 @@
+import { Link } from "react-router-dom";
 import desktop from "../../../assets/home/desktop/image-earphones-yx1.jpg";
-import tablet from "../../../assets/home/tablet/image-earphones-yx1.jpg";
-import mobile from "../../../assets/home/mobile/image-earphones-yx1.jpg";
-import { SeeProduct } from "../../../components";
-import { selectImage } from "../../../utils";
 
 const YX1Earphone = () => {
   return (
@@ -13,7 +10,12 @@ const YX1Earphone = () => {
           <h1 className="text-black text-4xl font-semibold mb-14 tracking-wider">
             YX1 EARPHONE
           </h1>
-          <SeeProduct text="black" border="black"/>
+          <Link
+            to="#"
+            className={`uppercase text-black text-[.8125rem] px-8 py-4 mt-[-10px] hover:bg-black hover:text-white transition duration-300 ease-in-out border-2 border-black`}
+          >
+            see product
+          </Link>
         </div>
       </div>
     </div>

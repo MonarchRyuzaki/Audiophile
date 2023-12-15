@@ -1,5 +1,5 @@
+import { Link } from "react-router-dom";
 import HeroImage from "../../../assets/home/desktop/hero-image-op.png";
-import { SeeProduct } from "../../../components";
 
 const Hero = () => {
   return (
@@ -15,7 +15,12 @@ const Hero = () => {
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
           </p>
-          <SeeProduct bg="orange" text="primary" border="black"/>
+          <Link
+            to="#"
+            className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-black transition duration-300 ease-in-out`}
+          >
+            see product
+          </Link>
         </div>
         <div className="hidden lg:block">
           <img src={HeroImage} alt="" />
@@ -31,7 +36,12 @@ const Hero = () => {
           Experience natural, lifelike audio and exceptional build quality made
           for the passionate music enthusiast.
         </div>
-        <SeeProduct bg="orange" text="primary" border="black"/>
+        <Link
+          to="#"
+          className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-black transition duration-300 ease-in-out`}
+        >
+          see product
+        </Link>
       </section>
     </>
   );

@@ -1,4 +1,4 @@
-import SeeProduct from "./SeeProduct";
+import { Link } from "react-router-dom";
 
 const ItemCard = ({ item, idx }) => {
   return (
@@ -25,7 +25,12 @@ const ItemCard = ({ item, idx }) => {
             {item.name} <br /> {item.category}
           </h2>
           <div className="text-dimGray text-lg my-9">{item.description}</div>
-          <SeeProduct bg="orange" text="primary" border="orange" />
+          <Link
+            to="#"
+            className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:opacity-[89%] border-2 border-orange transition duration-300 ease-in-out`}
+          >
+            see product
+          </Link>
         </div>
       </div>
     </div>

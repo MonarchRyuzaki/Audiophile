@@ -1,7 +1,7 @@
 import desktop from "../../../assets/home/desktop/image-speaker-zx9.png";
 import mobile from "../../../assets/home/mobile/image-speaker-zx9.png";
 import tablet from "../../../assets/home/tablet/image-speaker-zx9.png";
-import { SeeProduct } from "../../../components";
+import { Link } from "react-router-dom";
 import { selectImage } from "../../../utils";
 
 const img = selectImage(desktop, tablet, mobile);
@@ -24,7 +24,12 @@ const ZX9Speaker = () => {
           Upgrade to premium speakers that are phenomenally built to deliver
           truly remarkable sound.
         </div>
-        <SeeProduct bg="black" text="primary" border="black"/>
+        <Link
+          to="#"
+          className={`uppercase bg-black text-primary text-[.8125rem] px-8 py-4 mt-[-10px] hover:bg-primary hover:border-primary transition duration-300 ease-in-out hover:text-black border-2 border-black`}
+        >
+          see product
+        </Link>
       </div>
     </div>
   );
