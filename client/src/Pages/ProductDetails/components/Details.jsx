@@ -5,9 +5,9 @@ const Details = ({ data }) => {
     const list = data.includes;
     return (
         <>
-            {list.map((item) => {
+            {list.map((item, idx) => {
                 return (
-                    <div className="flex gap-5">
+                    <div className="flex gap-5" key={idx}>
                         <span className="text-orange font-semibold text-xl">{item.quantity}x</span>
                         <span className="text-dimGray font-medium text-lg">{item.item}</span>
                     </div>

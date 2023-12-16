@@ -5,7 +5,7 @@ import logo from "../assets/shared/desktop/logo.svg";
 import hamburger from "../assets/shared/tablet/icon-hamburger.svg";
 import "./hoverAnimation.css";
 
-const Navbar = () => {
+const Navbar = ({noOfItems}) => {
   const [toggle, setToggle] = useState(false);
   const activeStyles = {
     textDecoration: "underline",
@@ -49,9 +49,11 @@ const Navbar = () => {
               Earphones
             </NavLink>
           </div>
-          <Link to="checkout">
+          <div className="relative">
             <img src={cart} alt="" className="cursor-pointer" />
-          </Link>
+            {noOfItems > 0 && <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>}
+          </div>
+          
         </div>
         <div className="xl:hidden flex justify-between items-center py-5 border-b-[#fafafa1a] border-b-[3px]">
           <img
@@ -62,9 +64,10 @@ const Navbar = () => {
           <Link to=".">
             <img src={logo} alt="" className="cursor-pointer" />
           </Link>
-          <Link to="checkout">
+          <div>
             <img src={cart} alt="" className="cursor-pointer" />
-          </Link>
+            {noOfItems > 0 && <span className="w-[5px] h-[5px] rounded-full text-black bg-red-500">{noOfItems}</span>}
+          </div>
         </div>
         <div
           className={`${

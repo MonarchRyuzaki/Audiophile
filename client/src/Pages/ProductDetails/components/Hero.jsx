@@ -1,7 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
+import { addToCart } from "../../../api";
 
-const Hero = ({data}) => {
+export async function action({request}) {
+  const url = new URL(request.url);
+  const s = url.pathname.split("/");
+  const slug = s[s.length - 1];
+  const formData = await request.formData();
+  const count = formData.get("count");
+  try {
+    const data = await addToCart(slug, count);
+    return data.name;
+  } catch (error) {
+    return error.message
+  }
+}
+
+const Hero = ({ data, noOfItems, setNoOfItems }) => {
   const [count, setCount] = useState(0);
   const handleIncrease = () => {
     setCount((curr) => curr + 1);
@@ -10,9 +25,12 @@ const Hero = ({data}) => {
     setCount((curr) => curr - 1);
   };
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setCount(parseInt(value));
   };
+  const handleClick = (e) => {
+    setNoOfItems((prev) => prev+1)
+  }
   return (
     <>
       <Link
@@ -52,36 +70,40 @@ const Hero = ({data}) => {
             </h2>
             <div className="text-dimGray text-lg my-9">{data.description}</div>
             <div className="text-2xl font-semibold my-4">$ {data.price}</div>
-            <div className="flex mt-4 gap-4">
-              <div className="bg-lightGray px-4  flex justify-center items-center">
-                <span
-                  className="text-[35px] text-dimGray cursor-pointer"
-                  onClick={handleDecrease}
+            <Form method="put">
+              <div className="flex mt-4 gap-4">
+                <div className="bg-lightGray px-4  flex justify-center items-center">
+                  <span
+                    className="text-[35px] text-dimGray cursor-pointer"
+                    onClick={handleDecrease}
+                  >
+                    -
+                  </span>
+                  <input
+                    type="number"
+                    name="count"
+                    id="itemCount"
+                    className="w-[60px] ml-4 text-center bg-lightGray"
+                    min="1"
+                    value={count}
+                    onChange={handleChange}
+                  />
+                  <span
+                    className="text-[35px] text-dimGray cursor-pointer"
+                    onClick={handleIncrease}
+                  >
+                    +
+                  </span>
+                </div>
+                <button
+                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                  type="submit"
+                  onClick={handleClick}
                 >
-                  -
-                </span>
-                <input
-                  type="number"
-                  name="count"
-                  id="itemCount"
-                  className="w-[60px] ml-4 text-center bg-lightGray"
-                  min="0"
-                  value={count}
-                  onChange={handleChange}
-                />
-                <span
-                  className="text-[35px] text-dimGray cursor-pointer"
-                  onClick={handleIncrease}
-                >
-                  +
-                </span>
+                  ADD TO CART
+                </button>
               </div>
-              <button
-                className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-              >
-                ADD TO CART
-              </button>
-            </div>
+            </Form>
           </div>
         </div>
       </div>

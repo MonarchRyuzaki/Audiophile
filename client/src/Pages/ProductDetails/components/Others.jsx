@@ -8,8 +8,8 @@ const Others = ({ data }) => {
         you may also like
       </h2>
       <div className="flex flex-col lg:flex-row gap-6">
-        {others.map((item) => (
-          <div className="flex flex-col justify-center items-center">
+        {others.map((item, idx) => (
+          <div className="flex flex-col justify-center items-center" key={idx}>
             <img
               src={item.image.tablet}
               alt=""
