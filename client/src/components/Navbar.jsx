@@ -4,9 +4,11 @@ import cart from "../assets/shared/desktop/icon-cart.svg";
 import logo from "../assets/shared/desktop/logo.svg";
 import hamburger from "../assets/shared/tablet/icon-hamburger.svg";
 import "./hoverAnimation.css";
+import Cart from "./Cart";
 
-const Navbar = ({noOfItems}) => {
+const Navbar = ({ noOfItems, setNoOfItems }) => {
   const [toggle, setToggle] = useState(false);
+  const [isCardVisible, setIsCardVisible] = useState(false);
   const activeStyles = {
     textDecoration: "underline",
     textUnderlineOffset: "0.55rem",
@@ -50,55 +52,63 @@ const Navbar = ({noOfItems}) => {
             </NavLink>
           </div>
           <div className="relative">
-            <img src={cart} alt="" className="cursor-pointer" />
-            {noOfItems > 0 && <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>}
+            <img src={cart} alt="" className="cursor-pointer" onClick={() => setIsCardVisible((curr) => !curr)}/>
+            {noOfItems > 0 && (
+              <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
+            )}
           </div>
-          
         </div>
         <div className="xl:hidden flex justify-between items-center py-5 border-b-[#fafafa1a] border-b-[3px]">
           <img
             src={hamburger}
             alt=""
             onClick={() => setToggle((prev) => !prev)}
-          />
+            />
           <Link to=".">
             <img src={logo} alt="" className="cursor-pointer" />
           </Link>
           <div>
-            <img src={cart} alt="" className="cursor-pointer" />
-            {noOfItems > 0 && <span className="w-[5px] h-[5px] rounded-full text-black bg-red-500">{noOfItems}</span>}
+            <img src={cart} alt="" className="cursor-pointer" onClick={() => setIsCardVisible((curr) => !curr)}/>
+            {noOfItems > 0 && (
+              <span className="w-[5px] h-[5px] rounded-full text-black bg-red-500">
+                {noOfItems}
+              </span>
+            )}
           </div>
         </div>
         <div
           className={`${
             toggle ? "flex" : "hidden"
           } xl:hidden flex flex-col gap-5 py-5 `}
-        >
+          >
           <NavLink
             className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
             to="."
-          >
+            >
             Home
           </NavLink>
           <NavLink
             className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
             to="headphones"
-          >
+            >
             Headphones
           </NavLink>
           <NavLink
             className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
             to="speakers"
-          >
+            >
             Speaker
           </NavLink>
           <NavLink
             className="text-primary font-bold uppercase text-[.8525rem] tracking-widest cursor-pointer text-center"
             to="earphones"
-          >
+            >
             Earphones
           </NavLink>
         </div>
+        {isCardVisible && (
+          <Cart noOfItems={noOfItems} setNoOfItems={setNoOfItems} isCardVisible={isCardVisible} setIsCardVisible={setIsCardVisible}/>
+        )}
       </div>
     </div>
   );

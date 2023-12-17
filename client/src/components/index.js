@@ -7,6 +7,7 @@ import Description from "./Description";
 import ProductHeader from "./ProductHeader";
 import ItemCardList from "./ItemCardList";
 import ItemCard from "./ItemCard";
+import Cart from "./Cart"
 export {
     Navbar,
     Footer,

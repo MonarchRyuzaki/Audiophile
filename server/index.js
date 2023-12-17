@@ -38,8 +38,8 @@ app.get("/product/:slug", (req, res) => {
 
 app.post("/cart", (req, res) => {
   const { slug, count } = req.body;
-  const { name } = jsonArray.find((item) => item.slug === slug);
-  res.send({ status: 200, name });
+  const { name, image, category, price } = jsonArray.find((item) => item.slug === slug);
+  res.send({ status: 200, name, image, category, price });
 });
 
 app.get("/", async (req, res) => {

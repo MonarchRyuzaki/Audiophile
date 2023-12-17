@@ -1,6 +1,8 @@
 export async function getProduct(category) {
-  // const response = await fetch(`https://audiophile-backend-kog9.onrender.com/${category}`);
-  const response = await fetch(`http://localhost:8080/${category}`);
+  const response = await fetch(
+    `https://audiophile-backend-kog9.onrender.com/${category}`
+  );
+  // const response = await fetch(`http://localhost:8080/${category}`);
   if (response.ok) {
     const res = await response.json();
     return res.data;
@@ -13,8 +15,10 @@ export async function getProduct(category) {
 }
 
 export async function getProductDetails(slug) {
-  // const response = await fetch(`https://audiophile-backend-kog9.onrender.com/product/${slug}`);
-  const response = await fetch(`http://localhost:8080/product/${slug}`);
+  const response = await fetch(
+    `https://audiophile-backend-kog9.onrender.com/product/${slug}`
+  );
+  // const response = await fetch(`http://localhost:8080/product/${slug}`);
   if (response.ok) {
     const res = await response.json();
     return res.data;
@@ -31,8 +35,8 @@ export async function addToCart(slug, count) {
     slug,
     count,
   };
-  // const url = "https://audiophile-backend-kog9.onrender.com/cart"
-  const url = "http://localhost:8080/cart";
+  const url = "https://audiophile-backend-kog9.onrender.com/cart";
+  // const url = "http://localhost:8080/cart";
   const response = await fetch(url, {
     method: "post",
     headers: {
@@ -42,16 +46,17 @@ export async function addToCart(slug, count) {
   });
   if (response.ok) {
     const res = await response.json();
-    const name = res.name
+    const { name, image, category, price } = res;
     const storedItemInfo = JSON.parse(localStorage.getItem("itemInfo")) || [];
     const existingItemIndex = storedItemInfo.findIndex(
       (item) => item.name === name
     );
 
     if (existingItemIndex !== -1) {
-      storedItemInfo[existingItemIndex].count += count;
+      storedItemInfo[existingItemIndex].count =
+        parseInt(storedItemInfo[existingItemIndex].count) + parseInt(count);
     } else {
-      storedItemInfo.push({ name, count });
+      storedItemInfo.push({ name, count, image, category, price });
     }
     localStorage.setItem("itemInfo", JSON.stringify(storedItemInfo));
   }

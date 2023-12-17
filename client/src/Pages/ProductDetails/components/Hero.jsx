@@ -84,7 +84,7 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
                     name="count"
                     id="itemCount"
                     className="w-[60px] ml-4 text-center bg-lightGray"
-                    min="1"
+                    min={1}
                     value={count}
                     onChange={handleChange}
                   />
