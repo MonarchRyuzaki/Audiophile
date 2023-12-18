@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout, mainLoader } from "./Layouts";
-import { Earphones, Headphones, Home, ProductDetails, Speakers, earphonesLoader, headphonesLoader, productsLoader, speakersLoader } from "./Pages";
+import { Checkout, Earphones, Headphones, Home, ProductDetails, Speakers, earphonesLoader, headphonesLoader, productsLoader, speakersLoader } from "./Pages";
 import { cartAction } from "./Pages/ProductDetails/components";
 
 const router = createHashRouter(
@@ -18,6 +18,7 @@ const router = createHashRouter(
         <Route path="earphones" element={<Earphones />} loader={earphonesLoader}/>
         <Route path="product/:slug" element={<ProductDetails />} loader={productsLoader} action={cartAction}/>
       </Route>
+      <Route path="checkout" element={<Checkout />} />
     </Route>
   )
 );

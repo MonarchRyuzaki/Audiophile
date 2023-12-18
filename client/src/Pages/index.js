@@ -7,7 +7,7 @@ import ProductDetails, {
   loader as productsLoader,
 } from "./ProductDetails/ProductDetails";
 import Speakers, { loader as speakersLoader } from "./Speakers/Speakers";
-
+import Checkout from "./Checkout/Checkout";
 export {
   Earphones,
   Headphones,
@@ -18,4 +18,5 @@ export {
   headphonesLoader,
   productsLoader,
   speakersLoader,
+  Checkout
 };

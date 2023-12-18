@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
   const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
@@ -19,12 +20,12 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
     setIsCardVisible(false);
   };
   useEffect(() => {
-    if (setIsCardVisible){
+    if (setIsCardVisible) {
       document.body.style.overlow = "hidden";
     } else {
       document.body.style.overlow = "auto";
     }
-  }, [isCartVisible])
+  }, [isCartVisible]);
   const renderData = () => {
     return data.map((item, index) => {
       const handleIncrease = () => {
@@ -89,7 +90,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
     });
   };
   return (
-    <div className="fixed z-[2] top-[5.625rem] h-[calc(100vh-92px)] bg-[#10101066] w-full left-0 px-6 sm:px-16 flex justify-center">
+    <div className="fixed z-[2] top-[5.625rem] min-h-[100vh] bg-[#10101066] w-full left-0 px-6 sm:px-16 flex justify-center">
       <div className="xl:max-w-[1100px] w-full">
         <div
           className={`flex justify-end items-start mt-6 ${
@@ -122,9 +123,11 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
                 </div>
                 <div className="font-semibold">${total}</div>
               </div>
-              <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wider py-3">
-                Checkout
-              </button>
+              <Link to="/checkout" onClick={() => setIsCardVisible(false)}>
+                <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wider py-3">
+                  Checkout
+                </button>
+              </Link>
             </div>
           </div>
         </div>
