@@ -1,10 +1,12 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, defer, Await } from "react-router-dom";
 import { getProduct } from "../../api";
 import { ItemCardList, ProductHeader } from "../../components";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
+import { ItemListSkeleton } from "../../Skeleton";
 
 export async function loader() {
-  return getProduct("speakers");
+  const productsPromise =  getProduct("speakers");
+  return defer({productsPromise})
 }
 
 const Speaker = () => {
@@ -12,11 +14,16 @@ const Speaker = () => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-  const data = useLoaderData();
+  const {productsPromise} = useLoaderData();
+  const renderData = (data) => <ItemCardList data={data} />
   return (
     <>
       <ProductHeader title={"SPEAKERS"} />
-      <ItemCardList data={data} />
+      <Suspense fallback={<ItemListSkeleton />}>
+        <Await resolve={productsPromise}>
+          {renderData}
+        </Await>
+      </Suspense>
     </>
   );
 };
