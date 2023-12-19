@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { addToCart } from "../../../api";
 
-export async function action({request}) {
+export async function action({ request }) {
   const url = new URL(request.url);
   const s = url.pathname.split("/");
   const slug = s[s.length - 1];
@@ -12,7 +12,7 @@ export async function action({request}) {
     const data = await addToCart(slug, count);
     return data.name;
   } catch (error) {
-    return error.message
+    return error.message;
   }
 }
 
@@ -22,15 +22,19 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
     setCount((curr) => curr + 1);
   };
   const handleDecrease = () => {
-    setCount((curr) => curr - 1);
+    setCount((curr) => (curr > 0 ? curr - 1 : 0));
   };
   const handleChange = (e) => {
     const { value } = e.target;
+    if (parseInt(value) < 0) {
+      setCount(0);
+    } else {
+    }
     setCount(parseInt(value));
   };
   const handleClick = (e) => {
-    setNoOfItems((prev) => prev+1)
-  }
+    setNoOfItems((prev) => prev + 1);
+  };
   return (
     <>
       <Link

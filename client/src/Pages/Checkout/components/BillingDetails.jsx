@@ -1,6 +1,6 @@
 import React from "react";
 
-const BillingDetails = () => {
+const BillingDetails = ({ formik }) => {
   return (
     <div>
       <div className="uppercase font-bold text-sm tracking-wide text-orange my-6">
@@ -11,47 +11,97 @@ const BillingDetails = () => {
           <div className="w-full">
             <label
               htmlFor="name"
-              className="text-sm font-bold text-black block my-2"
+              className="text-sm font-bold text-black my-2 flex justify-between"
             >
-              Name
+              <div
+                className={`${
+                  formik.errors.name && formik.touched.name && "text-red-500"
+                }`}
+              >
+                Name
+              </div>
+              {formik.errors.name && formik.touched.name && (
+                <div className="text-red-500">{formik.errors.name}</div>
+              )}
             </label>
             <input
               type="text"
               name="name"
               id="name"
               placeholder="Alexei Ward"
-              className="border-2 px-4 py-2 rounded-lg  w-full border-lightGray"
+              className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
+                formik.errors.name && formik.touched.name
+                  ? "border-red-500"
+                  : "border-lightGray"
+              }`}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              onBlur={formik.handleBlur}
             />
           </div>
           <div className="w-full">
             <label
               htmlFor="email"
-              className="text-sm font-bold text-black block my-2"
+              className="text-sm font-bold text-black flex my-2 justify-between"
             >
-              Email Address
+              <div
+                className={`${
+                  formik.errors.email && formik.touched.email && "text-red-500"
+                }`}
+              >
+                Email Address
+              </div>
+              {formik.errors.email && formik.touched.email && (
+                <div className="text-red-500">{formik.errors.email}</div>
+              )}
             </label>
             <input
               type="email"
               name="email"
               id="email"
               placeholder="alexei@mail.com"
-              className="border-2 px-4 py-2 rounded-lg border-lightGray w-full"
+              className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
+                formik.errors.email && formik.touched.email
+                  ? "border-red-500"
+                  : "border-lightGray"
+              }`}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
             />
           </div>
         </div>
         <div className="w-full">
           <label
             htmlFor="phoneno"
-            className="text-sm font-bold text-black block my-2"
+            className="text-sm font-bold text-black flex my-2 justify-between"
           >
-            Phone Number
+            <div
+              className={`${
+                formik.errors.phoneNumber &&
+                formik.touched.phoneNumber &&
+                "text-red-500"
+              }`}
+            >
+              Phone Number
+            </div>
+            {formik.errors.phoneNumber && formik.touched.phoneNumber && (
+              <div className="text-red-500">{formik.errors.phoneNumber}</div>
+            )}
           </label>
           <input
             type="text"
-            name="phoneno"
+            name="phoneNumber"
             id="phoneno"
             placeholder="+1 202 555 0136"
-            className="border-2 px-4 py-2 rounded-lg border-lightGray w-full sm:w-1/2"
+            className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
+              formik.errors.phoneNumber && formik.touched.phoneNumber
+                ? "border-red-500"
+                : "border-lightGray"
+            }`}
+            onChange={formik.handleChange}
+            value={formik.values.phoneNumber}
+            onBlur={formik.handleBlur}
           />
         </div>
       </div>

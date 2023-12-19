@@ -38,13 +38,15 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
         localStorage.setItem("itemInfo", JSON.stringify(data));
       };
       const handleDecrease = () => {
-        item.count = parseInt(item.count) - 1;
-        setTotal((curr) => curr - parseInt(item.price));
-        localStorage.setItem(
-          "totalPrice",
-          JSON.stringify(totalPrice - parseInt(item.count))
-        );
-        localStorage.setItem("itemInfo", JSON.stringify(data));
+        if (parseInt(item.count) > 0) {
+          item.count = parseInt(item.count) - 1;
+          setTotal((curr) => curr - parseInt(item.price));
+          localStorage.setItem(
+            "totalPrice",
+            JSON.stringify(totalPrice - parseInt(item.count))
+          );
+          localStorage.setItem("itemInfo", JSON.stringify(data));
+        }
       };
       const handleChange = (e) => {
         const { value } = e.target;

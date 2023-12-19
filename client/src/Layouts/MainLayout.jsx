@@ -8,7 +8,6 @@ export async function loader(){
 
 const MainLayout = () => {
   const data = useLoaderData();
-  console.log(data);
   const [noOfItems, setNoOfItems] = useState(data.length);
   return (
     <>

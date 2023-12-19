@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PaymentDetails = () => {
+const PaymentDetails = ({ formik }) => {
   const [paymentMethod, setPaymentMethod] = useState("eMoney");
 
   const handlePaymentChange = (event) => {
@@ -16,7 +16,11 @@ const PaymentDetails = () => {
           Payment Method
         </div>
         <div className="flex flex-col  sm:w-1/2 gap-2">
-          <div className="border-2 border-lightGray px-6 py-3 rounded-lg flex flex-row items-center">
+          <div
+            className={`border-2  px-6 py-3 rounded-lg flex flex-row items-center focus:border-orange focus:ring-orange ${
+              paymentMethod === "eMoney" ? "border-orange" : "border-lightGray"
+            }`}
+          >
             <input
               type="radio"
               id="eMoney"
@@ -26,12 +30,18 @@ const PaymentDetails = () => {
               onChange={handlePaymentChange}
               className="mr-4 scale-[1.5] "
             />
-            <label htmlFor="eMoney" className="mr-4 font-semibold ">
+            <label htmlFor="eMoney" className="mr-4 font-semibold  w-full">
               e-Money
             </label>
           </div>
 
-          <div className="border-2 border-lightGray px-6 py-3 rounded-lg flex flex-row items-center">
+          <div
+            className={`border-2  px-6 py-3 rounded-lg flex flex-row items-center  focus:border-orange focus:ring-orange ${
+              paymentMethod === "cashOnDelivery"
+                ? "border-orange"
+                : "border-lightGray"
+            }`}
+          >
             <input
               type="radio"
               id="cashOnDelivery"
@@ -41,7 +51,10 @@ const PaymentDetails = () => {
               onChange={handlePaymentChange}
               className="mr-4 scale-[1.5]"
             />
-            <label htmlFor="cashOnDelivery" className="mr-4 font-semibold">
+            <label
+              htmlFor="cashOnDelivery"
+              className="mr-4 font-semibold w-full"
+            >
               Cash on Delivery
             </label>
           </div>
@@ -52,32 +65,63 @@ const PaymentDetails = () => {
           <div className="w-full">
             <label
               htmlFor="eMoneyNumber"
-              className="text-sm font-bold text-black block my-2"
+              className="text-sm font-bold text-black flex justify-between my-2"
             >
-              e-Money Number
+              <div
+                className={`${
+                  formik.errors.eMoneyNumber && formik.touched.eMoneyNumber && "text-red-500"
+                }`}
+              >
+                e-Money Number
+              </div>
+              {formik.errors.eMoneyNumber && formik.touched.eMoneyNumber && (
+                <div className="text-red-500">{formik.errors.eMoneyNumber}</div>
+              )}
             </label>
             <input
               type="text"
               name="eMoneyNumber"
               id="eMoneyNumber"
               placeholder="2388521993"
-              className="border-2 px-4 py-2 rounded-lg  w-full border-lightGray"
+              className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
+                formik.errors.eMoneyNumber && formik.touched.eMoneyNumber
+                  ? "border-red-500"
+                  : "border-lightGray"
+              }`}
+              onChange={formik.handleChange}
+              value={formik.values.eMoneyNumber}
+              onBlur={formik.handleBlur}
             />
           </div>
           <div className="w-full">
             <label
               htmlFor="eMoneyPIN"
-              className="text-sm font-bold text-black block my-2"
+              className="text-sm font-bold text-black flex justify-between my-2"
             >
-              e-Money PIN
+              <div
+                className={`${
+                  formik.errors.eMoneyPIN && formik.touched.eMoneyPIN && "text-red-500"
+                }`}
+              >
+                e-Money PIN
+              </div>
+              {formik.errors.eMoneyPIN && formik.touched.eMoneyPIN && (
+                <div className="text-red-500">{formik.errors.eMoneyPIN}</div>
+              )}
             </label>
             <input
               type="text"
               name="eMoneyPIN"
               id="eMoneyPIN"
               placeholder="6891"
-              className="border-2 px-4 py-2 rounded-lg border-lightGray w-full"
-              maxLength={4}
+              className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
+                formik.errors.eMoneyPIN && formik.touched.eMoneyPIN
+                  ? "border-red-500"
+                  : "border-lightGray"
+              }`}
+              onChange={formik.handleChange}
+              value={formik.values.eMoneyPIN}
+              onBlur={formik.handleBlur}
             />
           </div>
         </div>
