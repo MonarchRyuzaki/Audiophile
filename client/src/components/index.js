@@ -8,6 +8,8 @@ import ProductHeader from "./ProductHeader";
 import ItemCardList from "./ItemCardList";
 import ItemCard from "./ItemCard";
 import Cart from "./Cart"
+import NotFound from "./NotFound";
+import Error from "./Error"
 export {
     Navbar,
     Footer,
@@ -18,4 +20,7 @@ export {
     ProductHeader,
     ItemCardList,
     ItemCard,
+    NotFound,
+    Error,
+    Cart
 }

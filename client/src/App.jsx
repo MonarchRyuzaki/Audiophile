@@ -18,10 +18,16 @@ import {
   speakersLoader,
 } from "./Pages";
 import { cartAction } from "./Pages/ProductDetails/components";
+import { Error, NotFound } from "./components";
 
 const router = createHashRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MainLayout />} loader={mainLoader}>
+    <Route
+      path="/"
+      element={<MainLayout />}
+      loader={mainLoader}
+      errorElement={<Error />}
+    >
       <Route index element={<Home />} />
       <Route element={<ProductListLayout />}>
         <Route
@@ -29,28 +35,34 @@ const router = createHashRouter(
           element={<Headphones />}
           loader={headphonesLoader}
         />
-        <Route path="speakers" element={<Speakers />} loader={speakersLoader} />
+        <Route
+          path="speakers"
+          element={<Speakers />}
+          loader={speakersLoader}
+          errorElement={<Error />}
+        />
         <Route
           path="earphones"
           element={<Earphones />}
           loader={earphonesLoader}
+          errorElement={<Error />}
         />
         <Route
           path="product/:slug"
           element={<ProductDetails />}
           loader={productsLoader}
           action={cartAction}
+          errorElement={<Error />}
         />
       </Route>
-      <Route path="checkout" element={<Checkout />} />
+      <Route path="checkout" element={<Checkout />} errorElement={<Error />} />
+      <Route path="*" element={<NotFound />} errorElement={<Error />} />
     </Route>
   )
 );
 
 const App = () => {
-  return (
-      <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
