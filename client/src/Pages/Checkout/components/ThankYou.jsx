@@ -15,7 +15,7 @@ const ThankYou = ({ setNoOfItems }) => {
         className="fixed z-[2] h-screen bg-[#10101066] w-full left-0 px-6 sm:px-16 flex justify-center items-start overflow-auto"
         id="test"
       >
-        <div className="bg-white sm:w-[640px] w-full rounded-xl px-10 py-16 xs:p-14 my-6 md:my-12 lg:my-24">
+        <div className="bg-white sm:w-[640px] w-full rounded-xl px-10 py-20 xs:p-14 my-6 md:my-12 lg:my-24">
           <img src="/assets/cart/tick.svg" alt="" />
           <h3 className="text-4xl font-semibold leading-[50px] my-8">
             THANK YOU FOR YOUR ORDER
