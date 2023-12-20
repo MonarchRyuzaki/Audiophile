@@ -5,6 +5,9 @@ const ThankYou = ({ setNoOfItems }) => {
   const totalPrice =
     parseInt(JSON.parse(localStorage.getItem("totalPrice"))) || 0;
   const data = JSON.parse(localStorage.getItem("itemInfo"));
+  useEffect(() => {
+    document.querySelector('body').style.overflow="auto"
+  })
   return (
     <div
       className="fixed z-[2] min-h-[100vh] bg-[#10101066] w-full left-0 px-6 sm:px-16 flex justify-center items-start overflow-auto"
