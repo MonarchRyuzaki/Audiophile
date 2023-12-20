@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 
 const PaymentDetails = ({ formik }) => {
-  const [paymentMethod, setPaymentMethod] = useState("eMoney");
-
-  const handlePaymentChange = (event) => {
-    setPaymentMethod(event.target.value);
-  };
+  const paymentMethod = formik.values.paymentMethod;
   return (
     <div>
       <div className="uppercase font-bold text-sm tracking-wide text-orange my-6">
@@ -27,7 +23,9 @@ const PaymentDetails = ({ formik }) => {
               name="paymentMethod"
               value="eMoney"
               checked={paymentMethod === "eMoney"}
-              onChange={handlePaymentChange}
+              onChange={() => 
+                formik.setFieldValue("paymentMethod", "eMoney")
+              }
               className="mr-4 scale-[1.5] "
             />
             <label htmlFor="eMoney" className="mr-4 font-semibold  w-full">
@@ -48,7 +46,9 @@ const PaymentDetails = ({ formik }) => {
               name="paymentMethod"
               value="cashOnDelivery"
               checked={paymentMethod === "cashOnDelivery"}
-              onChange={handlePaymentChange}
+              onChange={() =>
+                formik.setFieldValue("paymentMethod", "cashOnDelivery")
+              }
               className="mr-4 scale-[1.5]"
             />
             <label
@@ -69,7 +69,9 @@ const PaymentDetails = ({ formik }) => {
             >
               <div
                 className={`${
-                  formik.errors.eMoneyNumber && formik.touched.eMoneyNumber && "text-red-500"
+                  formik.errors.eMoneyNumber &&
+                  formik.touched.eMoneyNumber &&
+                  "text-red-500"
                 }`}
               >
                 e-Money Number
@@ -100,7 +102,9 @@ const PaymentDetails = ({ formik }) => {
             >
               <div
                 className={`${
-                  formik.errors.eMoneyPIN && formik.touched.eMoneyPIN && "text-red-500"
+                  formik.errors.eMoneyPIN &&
+                  formik.touched.eMoneyPIN &&
+                  "text-red-500"
                 }`}
               >
                 e-Money PIN

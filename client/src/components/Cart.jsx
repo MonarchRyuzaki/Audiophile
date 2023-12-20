@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
+  useEffect(() => {
+    const body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  }, []);
   const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
   const totalPrice = data.reduce((sum, item) => {
     // Assuming the price property is a string, convert it to a number
@@ -11,7 +15,6 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
     return sum + itemPrice;
   }, 0);
   localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
-  console.log(data);
   const [total, setTotal] = useState(totalPrice);
   const handleClick = () => {
     localStorage.clear("itemInfo");
@@ -39,13 +42,22 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
       };
       const handleDecrease = () => {
         if (parseInt(item.count) > 0) {
-          item.count = parseInt(item.count) - 1;
-          setTotal((curr) => curr - parseInt(item.price));
-          localStorage.setItem(
-            "totalPrice",
-            JSON.stringify(totalPrice - parseInt(item.count))
-          );
-          localStorage.setItem("itemInfo", JSON.stringify(data));
+          if (parseInt(item.count) === 1) {
+            // Decrease the price from totalPrice
+            setTotal((curr) => curr - parseInt(item.price));
+            setNoOfItems((curr) => curr-1)
+            // Remove item from localStorage
+            const updatedData = data.filter((i) => i.name !== item.name);
+            localStorage.setItem("itemInfo", JSON.stringify(updatedData));
+          } else {
+            item.count = parseInt(item.count) - 1;
+            setTotal((curr) => curr - parseInt(item.price));
+            localStorage.setItem(
+              "totalPrice",
+              JSON.stringify(totalPrice - parseInt(item.price))
+            );
+            localStorage.setItem("itemInfo", JSON.stringify(data));
+          }
         }
       };
       const handleChange = (e) => {

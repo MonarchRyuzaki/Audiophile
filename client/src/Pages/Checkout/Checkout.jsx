@@ -1,18 +1,21 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import * as Yup from "yup";
 import {
   BillingDetails,
   PaymentDetails,
   ShippingInfo,
   Summary,
-  ThankYou,
-} from "./components";
+  ThankYou,} from "./components";
 import "./components/style.css";
-
-const renderThanks = () => <ThankYou />;
+import { useOutletContext } from "react-router-dom";
 
 const Checkout = () => {
+  const [submit, setSubmit] = useState("false");
+  const {setNoOfItems} = useOutletContext();
+  useEffect(() => {
+    document.querySelector('body').style.overflow="auto"
+  })
   // Formik Logic
   const formik = useFormik({
     initialValues: {
@@ -25,10 +28,11 @@ const Checkout = () => {
       country: "",
       eMoneyNumber: "",
       eMoneyPIN: "",
+      paymentMethod: "",
     },
 
     onSubmit: () => {
-      renderThanks();
+      setSubmit("true");
     },
 
     validationSchema: Yup.object({
@@ -44,12 +48,21 @@ const Checkout = () => {
       zip: Yup.number().required("Zip Code is required"),
       city: Yup.string().required("City is required"),
       country: Yup.string().required("Country is required"),
-      eMoneyNumber: Yup.string()
-        .required("Field is required")
-        .length(12, "Invalid E-Money Number"),
-      eMoneyPIN: Yup.string()
-        .required("Field is required")
-        .length(4, "Invalid E-Money PIN"),
+      eMoneyNumber: Yup.string().when("paymentMethod", {
+        is: "eMoney",
+        then: () => Yup.string()
+          .required("Field is required")
+          .length(12, "Invalid E-Money Number"),
+        otherwise: () => Yup.string(),
+      }),
+      eMoneyPIN: Yup.string().when("paymentMethod", {
+        is: "eMoney",
+        then: () => Yup.string()
+          .required("Field is required")
+          .length(4, "Invalid E-Money PIN"),
+        otherwise: () => Yup.string(),
+      }),
+      paymentMethod: Yup.string().required("Payment mode is required"),
     }),
   });
   const goBack = () => {
@@ -90,6 +103,8 @@ const Checkout = () => {
           </div>
         </form>
       </div>
+      {submit === "true" && <ThankYou setNoOfItems={setNoOfItems}/>}
+      {/* <ThankYou  setNoOfItems={setNoOfItems}/> */}
     </div>
   );
 };

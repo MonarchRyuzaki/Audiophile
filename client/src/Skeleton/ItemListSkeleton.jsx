@@ -7,7 +7,7 @@ const ItemListSkeleton = () => {
     <div className="flex justify-center items-center px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
         {data.map((item, idx) => (
-          <ItemCardSkeleton idx={idx}/>
+          <ItemCardSkeleton idx={idx} key={2*idx}/>
         ))}
       </div>
     </div>

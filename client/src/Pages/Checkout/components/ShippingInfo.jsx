@@ -93,7 +93,7 @@ const ShippingInfo = ({ formik }) => {
               )}
             </label>
             <input
-              type="email"
+              type="text"
               name="city"
               id="city"
               placeholder="New York"

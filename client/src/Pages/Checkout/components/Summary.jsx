@@ -50,7 +50,7 @@ const Summary = () => {
         <div className="uppercase text-dimGray tracking-wide">GRAND TOTAL</div>
         <div className="font-bold text-lg text-orange">${vat + total + shipping}</div>
       </div>
-      <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80" type="submit">
+      <button className="bg-orange w-full mt-4 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80" type="submit">
         Continue and pay
       </button>
     </div>

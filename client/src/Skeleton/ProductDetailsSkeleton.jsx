@@ -4,12 +4,12 @@ const ProductDetailsSkeleton = () => {
     const list = new Array(5).fill(0);
     return (
       <>
-        {list.map((idx) => {
+        {list.map((idx,i) => {
           return (
-            <div className="flex gap-5" key={idx}>
+            <div className="flex gap-5" key={i}>
               <Skeleton
                 variant="rounded"
-                width={150}
+                width={350}
                 height={30}
                 animation="pulse"
               />
