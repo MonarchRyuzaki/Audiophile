@@ -41,7 +41,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
           if (parseInt(item.count) === 1) {
             // Decrease the price from totalPrice
             setTotal((curr) => curr - parseInt(item.price));
-            setNoOfItems((curr) => curr-1)
+            setNoOfItems((curr) => curr - 1);
             // Remove item from localStorage
             const updatedData = data.filter((i) => i.name !== item.name);
             localStorage.setItem("itemInfo", JSON.stringify(updatedData));
@@ -65,7 +65,11 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
       return (
         <div key={index} className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <img src={item.image.mobile} alt="" className="w-[80px]" />
+            <img
+              src={item.image.mobile}
+              alt=""
+              className="w-[50px] xs:w-[80px]"
+            />
             <div className="flex flex-col uppercase text-md font-semibold">
               <div>{item.name}</div>
               <div className="text-dimGray">${item.price}</div>
@@ -120,8 +124,8 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
               </div>
               <div className="flex flex-col gap-6 mt-4 lg:overflow-auto h-[300px] relative">
                 {data.length == 0 && (
-                  <div className="flex text-center absolute top-[50%] left-[31%] tracking-wider text-md text-dimGray">
-                    Your Cart is Empty
+                  <div className="flex text-center items-center h-screen justify-center tracking-wider text-md text-dimGray">
+                    <div>Your Cart is Empty</div>
                   </div>
                 )}
 
