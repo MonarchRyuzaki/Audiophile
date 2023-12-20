@@ -82,7 +82,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
               type="text"
               name="count"
               id="itemCount"
-              className="w-[20px] xs:w-[60px] ml-4 text-center bg-lightGray"
+              className="w-[15px] xs:w-[60px] ml-4 text-center bg-lightGray"
               min={1}
               value={item.count}
               onChange={handleChange}
