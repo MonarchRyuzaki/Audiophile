@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
-  useEffect(() => {
-    const body = document.querySelector("body");
-    body.style.overflow = "hidden";
-  }, []);
   const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
   const totalPrice = data.reduce((sum, item) => {
     // Assuming the price property is a string, convert it to a number
@@ -75,7 +71,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
               <div className="text-dimGray">${item.price}</div>
             </div>
           </div>
-          <div className="bg-lightGray px-4  flex justify-center items-center">
+          <div className="bg-lightGray px-4  flex justify-center items-center w-[80px] xs:w-[142px]">
             <span
               className="text-[35px] text-dimGray cursor-pointer"
               onClick={handleDecrease}
@@ -86,7 +82,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
               type="text"
               name="count"
               id="itemCount"
-              className="w-[60px] ml-4 text-center bg-lightGray"
+              className="w-[20px] xs:w-[60px] ml-4 text-center bg-lightGray"
               min={1}
               value={item.count}
               onChange={handleChange}

@@ -131,8 +131,8 @@ const PaymentDetails = ({ formik }) => {
         </div>
       )}
       {paymentMethod === "cashOnDelivery" && (
-        <div className="flex flex-row sm:gap-4 mt-4">
-          <img src="/assets/cart/cod.svg" className="" alt="" />
+        <div className="flex flex-row gap-4 mt-4">
+          <img src="/assets/cart/cod.svg" className="" alt=""/>
           <div className="text-dimGray">
             The ‘Cash on Delivery’ option enables you to pay in cash when our
             delivery courier arrives at your residence. Just make sure your

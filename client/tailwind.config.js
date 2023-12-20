@@ -13,6 +13,9 @@ export default {
         dimGray: "#10101080", // on white background 
         black: "#101010",
         lightGray: "#f1f1f1"
+      },
+      screens: {
+        xs: "440px",
       }
     },
   },
