@@ -53,7 +53,7 @@ cd ./client && npm install & npm run dev
 * React Router DOM v6
 * Tailwind CSS
 * Formik
-* Yua
+* Yup
 * Mobile-first workflow
 
 ### What I learned
