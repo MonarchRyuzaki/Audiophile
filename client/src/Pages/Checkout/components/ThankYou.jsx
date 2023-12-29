@@ -64,7 +64,7 @@ const ThankYou = ({ setNoOfItems }) => {
               setNoOfItems(0);
             }}
           >
-            Back to Home
+            Confirm
           </Link>
         </div>
       </div>
