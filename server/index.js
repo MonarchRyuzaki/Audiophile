@@ -2,7 +2,9 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
 import session from "express-session";
-import fs from "fs";
+// import fs from "fs";
+import mongoose from "mongoose";
+import Product from "./models/product.js";
 
 dotenv.config();
 
@@ -13,32 +15,30 @@ app.use(
   session({
     secret: "your-secret-key",
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
+    saveUninitialized: false,
   })
 );
+// // Read the JSON file
+// const jsonString = fs.readFileSync("./data.json", "utf-8");
 
-// Read the JSON file
-const jsonString = fs.readFileSync("./data.json", "utf-8");
+// // Parse the JSON string into a JavaScript array
+// const jsonArray = JSON.parse(jsonString);
 
-// Parse the JSON string into a JavaScript array
-const jsonArray = JSON.parse(jsonString);
-
-app.get("/:category", (req, res) => {
+app.get("/:category", async (req, res) => {
   const { category } = req.params;
-  const data = jsonArray.filter((item) => item.category === category);
+  const data = await Product.find({ category });
   res.json({ data });
 });
 
-app.get("/product/:slug", (req, res) => {
+app.get("/product/:slug", async (req, res) => {
   const { slug } = req.params;
-  const data = jsonArray.find((item) => item.slug === slug);
+  const data = await Product.findOne({ slug });
   res.json({ data });
 });
 
-app.post("/cart", (req, res) => {
+app.post("/cart", async (req, res) => {
   const { slug, count } = req.body;
-  const { name, image, category, price } = jsonArray.find((item) => item.slug === slug);
+  const { name, image, category, price } = await Product.findOne({ slug });
   res.send({ status: 200, name, image, category, price });
 });
 
@@ -47,5 +47,16 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(8080, () => {
+  async function connectToDatabase() {
+    try {
+      await mongoose.connect(process.env.MONGODB_URL);
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("Error connecting to MongoDB:", error.message);
+    }
+  }
+
+  // Call the function to connect
+  connectToDatabase();
   console.log("Server has started");
 });
