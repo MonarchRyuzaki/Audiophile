@@ -52,6 +52,8 @@ cd ./client && npm install & npm run dev
 * React
 * React Router DOM v6
 * Tailwind CSS
+* Express
+* MongoDB
 * Formik
 * Yup
 * Mobile-first workflow
