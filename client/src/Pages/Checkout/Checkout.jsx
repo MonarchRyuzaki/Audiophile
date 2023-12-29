@@ -28,7 +28,7 @@ const Checkout = () => {
       country: "",
       eMoneyNumber: "",
       eMoneyPIN: "",
-      paymentMethod: "",
+      paymentMethod: "eMoney",
     },
 
     onSubmit: () => {
