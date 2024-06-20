@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { addToCart } from "../../../api";
@@ -18,6 +19,8 @@ export async function action({ request }) {
 
 const Hero = ({ data, noOfItems, setNoOfItems }) => {
   const [count, setCount] = useState(0);
+  const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  // console.log(user);
   const handleIncrease = () => {
     setCount((curr) => curr + 1);
   };
@@ -87,7 +90,7 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
                     type="number"
                     name="count"
                     id="itemCount"
-                    className="w-[60px] ml-4 text-center bg-lightGray"
+                    className="w-[60px] ml-4 text-center bg-lightGray"  
                     min={1}
                     value={count}
                     onChange={handleChange}
@@ -99,13 +102,23 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
                     +
                   </span>
                 </div>
-                <button
-                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-                  type="submit"
-                  onClick={handleClick}
-                >
-                  ADD TO CART
-                </button>
+                {isAuthenticated ? (
+                  <button
+                    className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                    type="submit"
+                    onClick={handleClick}
+                  >
+                    ADD TO CART
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => loginWithRedirect()}
+                    className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                    type="submit"
+                  >
+                    ADD TO CART
+                  </button>
+                )}
               </div>
             </Form>
           </div>

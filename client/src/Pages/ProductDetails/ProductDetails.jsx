@@ -20,8 +20,6 @@ const ProductDetails = () => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-
-  
   const { noOfItems, setNoOfItems } = useOutletContext();
   const { productPromise } = useLoaderData();
   return (

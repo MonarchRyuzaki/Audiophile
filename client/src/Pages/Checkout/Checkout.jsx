@@ -9,6 +9,7 @@ import {
   ThankYou,} from "./components";
 import "./components/style.css";
 import { useOutletContext } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Checkout = () => {
   const [submit, setSubmit] = useState("false");
@@ -16,11 +17,13 @@ const Checkout = () => {
   useEffect(() => {
     document.querySelector('body').style.overflow="auto"
   })
+  const {user} = useAuth0();
+  const {name, email} = {...user};
   // Formik Logic
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
+      name: name?name:"",
+      email: email?email:"",
       phoneNumber: "",
       address: "",
       zip: "",
@@ -89,7 +92,7 @@ const Checkout = () => {
               </h1>
 
               <div className="flex flex-col">
-                <BillingDetails formik={formik} />
+                <BillingDetails formik={formik}/>
                 <ShippingInfo formik={formik} />
                 <PaymentDetails formik={formik} />
               </div>

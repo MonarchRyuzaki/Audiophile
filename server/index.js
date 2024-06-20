@@ -5,7 +5,6 @@ import session from "express-session";
 // import fs from "fs";
 import mongoose from "mongoose";
 import Product from "./models/product.js";
-
 dotenv.config();
 
 const app = express();

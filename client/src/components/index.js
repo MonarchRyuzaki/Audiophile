@@ -10,6 +10,7 @@ import ItemCard from "./ItemCard";
 import Cart from "./Cart"
 import NotFound from "./NotFound";
 import Error from "./Error"
+import AuthenticationGuard from "./AuthenticationGuard"
 export {
     Navbar,
     Footer,
@@ -22,5 +23,6 @@ export {
     ItemCard,
     NotFound,
     Error,
-    Cart
+    Cart,
+    AuthenticationGuard
 }

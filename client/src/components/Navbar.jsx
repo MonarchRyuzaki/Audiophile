@@ -94,16 +94,19 @@ const Navbar = ({ noOfItems, setNoOfItems }) => {
           <Link to=".">
             <img src={logo} alt="" className="cursor-pointer" />
           </Link>
-          <div className="relative">
-            <img
-              src={cart}
-              alt=""
-              className="cursor-pointer"
-              onClick={() => setIsCardVisible((curr) => !curr)}
-            />
-            {noOfItems > 0 && (
-              <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
-            )}
+          <div className="flex flex-row sm:gap-10 gap-5 ">
+            <div className="relative">
+              <img
+                src={cart}
+                alt=""
+                className="cursor-pointer"
+                onClick={() => setIsCardVisible((curr) => !curr)}
+              />
+              {noOfItems > 0 && (
+                <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
+              )}
+            </div>
+            {isAuthenticated ? <LogoutButton /> : <LoginButton />}
           </div>
         </div>
         <div

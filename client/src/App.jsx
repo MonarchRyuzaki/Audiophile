@@ -2,6 +2,7 @@ import {
   Route,
   RouterProvider,
   createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout, mainLoader } from "./Layouts";
@@ -18,9 +19,9 @@ import {
   speakersLoader,
 } from "./Pages";
 import { cartAction } from "./Pages/ProductDetails/components";
-import { Error, NotFound } from "./components";
+import { Error, NotFound, AuthenticationGuard } from "./components";
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path="/"
@@ -55,7 +56,7 @@ const router = createHashRouter(
           errorElement={<Error />}
         />
       </Route>
-      <Route path="checkout" element={<Checkout />} errorElement={<Error />} />
+      <Route path="checkout" element={<AuthenticationGuard component={Checkout} />} errorElement={<Error />} />
       <Route path="*" element={<NotFound />} errorElement={<Error />} />
     </Route>
   )

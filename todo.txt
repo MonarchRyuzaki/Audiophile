@@ -1,0 +1,7 @@
+-> Store the items of cart to database instead of localStorage (Store Part Done)
+    // The only thing i need to work on is fetching the data and showing to cart component
+-> Backend Form Validation (This one Dekhhlenge Easy hi hoga) ()
+
+
+
+-> Protected Routes (This one is to be done from guide) (Done) 
