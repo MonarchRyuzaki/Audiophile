@@ -61,8 +61,8 @@ const Checkout = () => {
       const handleSubmit = async (values) => {
         console.log('Submitting form with values:', values); // Log form values
           try {
-            const url = "http://localhost:8080/submit";
-            // const url = "https://audiophile-backend-kog9.onrender.com/submit";
+            // const url = "http://localhost:8080/submit";
+            const url = "https://audiophile-backend-kog9.onrender.com/submit";
             const response = await fetch(url, {
               method: 'POST',
               headers: {
