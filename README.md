@@ -52,8 +52,9 @@ cd ./client && npm install & npm run dev
 * React
 * React Router DOM v6
 * Tailwind CSS
-* Express
-* MongoDB
+* **Auth0** for authentication
+* **Express** (for backend API)
+* **MongoDB** (database)
 * Formik
 * Yup
 * Mobile-first workflow
@@ -78,6 +79,20 @@ One of the notable advantages of using React Router DOM and the data layer API i
 
 * **Enhanced Readability:** Reduced boilerplate code contributes to clearer and more readable components, improving the overall maintainability of the codebase.
 * **Development Efficiency:** With less boilerplate to manage, developers can focus more on implementing features and functionality rather than dealing with repetitive code structures.
+
+#### Authentication with Auth0
+
+Incorporating Auth0 provided secure authentication and authorization functionalities, ensuring seamless user authentication and access control within the Audiophile e-commerce website. Auth0's robust features enhanced user management capabilities and protected sensitive application data.
+
+**Key Features:**
+
+* **Secure Authentication:** Auth0 supported various authentication methods, including social logins and passwordless authentication, ensuring secure user access.
+* **Authorization:** Implementing role-based access control (RBAC) with Auth0 allowed defining granular permissions for different user roles, enhancing application security.
+* **User Management:** Auth0 simplified user management tasks such as user registration, profile updates, and password resets, improving overall user experience and engagement.
+
+#### Backend Validation
+
+Implementing backend validation with Express and Joi ensured data integrity and security during form submissions, validating input data before processing within the Audiophile e-commerce website. This approach prevented invalid data from entering the application's database, maintaining data consistency and reliability.
 
 #### Formik
 
@@ -124,6 +139,7 @@ const formik = useFormik({
     },
 
     onSubmit: () => {
+      // Function for backend Validation
       setSubmit("true");
     },
 
@@ -156,7 +172,7 @@ const formik = useFormik({
       }),
       paymentMethod: Yup.string().required("Payment mode is required"),
     }),
-  });
+  })
 ```
 
 ## Author

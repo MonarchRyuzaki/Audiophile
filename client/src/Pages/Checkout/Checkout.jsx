@@ -35,28 +35,6 @@ const Checkout = () => {
       paymentMethod: "eMoney",
     },
 
-    // onSubmit: async (values) => {
-    //   console.log('Submitting form with values:', values); // Log form values
-    //   try {
-    //     const response = await fetch('http://localhost:3000/submit', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(values),
-    //     });
-    //     const data = await response.json();
-    //     if (!response.ok) {
-    //       console.error('Error response from server:', data);
-    //       alert(data.error);
-    //     } else {
-    //       console.log('Form submitted successfully:', data);
-    //       setSubmit("true");
-    //     }
-    //   } catch (error) {
-    //     console.error('Error submitting form:', error);
-    //   }
-    // },
     onSubmit: (values) => {
       const handleSubmit = async (values) => {
         console.log('Submitting form with values:', values); // Log form values
