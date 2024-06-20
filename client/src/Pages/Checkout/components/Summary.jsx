@@ -48,9 +48,15 @@ const Summary = () => {
       </div>
       <div className="flex justify-between mt-6">
         <div className="uppercase text-dimGray tracking-wide">GRAND TOTAL</div>
-        <div className="font-bold text-lg text-orange">${vat + total + shipping}</div>
+        <div className="font-bold text-lg text-orange">
+          ${vat + total + shipping}
+        </div>
       </div>
-      <button className="bg-orange w-full mt-4 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80" type="submit">
+      <button
+        className="bg-orange w-full mt-4 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80"
+        type="submit"
+        disabled={data.length == 0}
+      >
         Continue and pay
       </button>
     </div>
