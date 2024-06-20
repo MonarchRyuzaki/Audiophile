@@ -2,7 +2,6 @@ import {
   Route,
   RouterProvider,
   createHashRouter,
-  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout, mainLoader } from "./Layouts";
@@ -21,7 +20,7 @@ import {
 import { cartAction } from "./Pages/ProductDetails/components";
 import { Error, NotFound, AuthenticationGuard } from "./components";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route
       path="/"
