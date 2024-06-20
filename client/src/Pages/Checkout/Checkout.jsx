@@ -1,29 +1,30 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
-import React, {useState, useEffect} from "react";
+import React, { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import * as Yup from "yup";
 import {
   BillingDetails,
   PaymentDetails,
   ShippingInfo,
   Summary,
-  ThankYou,} from "./components";
+  ThankYou,
+} from "./components";
 import "./components/style.css";
-import { useOutletContext } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Checkout = () => {
   const [submit, setSubmit] = useState("false");
-  const {setNoOfItems} = useOutletContext();
+  const { setNoOfItems } = useOutletContext();
   useEffect(() => {
-    document.querySelector('body').style.overflow="auto"
-  })
-  const {user} = useAuth0();
-  const {name, email} = {...user};
+    document.querySelector("body").style.overflow = "auto";
+  });
+  const { user } = useAuth0();
+  const { name, email } = { ...user };
   // Formik Logic
   const formik = useFormik({
     initialValues: {
-      name: name?name:"",
-      email: email?email:"",
+      name: name ? name : "",
+      email: email ? email : "",
       phoneNumber: "",
       address: "",
       zip: "",
@@ -34,10 +35,55 @@ const Checkout = () => {
       paymentMethod: "eMoney",
     },
 
-    onSubmit: () => {
-      setSubmit("true");
+    // onSubmit: async (values) => {
+    //   console.log('Submitting form with values:', values); // Log form values
+    //   try {
+    //     const response = await fetch('http://localhost:3000/submit', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(values),
+    //     });
+    //     const data = await response.json();
+    //     if (!response.ok) {
+    //       console.error('Error response from server:', data);
+    //       alert(data.error);
+    //     } else {
+    //       console.log('Form submitted successfully:', data);
+    //       setSubmit("true");
+    //     }
+    //   } catch (error) {
+    //     console.error('Error submitting form:', error);
+    //   }
+    // },
+    onSubmit: (values) => {
+      const handleSubmit = async (values) => {
+        console.log('Submitting form with values:', values); // Log form values
+          try {
+            const url = "http://localhost:8080/submit";
+            // const url = "https://audiophile-backend-kog9.onrender.com/submit";
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(values),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              console.error('Error response from server:', data);
+              alert(data.error);
+            } else {
+              console.log('Form submitted successfully:', data);
+              setSubmit("true");
+            }
+          } catch (error) {
+            console.error('Error submitting form:', error);
+          }
+      }
+      handleSubmit(values);
     },
-
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       email: Yup.string()
@@ -53,16 +99,18 @@ const Checkout = () => {
       country: Yup.string().required("Country is required"),
       eMoneyNumber: Yup.string().when("paymentMethod", {
         is: "eMoney",
-        then: () => Yup.string()
-          .required("Field is required")
-          .length(12, "Invalid E-Money Number"),
+        then: () =>
+          Yup.string()
+            .required("Field is required")
+            .length(12, "Invalid E-Money Number"),
         otherwise: () => Yup.string(),
       }),
       eMoneyPIN: Yup.string().when("paymentMethod", {
         is: "eMoney",
-        then: () => Yup.string()
-          .required("Field is required")
-          .length(4, "Invalid E-Money PIN"),
+        then: () =>
+          Yup.string()
+            .required("Field is required")
+            .length(4, "Invalid E-Money PIN"),
         otherwise: () => Yup.string(),
       }),
       paymentMethod: Yup.string().required("Payment mode is required"),
@@ -92,7 +140,7 @@ const Checkout = () => {
               </h1>
 
               <div className="flex flex-col">
-                <BillingDetails formik={formik}/>
+                <BillingDetails formik={formik} />
                 <ShippingInfo formik={formik} />
                 <PaymentDetails formik={formik} />
               </div>
@@ -106,7 +154,7 @@ const Checkout = () => {
           </div>
         </form>
       </div>
-      {submit === "true" && <ThankYou setNoOfItems={setNoOfItems}/>}
+      {submit === "true" && <ThankYou setNoOfItems={setNoOfItems} />}
       {/* <ThankYou  setNoOfItems={setNoOfItems}/> */}
     </div>
   );

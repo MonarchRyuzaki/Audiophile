@@ -1,7 +1,6 @@
--> Connect Cart Storage with session (Store Part Done)
-    // The only thing i need to work on is fetching the data and showing to cart component
--> Backend Form Validation (This one Dekhhlenge Easy hi hoga) ()
+-> Backend Form Validation (This one Dekhhlenge Easy hi hoga) 
 
 
 
 -> Protected Routes (This one is to be done from guide) (Done) 
+-> Connect Cart Storage with session (Done)
