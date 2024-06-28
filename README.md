@@ -42,7 +42,9 @@ Users should be able to:
 To run this project locally:
 
 ```
-cd ./client && npm install & npm run dev
+cd ./client
+npm install
+npm run dev
 ```
 
 ## My process
