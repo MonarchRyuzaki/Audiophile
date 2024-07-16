@@ -42,9 +42,7 @@ Users should be able to:
 To run this project locally:
 
 ```
-cd ./client
-npm install
-npm run dev
+cd ./client && npm install & npm run dev
 ```
 
 ## My process
@@ -69,6 +67,9 @@ In this project, React Router DOM has been seamlessly integrated to manage navig
 
 **Loaders:**
 Loaders play a crucial role in managing asynchronous operations within the application. They enhance the user experience by providing feedback during data fetching, ensuring a smooth and responsive interface.
+
+**Actions:**
+While actions are not actively utilized in this project, they serve as a powerful tool for handling complex state changes. Future iterations of the project could explore incorporating actions to further streamline data management and enhance code modularity.
 
 **Boilerplate Code Reduction**:
 
