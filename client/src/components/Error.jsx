@@ -2,7 +2,7 @@ import React from "react";
 import { useRouteError } from "react-router-dom";
 
 const Error = () => {
-  const error = useRouteError();
+  const error = useRouteError(); // gets the error that is occuring
   return (
     <section className="bg-primary flex justify-center items-start px-6 sm:px-16 min-h-[100vh]">
       <div className="w-full xl:max-w-[1280px] flex justify-center mt-[150px]">

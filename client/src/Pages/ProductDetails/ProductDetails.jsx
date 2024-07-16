@@ -10,9 +10,9 @@ import { ProductDetailsSkeleton } from "../../Skeleton";
 import { getProductDetails } from "../../api";
 import { Details, Hero, Others, Photos } from "./components";
 
-export async function loader({ params }) {
-  const productPromise = getProductDetails(params.slug);
-  return defer({ productPromise });
+export async function loader({ params, request }) { // there is a request object with url property which has the url. We use new URL() constructor to form a url and get search params
+  const productPromise = getProductDetails(params.slug); // route/:slug aisa wala
+  return defer({ productPromise }); // loading state can be added using this with suspense and await component 
 }
 
 const ProductDetails = () => {
@@ -25,8 +25,8 @@ const ProductDetails = () => {
   return (
     <div className="flex justify-center items-center px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
-        <Suspense fallback={<ProductDetailsSkeleton />}>
-          <Await resolve={productPromise}>
+        <Suspense fallback={<ProductDetailsSkeleton />}> {/* Loads the skeleton until a promise is resolved */}
+          <Await resolve={productPromise}> {/* When the promise is resolved, the following fn will be called and items will be rendered */}
             {(data) => (
               <>
                 <Hero

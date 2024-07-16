@@ -37,29 +37,29 @@ const Checkout = () => {
 
     onSubmit: (values) => {
       const handleSubmit = async (values) => {
-        console.log('Submitting form with values:', values); // Log form values
-          try {
-            // const url = "http://localhost:8080/submit";
-            const url = "https://audiophile-backend-kog9.onrender.com/submit";
-            const response = await fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(values),
-            });
-            const data = await response.json();
-            if (!response.ok) {
-              console.error('Error response from server:', data);
-              alert(data.error);
-            } else {
-              console.log('Form submitted successfully:', data);
-              setSubmit("true");
-            }
-          } catch (error) {
-            console.error('Error submitting form:', error);
+        console.log("Submitting form with values:", values); // Log form values
+        try {
+          // const url = "http://localhost:8080/submit";
+          const url = "https://audiophile-backend-kog9.onrender.com/submit";
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            console.error("Error response from server:", data);
+            alert(data.error);
+          } else {
+            console.log("Form submitted successfully:", data);
+            setSubmit("true");
           }
-      }
+        } catch (error) {
+          console.error("Error submitting form:", error);
+        }
+      };
       handleSubmit(values);
     },
     validationSchema: Yup.object({
@@ -111,6 +111,9 @@ const Checkout = () => {
           </div>
         </div>
         <form method="post" onSubmit={formik.handleSubmit}>
+          {" "}
+          {/* We are not using actions here so this is good for now but can be changed using action later*/}
+          {/* We can also use useNavigation hook to disable button when form is submitting */}
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-2/3 bg-white px-10 py-16 mb-10 lg:mb-20">
               <h1 className="font-bold uppercase text-3xl tracking-wider">

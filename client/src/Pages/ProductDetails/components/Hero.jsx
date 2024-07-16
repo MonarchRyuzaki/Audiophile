@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { addToCart } from "../../../api";
 
+// idea: We can use a redirectTo search param to go to after doing something 
 export async function action({ request }) {
+  // intercepts the outgoing request when submit is used
   const url = new URL(request.url);
-  const s = url.pathname.split("/");
+  const s = url.pathname.split("/"); //   /product/headphones
   const slug = s[s.length - 1];
-  const formData = await request.formData();
-  const count = formData.get("count");
+  const formData = await request.formData(); // gets the form data
+  const count = formData.get("count"); // by name property
   try {
     const data = await addToCart(slug, count);
     return data.name;
@@ -78,6 +80,9 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
             <div className="text-dimGray text-lg my-9">{data.description}</div>
             <div className="text-2xl font-semibold my-4">$ {data.price}</div>
             <Form method="put">
+              {" "}
+              {/* Form submission is a navigation event. Use replace keyword to replace it from history stack and not get back here after submission */}
+              {/* We dont need handleChange and handleSubmit functions here. States are also not required but we use them here since there is + and - button */}
               <div className="flex mt-4 gap-4">
                 <div className="bg-lightGray px-4  flex justify-center items-center">
                   <span
@@ -90,7 +95,7 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
                     type="number"
                     name="count"
                     id="itemCount"
-                    className="w-[60px] ml-4 text-center bg-lightGray"  
+                    className="w-[60px] ml-4 text-center bg-lightGray"
                     min={1}
                     value={count}
                     onChange={handleChange}
