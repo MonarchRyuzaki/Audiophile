@@ -70,9 +70,6 @@ In this project, React Router DOM has been seamlessly integrated to manage navig
 **Loaders:**
 Loaders play a crucial role in managing asynchronous operations within the application. They enhance the user experience by providing feedback during data fetching, ensuring a smooth and responsive interface.
 
-**Actions:**
-While actions are not actively utilized in this project, they serve as a powerful tool for handling complex state changes. Future iterations of the project could explore incorporating actions to further streamline data management and enhance code modularity.
-
 **Boilerplate Code Reduction**:
 
 One of the notable advantages of using React Router DOM and the data layer API is the significant reduction in boilerplate code. This leads to cleaner and more maintainable code, making it easier for developers to understand and contribute to the project.

@@ -2,6 +2,7 @@ import {
   Route,
   RouterProvider,
   createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout, mainLoader } from "./Layouts";
@@ -34,6 +35,7 @@ const router = createHashRouter(
           path="headphones"
           element={<Headphones />}
           loader={headphonesLoader}
+          errorElement={<Error />}
         />
         <Route
           path="speakers"
@@ -56,7 +58,7 @@ const router = createHashRouter(
         />
       </Route>
       <Route path="checkout" element={<AuthenticationGuard component={Checkout} />} errorElement={<Error />} />
-      <Route path="*" element={<NotFound />} errorElement={<Error />} />
+      <Route path="*" element={<NotFound />} errorElement={<Error />} />  {/* Catch all route */}
     </Route>
   )
 );
