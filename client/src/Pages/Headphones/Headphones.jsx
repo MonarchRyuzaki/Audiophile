@@ -22,7 +22,6 @@ const Headphones = () => {
       <ProductHeader title={"HEADPHONES"} />
       <Suspense fallback={<ItemListSkeleton />}> {/* Displays a fallback until the children are completed loading */}
         <Await resolve={productsPromise}>
-          {" "}
           {/* When the promise is resolved, the following fn will be called and items will be rendered. */}
           {/* For each item this will be called. Render Props used */}
           {renderData}

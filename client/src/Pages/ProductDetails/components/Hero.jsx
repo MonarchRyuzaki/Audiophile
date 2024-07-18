@@ -80,7 +80,7 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
             <div className="text-dimGray text-lg my-9">{data.description}</div>
             <div className="text-2xl font-semibold my-4">$ {data.price}</div>
             <Form method="put">
-              {" "}
+              {/* Better to put it as patch but we have only one property so this is fine */}
               {/* Form submission is a navigation event. Use replace keyword to replace it from history stack and not get back here after submission */}
               {/* We dont need handleChange and handleSubmit functions here. States are also not required but we use them here since there is + and - button */}
               <div className="flex mt-4 gap-4">
