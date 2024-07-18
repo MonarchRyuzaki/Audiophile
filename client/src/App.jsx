@@ -70,7 +70,7 @@ const router = createHashRouter(
       {/* This is because loaders run in parallel and will run even before we enter the page. The route and its children ka loader will happen parallely*/}
       {/* We need to check in if the user is logged in every loader inside a route to prevent unauthorized access if we dont use auth0
       and use redirect to go to login page */}
-      <Route path="*" element={<NotFound />} errorElement={<Error />} />{" "}
+      <Route path="*" element={<NotFound />} errorElement={<Error />} />
       {/* Catch all route */}
     </Route>
   )
