@@ -22,11 +22,13 @@ const ProductDetails = () => {
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
   const { noOfItems, setNoOfItems } = useOutletContext();
   const { productPromise } = useLoaderData();
+  {/* Line - 30 : Loads the skeleton until a promise is resolved */}
+  {/* Line - 31 : When the promise is resolved, the following fn will be called and items will be rendered */}
   return (
     <div className="flex justify-center items-center px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
-        <Suspense fallback={<ProductDetailsSkeleton />}> {/* Loads the skeleton until a promise is resolved */}
-          <Await resolve={productPromise}> {/* When the promise is resolved, the following fn will be called and items will be rendered */}
+        <Suspense fallback={<ProductDetailsSkeleton />}> 
+          <Await resolve={productPromise}> 
             {(data) => (
               <>
                 <Hero
