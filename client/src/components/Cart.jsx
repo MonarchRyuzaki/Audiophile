@@ -1,72 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../store/ShoppingCartContext";
 
-const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
-  const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
-  const totalPrice = data.reduce((sum, item) => {
-    // Assuming the price property is a string, convert it to a number
-    const itemPrice = parseInt(item.price) * parseInt(item.count) || 0;
+const Cart = ({isCartVisible, setIsCardVisible }) => {
+  const { cartData, onRemoveAllItems, onUpdateCartItemQuantity } =
+    useContext(CartContext);
+  console.log(cartData);
 
-    // Add the current item's price to the sum
-    return sum + itemPrice;
-  }, 0);
-  localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
-  const [total, setTotal] = useState(totalPrice);
-  const handleClick = () => {
-    localStorage.clear("itemInfo");
-    setNoOfItems(0);
-    setTotal(0);
-    setIsCardVisible(false);
-  };
   useEffect(() => {
-    if (setIsCardVisible) {
+    if (isCartVisible) {
       document.body.style.overlow = "hidden";
     } else {
       document.body.style.overlow = "auto";
     }
   }, [isCartVisible]);
   const renderData = () => {
-    return data.map((item, index) => {
-      const handleIncrease = () => {
-        item.count = parseInt(item.count) + 1;
-        setTotal((curr) => curr + parseInt(item.price));
-        localStorage.setItem(
-          "totalPrice",
-          JSON.stringify(totalPrice + parseInt(item.count))
-        );
-        localStorage.setItem("itemInfo", JSON.stringify(data));
-      };
-      const handleDecrease = () => {
-        if (parseInt(item.count) > 0) {
-          if (parseInt(item.count) === 1) {
-            // Decrease the price from totalPrice
-            setTotal((curr) => curr - parseInt(item.price));
-            setNoOfItems((curr) => curr - 1);
-            // Remove item from localStorage
-            const updatedData = data.filter((i) => i.name !== item.name);
-            localStorage.setItem("itemInfo", JSON.stringify(updatedData));
-          } else {
-            item.count = parseInt(item.count) - 1;
-            setTotal((curr) => curr - parseInt(item.price));
-            localStorage.setItem(
-              "totalPrice",
-              JSON.stringify(totalPrice - parseInt(item.price))
-            );
-            localStorage.setItem("itemInfo", JSON.stringify(data));
-          }
-        }
-      };
-      const handleChange = (e) => {
-        const { value } = e.target;
-        setCnt(parseInt(value));
-        item.count = parseInt(item.count);
-        localStorage.setItem("itemInfo", JSON.stringify(data));
-      };
+    return cartData.items.map((item, index) => {
       return (
         <div key={index} className="flex justify-between items-center">
           <div className="flex items-center gap-4">
             <img
-              src={item.image.mobile}
+              src={item.image}
               alt=""
               className="w-[50px] xs:w-[80px]"
             />
@@ -78,7 +32,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
           <div className="bg-lightGray px-4  flex justify-center items-center w-[80px] xs:w-[142px]">
             <span
               className="text-[35px] text-dimGray cursor-pointer"
-              onClick={handleDecrease}
+              onClick={() => onUpdateCartItemQuantity(item, -1)}
             >
               -
             </span>
@@ -89,12 +43,11 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
               className="w-[15px] xs:w-[60px] ml-2 xs:ml-4 text-center bg-lightGray"
               min={1}
               value={item.count}
-              onChange={handleChange}
               readOnly
             />
             <span
               className="text-[35px] text-dimGray cursor-pointer"
-              onClick={handleIncrease}
+              onClick={() => onUpdateCartItemQuantity(item, 1)}
             >
               +
             </span>
@@ -114,16 +67,16 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
           <div className="w-full sm:max-w-[450px]">
             <div className="bg-primary w-full rounded-xl p-8">
               <div className="flex justify-between">
-                <h3 className="font-semibold uppercase">Cart ({noOfItems})</h3>
+                <h3 className="font-semibold uppercase">Cart ({cartData.items.length})</h3>
                 <button
                   className="font-normal text-sm underline"
-                  onClick={handleClick}
+                  onClick={onRemoveAllItems}
                 >
                   Remove All
                 </button>
               </div>
               <div className="flex flex-col gap-6 mt-4 lg:overflow-auto h-[300px] relative">
-                {data.length == 0 && (
+                {cartData.items.length == 0 && (
                   <div className="flex text-center items-center h-screen justify-center tracking-wider text-md text-dimGray">
                     <div>Your Cart is Empty</div>
                   </div>
@@ -135,7 +88,7 @@ const Cart = ({ noOfItems, setNoOfItems, isCartVisible, setIsCardVisible }) => {
                 <div className="uppercase text-dimGray tracking-wider">
                   TOTAL
                 </div>
-                <div className="font-semibold">${total}</div>
+                <div className="font-semibold">${cartData.total}</div>
               </div>
               <Link to="/checkout" onClick={() => setIsCardVisible(false)}>
                 <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wider py-3">

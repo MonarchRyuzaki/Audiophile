@@ -1,4 +1,4 @@
-import Hero, {action as cartAction} from "./Hero";
+import Hero from "./Hero";
 import Details from "./Details";
 import Photos from "./Photos";
 import Others from "./Others";
@@ -8,5 +8,4 @@ export {
     Details,
     Photos,
     Others,
-    cartAction
 }

@@ -1,10 +1,8 @@
 import { Suspense, useEffect } from "react";
 import {
   Await,
-  Link,
   defer,
   useLoaderData,
-  useOutletContext,
 } from "react-router-dom";
 import { ProductDetailsSkeleton } from "../../Skeleton";
 import { getProductDetails } from "../../api";
@@ -20,7 +18,6 @@ const ProductDetails = () => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
-  const { noOfItems, setNoOfItems } = useOutletContext();
   const { productPromise } = useLoaderData();
   {/* Line - 30 : Loads the skeleton until a promise is resolved */}
   {/* Line - 31 : When the promise is resolved, the following fn will be called and items will be rendered */}
@@ -31,10 +28,9 @@ const ProductDetails = () => {
           <Await resolve={productPromise}> 
             {(data) => (
               <>
+                {console.log(data)}
                 <Hero
                   data={data}
-                  noOfItems={noOfItems}
-                  setNoOfItems={setNoOfItems}
                 />
                 <Details data={data} />
                 <Photos data={data} />

@@ -1,45 +1,29 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
-import { Form, Link, useActionData } from "react-router-dom";
-import { addToCart } from "../../../api";
+import { useContext, useRef } from "react";
+import { Link, } from "react-router-dom";
+import { CartContext } from "../../../store/ShoppingCartContext";
 
-// idea: We can use a redirectTo search param to go to after doing something 
-export async function action({ request }) {
-  // intercepts the outgoing request when submit is used
-  const url = new URL(request.url);
-  const s = url.pathname.split("/"); //   /product/headphones
-  const slug = s[s.length - 1];
-  const formData = await request.formData(); // gets the form data
-  const count = formData.get("count"); // by name property
-  try {
-    const data = await addToCart(slug, count);
-    return data.name;
-  } catch (error) {
-    return error.message;
+const Hero = ({ data }) => {
+  const { onAddToCart } = useContext(CartContext);
+  const itemCountRef = useRef();
+  function handleChange(qty) {
+    if (parseInt(itemCountRef.current.value) + qty < 1) return;
+    itemCountRef.current.value = parseInt(itemCountRef.current.value) + qty;
   }
-}
-
-const Hero = ({ data, noOfItems, setNoOfItems }) => {
-  const [count, setCount] = useState(0);
+  const handleClick = async () => {
+    console.log("onClick");
+    if (itemCountRef.current.value < 1) return;
+    const item = {
+      slug: data.slug,
+      name: data.name,
+      count: itemCountRef.current.value,
+      image: data.categoryImage.mobile,
+      category: data.category,
+      price: data.price,
+    };  
+    onAddToCart(item);
+  }
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  // console.log(user);
-  const handleIncrease = () => {
-    setCount((curr) => curr + 1);
-  };
-  const handleDecrease = () => {
-    setCount((curr) => (curr > 0 ? curr - 1 : 0));
-  };
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (parseInt(value) < 0) {
-      setCount(0);
-    } else {
-    }
-    setCount(parseInt(value));
-  };
-  const handleClick = (e) => {
-    setNoOfItems((prev) => prev + 1);
-  };
   return (
     <>
       <Link
@@ -79,54 +63,48 @@ const Hero = ({ data, noOfItems, setNoOfItems }) => {
             </h2>
             <div className="text-dimGray text-lg my-9">{data.description}</div>
             <div className="text-2xl font-semibold my-4">$ {data.price}</div>
-            <Form method="put">
-              {/* Better to put it as patch but we have only one property so this is fine */}
-              {/* Form submission is a navigation event. Use replace keyword to replace it from history stack and not get back here after submission */}
-              {/* We dont need handleChange and handleSubmit functions here. States are also not required but we use them here since there is + and - button */}
-              <div className="flex mt-4 gap-4">
-                <div className="bg-lightGray px-4  flex justify-center items-center">
-                  <span
-                    className="text-[35px] text-dimGray cursor-pointer"
-                    onClick={handleDecrease}
-                  >
-                    -
-                  </span>
-                  <input
-                    type="number"
-                    name="count"
-                    id="itemCount"
-                    className="w-[60px] ml-4 text-center bg-lightGray"
-                    min={1}
-                    defaultValue={1}
-                    value={count}
-                    onChange={handleChange}
-                  />
-                  <span
-                    className="text-[35px] text-dimGray cursor-pointer"
-                    onClick={handleIncrease}
-                  >
-                    +
-                  </span>
-                </div>
-                {isAuthenticated ? (
-                  <button
-                    className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-                    type="submit"
-                    onClick={handleClick}
-                  >
-                    ADD TO CART
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => loginWithRedirect()}
-                    className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-                    type="submit"
-                  >
-                    ADD TO CART
-                  </button>
-                )}
+            <div className="flex mt-4 gap-4">
+              <div className="bg-lightGray px-4  flex justify-center items-center">
+                <span
+                  className="text-[35px] text-dimGray cursor-pointer"
+                  onClick = {() => handleChange(-1)}
+                >
+                  -
+                </span>
+                <input
+                  type="number"
+                  name="count"
+                  id="itemCount"
+                  className="w-[60px] ml-4 text-center bg-lightGray"
+                  min={1}
+                  defaultValue={1}
+                  ref = {itemCountRef}
+                />
+                <span
+                  className="text-[35px] text-dimGray cursor-pointer"
+                  onClick = {() => handleChange(1)}
+                >
+                  +
+                </span>
               </div>
-            </Form>
+              {isAuthenticated ? (
+                <button
+                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                  type="submit"
+                  onClick={handleClick}
+                >
+                  ADD TO CART
+                </button>
+              ) : (
+                <button
+                  onClick={() => loginWithRedirect()}
+                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                  type="submit"
+                >
+                  ADD TO CART
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

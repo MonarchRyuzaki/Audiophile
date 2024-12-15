@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import {CartContext} from "../../../store/ShoppingCartContext"
 
 const Summary = () => {
-  const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
-  const total = parseInt(JSON.parse(localStorage.getItem("totalPrice"))) || 0;
+  const {cartData} = useContext(CartContext);
+  const data = cartData.items;
+  const total = cartData.total;
   const vat = Math.round(0.2 * total);
   const shipping = data.length > 0 ? 50 : 0;
   return (
@@ -20,7 +22,7 @@ const Summary = () => {
             return (
               <div key={idx} className="flex justify-between items-center">
                 <div className="flex gap-3 items-center justify-between">
-                  <img src={item.image.mobile} alt="" className="w-[75px]" />
+                  <img src={item.image} alt="" className="w-[75px]" />
                   <div className="flex flex-col uppercase text-md font-semibold">
                     <div>{item.name}</div>
                     <div className="text-dimGray">${item.price}</div>

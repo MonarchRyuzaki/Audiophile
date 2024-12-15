@@ -4,7 +4,7 @@ import {
   createHashRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { MainLayout, ProductListLayout, mainLoader } from "./Layouts";
+import { MainLayout, ProductListLayout } from "./Layouts";
 import {
   Checkout,
   Earphones,
@@ -17,7 +17,6 @@ import {
   productsLoader,
   speakersLoader,
 } from "./Pages";
-import { cartAction } from "./Pages/ProductDetails/components";
 import { AuthenticationGuard, Error, NotFound } from "./components";
 
 // to preserve state between two pages we can use search params url se search params lelo
@@ -29,15 +28,14 @@ const router = createHashRouter(
     <Route
       path="/"
       element={<MainLayout />} // loaders can be async
-      loader={mainLoader} // fetches the data vefore we can visit the route if we use defer then we use suspense and await to show loading states and do things
       errorElement={<Error />} // handles any sort of error that happens in the element (loader or the element)
-    >
+      >
       <Route index element={<Home />} />
       <Route element={<ProductListLayout />}>
         <Route
           path="headphones"
           element={<Headphones />}
-          loader={headphonesLoader}
+          loader={headphonesLoader} // fetches the data vefore we can visit the route if we use defer then we use suspense and await to show loading states and do things
           errorElement={<Error />}
         />
         <Route
@@ -56,7 +54,6 @@ const router = createHashRouter(
           path="product/:slug"
           element={<ProductDetails />}
           loader={productsLoader}
-          action={cartAction} // register the action function
           errorElement={<Error />}
         />
       </Route>

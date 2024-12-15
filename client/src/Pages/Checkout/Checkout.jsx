@@ -1,8 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
+import { CartContext } from "../../store/ShoppingCartContext";
 import {
   BillingDetails,
   PaymentDetails,
@@ -14,10 +14,10 @@ import "./components/style.css";
 
 const Checkout = () => {
   const [submit, setSubmit] = useState("false");
-  const { setNoOfItems } = useOutletContext();
   useEffect(() => {
     document.querySelector("body").style.overflow = "auto";
   });
+  const { cartData } = useContext(CartContext);
   const { user } = useAuth0();
   const { name, email } = { ...user };
   // Formik Logic
@@ -97,8 +97,7 @@ const Checkout = () => {
   const goBack = () => {
     window.history.back();
   };
-  const data = JSON.parse(localStorage.getItem("itemInfo")) || [];
-  const summaryHeight = `${data.length * 90 + 370}px`;
+  const summaryHeight = `${cartData.items.length * 90 + 370}px`;
   return (
     <div className="bg-lightGray min-h-[100vh] flex justify-center items-start px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
@@ -135,8 +134,7 @@ const Checkout = () => {
           </div>
         </form>
       </div>
-      {submit === "true" && <ThankYou setNoOfItems={setNoOfItems} />}
-      {/* <ThankYou  setNoOfItems={setNoOfItems}/> */}
+      <ThankYou showModal = {submit === "true"} setSubmit={setSubmit} />
     </div>
   );
 };

@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Footer, Navbar } from "../components/index"
+import CartContextProvider from "../store/ShoppingCartContext";
 
-export async function loader(){
-  return JSON.parse(localStorage.getItem("itemInfo")) || [];
-}
 
 const MainLayout = () => {
-  const data = useLoaderData();
-  const [noOfItems, setNoOfItems] = useState(data.length);
   return (
-    <>
-      <Navbar noOfItems={noOfItems} setNoOfItems={setNoOfItems}/>
-      <Outlet context={{ noOfItems, setNoOfItems }} />
+    <CartContextProvider>
+      <Navbar />
+      <Outlet />
       <Footer />
-    </>
+    </CartContextProvider>
   );
 };
 

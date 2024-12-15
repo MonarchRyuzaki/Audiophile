@@ -1,8 +1,7 @@
-import MainLayout, {loader as mainLoader} from "./MainLayout";
+import MainLayout from "./MainLayout";
 import ProductListLayout from "./ProductListLayout";
 
 export {
     MainLayout,
     ProductListLayout,
-    mainLoader
 }
