@@ -1,6 +1,6 @@
 import Skeleton from "@mui/material/Skeleton";
 
-const ItemCardSkeleton = ({ idx }) => {
+const ItemCardSkeleton = ({ idx }: { idx: number }) => {
   return (
     <div
       className={`flex flex-col ${
