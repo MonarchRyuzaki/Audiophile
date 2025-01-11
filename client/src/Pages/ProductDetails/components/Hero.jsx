@@ -60,6 +60,7 @@ const Hero = ({ data }) => {
             )}
             <h2 className="text-5xl text-black font-semibold uppercase leading-[60px]">
               {data.name} <br /> {data.category}
+              
             </h2>
             <div className="text-dimGray text-lg my-9">{data.description}</div>
             <div className="text-2xl font-semibold my-4">$ {data.price}</div>
