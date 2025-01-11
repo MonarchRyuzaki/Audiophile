@@ -1,4 +1,4 @@
-export function selectImage(desktopImage, tabletImage, mobileImage) {
+export function selectImage(desktopImage: string, tabletImage: string, mobileImage: string) {
   const screenWidth = window.innerWidth;
 
   if (screenWidth >= 1024) {
