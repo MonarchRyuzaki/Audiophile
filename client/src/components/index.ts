@@ -6,7 +6,6 @@ import Items from "./Items";
 import ItemsList from "./ItemsList";
 import Navbar from "./Navbar";
 import ProductHeader from "./ProductHeader";
-import SeeProduct from "./SeeProduct";
 import AuthenticationGuard from "./AuthenticationGuard";
 import Cart from "./Cart";
 import Error from "./Error";
@@ -24,5 +23,4 @@ export {
   Navbar,
   NotFound,
   ProductHeader,
-  SeeProduct,
 };

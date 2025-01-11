@@ -1,6 +1,4 @@
-import React from "react";
-
-const ProductHeader = ({ title }) => {
+const ProductHeader = ({ title }: { title: string }) => {
   return (
     <div className="bg-black flex justify-center items-center px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">

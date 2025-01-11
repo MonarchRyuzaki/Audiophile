@@ -18,7 +18,7 @@ const activeStyles = {
 const Navbar = () => {
   const {cartData} = useContext(CartContext);
   const [toggle, setToggle] = useState(false);
-  const [isCardVisible, setIsCardVisible] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
   const { user, isAuthenticated } = useAuth0();
   // console.log(user, isAuthenticated);
   return (
@@ -35,7 +35,7 @@ const Navbar = () => {
                   !isActive ? "hover-underline-animation" : ""
                 } cursor-pointer`
               }
-              style={({ isActive }) => (isActive ? activeStyles : null)}
+              style={({ isActive }) => (isActive ? activeStyles : undefined)}
               to="."
             >
               Home
@@ -46,7 +46,7 @@ const Navbar = () => {
                   !isActive ? "hover-underline-animation" : ""
                 } cursor-pointer`
               }
-              style={({ isActive }) => (isActive ? activeStyles : null)}
+              style={({ isActive }) => (isActive ? activeStyles : undefined)}
               to="headphones"
             >
               Headphones
@@ -57,7 +57,7 @@ const Navbar = () => {
                   !isActive ? "hover-underline-animation" : ""
                 } cursor-pointer`
               }
-              style={({ isActive }) => (isActive ? activeStyles : null)}
+              style={({ isActive }) => (isActive ? activeStyles : undefined)}
               to="speakers"
             >
               Speaker
@@ -68,7 +68,7 @@ const Navbar = () => {
                   !isActive ? "hover-underline-animation" : ""
                 } cursor-pointer`
               }
-              style={({ isActive }) => (isActive ? activeStyles : null)}
+              style={({ isActive }) => (isActive ? activeStyles : undefined)}
               to="earphones"
             >
               Earphones
@@ -79,7 +79,7 @@ const Navbar = () => {
               src={cart}
               alt=""
               className="cursor-pointer"
-              onClick={() => setIsCardVisible((curr) => !curr)}
+              onClick={() => setIsCartVisible((curr) => !curr)}
             />
             {cartData.items.length > 0 && (
               <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
@@ -102,7 +102,7 @@ const Navbar = () => {
                 src={cart}
                 alt=""
                 className="cursor-pointer"
-                onClick={() => setIsCardVisible((curr) => !curr)}
+                onClick={() => setIsCartVisible((curr) => !curr)}
               />
               {cartData.items.length > 0 && (
                 <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
@@ -141,10 +141,10 @@ const Navbar = () => {
             Earphones
           </NavLink>
         </div>
-        {isCardVisible && (
+        {isCartVisible && (
           <Cart
-            isCardVisible={isCardVisible}
-            setIsCardVisible={setIsCardVisible}
+            isCartVisible={isCartVisible}
+            setIsCartVisible={setIsCartVisible}
           />
         )}
       </div>

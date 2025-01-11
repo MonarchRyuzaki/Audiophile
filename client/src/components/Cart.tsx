@@ -2,16 +2,22 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../store/ShoppingCartContext";
 
-const Cart = ({isCartVisible, setIsCardVisible }) => {
+const Cart = ({
+  isCartVisible,
+  setIsCartVisible,
+}: {
+  isCartVisible: boolean;
+  setIsCartVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { cartData, onRemoveAllItems, onUpdateCartItemQuantity } =
     useContext(CartContext);
   console.log(cartData);
 
   useEffect(() => {
     if (isCartVisible) {
-      document.body.style.overlow = "hidden";
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overlow = "auto";
+      document.body.style.overflow = "auto";
     }
   }, [isCartVisible]);
   const renderData = () => {
@@ -19,11 +25,7 @@ const Cart = ({isCartVisible, setIsCardVisible }) => {
       return (
         <div key={index} className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <img
-              src={item.image}
-              alt=""
-              className="w-[50px] xs:w-[80px]"
-            />
+            <img src={item.image} alt="" className="w-[50px] xs:w-[80px]" />
             <div className="flex flex-col uppercase text-md font-semibold">
               <div>{item.name}</div>
               <div className="text-dimGray">${item.price}</div>
@@ -37,6 +39,7 @@ const Cart = ({isCartVisible, setIsCardVisible }) => {
               -
             </span>
             <input
+              title="itemCount"
               type="text"
               name="count"
               id="itemCount"
@@ -67,7 +70,9 @@ const Cart = ({isCartVisible, setIsCardVisible }) => {
           <div className="w-full sm:max-w-[450px]">
             <div className="bg-primary w-full rounded-xl p-8">
               <div className="flex justify-between">
-                <h3 className="font-semibold uppercase">Cart ({cartData.items.length})</h3>
+                <h3 className="font-semibold uppercase">
+                  Cart ({cartData.items.length})
+                </h3>
                 <button
                   className="font-normal text-sm underline"
                   onClick={onRemoveAllItems}
@@ -90,7 +95,7 @@ const Cart = ({isCartVisible, setIsCardVisible }) => {
                 </div>
                 <div className="font-semibold">${cartData.total}</div>
               </div>
-              <Link to="/checkout" onClick={() => setIsCardVisible(false)}>
+              <Link to="/checkout" onClick={() => setIsCartVisible(false)}>
                 <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wider py-3">
                   Checkout
                 </button>

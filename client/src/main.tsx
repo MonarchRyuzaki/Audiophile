@@ -1,6 +1,6 @@
 import { Auth0Provider } from "@auth0/auth0-react";
-import React from "react";
-import ReactDOM from "react-dom/client";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 
