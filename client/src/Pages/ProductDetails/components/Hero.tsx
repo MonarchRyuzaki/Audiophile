@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext, useRef } from "react";
 import { Link, } from "react-router-dom";
-import { CartContext } from "../../../store/ShoppingCartContext";
+import { CartContext, CartItem } from "../../../store/ShoppingCartContext";
 
 const Hero = ({ data }) => {
   const { onAddToCart } = useContext(CartContext);
@@ -13,13 +13,13 @@ const Hero = ({ data }) => {
   const handleClick = async () => {
     console.log("onClick");
     if (itemCountRef.current.value < 1) return;
-    const item = {
+    const item : CartItem = {
       slug: data.slug,
       name: data.name,
-      count: itemCountRef.current.value,
+      count: parseInt(itemCountRef.current.value),
       image: data.categoryImage.mobile,
       category: data.category,
-      price: data.price,
+      price: parseInt(data.price),
     };  
     onAddToCart(item);
   }

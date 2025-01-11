@@ -28,4 +28,4 @@ function renameFiles(dir) {
 }
 
 // Start renaming from the current directory
-renameFiles('src');
+renameFiles(__dirname);

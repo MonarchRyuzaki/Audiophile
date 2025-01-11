@@ -1,4 +1,3 @@
-import React from "react";
 import ItemCardSkeleton from "./ItemCardSkeleton";
 
 const ItemListSkeleton = () => {
