@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { CartContext } from "../../../store/ShoppingCartContext";
 import { Link } from "react-router-dom";

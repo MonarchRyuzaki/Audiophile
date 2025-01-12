@@ -7,17 +7,11 @@ import {
 import { MainLayout, ProductListLayout } from "./Layouts";
 import {
   Checkout,
-  Earphones,
-  Headphones,
   Home,
   ProductDetails,
   Products,
-  Speakers,
-  earphonesLoader,
-  headphonesLoader,
   productDetailsLoader,
   productsLoader,
-  speakersLoader,
 } from "./Pages";
 import { AuthenticationGuard, Error, NotFound } from "./components";
 

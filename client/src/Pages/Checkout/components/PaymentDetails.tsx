@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const PaymentDetails = ({ formik }) => {
   const paymentMethod = formik.values.paymentMethod;
   return (
