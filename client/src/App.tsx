@@ -10,6 +10,7 @@ import {
   Home,
   ProductDetails,
   Products,
+  checkoutAction,
   productDetailsLoader,
   productsLoader,
 } from "./Pages";
@@ -44,6 +45,7 @@ const router = createHashRouter(
       <Route
         path="checkout"
         element={<AuthenticationGuard component={Checkout} />}
+        action={checkoutAction}
         errorElement={<Error />}
       />
       {/* Another way to do authentication when not using auth0 and loaders maybe to create a nested route where the parent is guard type 

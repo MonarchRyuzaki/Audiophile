@@ -45,4 +45,17 @@ export interface LoaderData {
     productsPromise?: Promise<Product[]>
     productPromise?: Promise<Product>
   }
+
+export interface CheckoutFormData {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  zip: string;
+  city: string;
+  country: string;
+  eMoneyNumber: string;
+  eMoneyPIN: string;
+  paymentMethod: string;
+}
   

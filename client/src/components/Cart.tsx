@@ -11,7 +11,6 @@ const Cart = ({
 }) => {
   const { cartData, onRemoveAllItems, onUpdateCartItemQuantity } =
     useContext(CartContext);
-  console.log(cartData);
 
   useEffect(() => {
     if (isCartVisible) {

@@ -1,4 +1,4 @@
-import { Product, FetchError } from "./types";
+import { CheckoutFormData, FetchError, Product } from "./types";
 
 export async function getProduct(category: string) {
   const response = await fetch(
@@ -30,4 +30,27 @@ export async function getProductDetails(slug: string) {
     status: response.status,
     text: response.statusText,
   } as FetchError;
+}
+
+export async function postCheckoutData(values: CheckoutFormData) {
+  try {
+    // const url = "http://localhost:8080/submit";
+    const url = "https://audiophile-backend-kog9.onrender.com/submit";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      console.error("Error response from server:", data);
+      alert(data.error);
+    } else {
+      console.log("Form submitted successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
 }
