@@ -1,4 +1,7 @@
-const PaymentDetails = ({ formik }) => {
+import { FormikProps } from 'formik';
+import { CheckoutFormData } from '../../../types';
+
+const PaymentDetails = ({ formik }: { formik: FormikProps<CheckoutFormData> }) => {
   const paymentMethod = formik.values.paymentMethod;
   return (
     <div>

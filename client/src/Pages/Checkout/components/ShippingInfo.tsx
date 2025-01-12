@@ -1,4 +1,7 @@
-const ShippingInfo = ({ formik }) => {
+import { FormikProps } from 'formik';
+import { CheckoutFormData } from '../../../types';
+
+const ShippingInfo = ({ formik }: { formik: FormikProps<CheckoutFormData> }) => {
   return (
     <div>
       <div className="uppercase font-bold text-sm tracking-wide text-orange my-6">

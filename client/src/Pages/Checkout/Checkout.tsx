@@ -23,8 +23,6 @@ export async function action({ request }: ActionFunctionArgs) {
   await postCheckoutData(values as CheckoutFormData);
 }
 
-
-
 const initialFormValues : CheckoutFormData = {
     name: "",
     email: "",
