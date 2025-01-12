@@ -11,9 +11,11 @@ import {
   Headphones,
   Home,
   ProductDetails,
+  Products,
   Speakers,
   earphonesLoader,
   headphonesLoader,
+  productDetailsLoader,
   productsLoader,
   speakersLoader,
 } from "./Pages";
@@ -32,28 +34,16 @@ const router = createHashRouter(
       >
       <Route index element={<Home />} />
       <Route element={<ProductListLayout />}>
-        <Route
-          path="headphones"
-          element={<Headphones />}
-          loader={headphonesLoader} // fetches the data vefore we can visit the route if we use defer then we use suspense and await to show loading states and do things
-          errorElement={<Error />}
-        />
-        <Route
-          path="speakers"
-          element={<Speakers />}
-          loader={speakersLoader}
-          errorElement={<Error />}
-        />
-        <Route
-          path="earphones"
-          element={<Earphones />}
-          loader={earphonesLoader}
+         <Route
+          path=":productCategory"
+          element={<Products />}
+          loader={productsLoader} // fetches the data vefore we can visit the route if we use defer then we use suspense and await to show loading states and do things
           errorElement={<Error />}
         />
         <Route
           path="product/:slug"
           element={<ProductDetails />}
-          loader={productsLoader}
+          loader={productDetailsLoader}
           errorElement={<Error />}
         />
       </Route>
