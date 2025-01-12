@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import { ItemsList, Description } from "../../components";
 import { Hero, ZX9Speaker, ZX7Speaker, YX1Earphone } from "./components";
 import { useEffect } from "react";

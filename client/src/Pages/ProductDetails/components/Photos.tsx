@@ -1,6 +1,6 @@
-import React from "react";
+import { Product } from "../../../types";
 
-const Photos = ({ data }) => {
+const Photos = ({ data }: {data: Product}) => {
   const { first, second, third } = data.gallery;
   return (
     <div className="flex flex-col lg:flex-row justify-between gap-6">

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { Product } from "../types";
 
-const ItemCard = ({ item, idx }) => {
+const ItemCard = ({ item, idx }: { item: Product; idx: number }) => {
   return (
     <div
       className={`flex flex-col ${
@@ -21,7 +22,9 @@ const ItemCard = ({ item, idx }) => {
       />
       <div className="flex flex-1 flex-col justify-center">
         <div>
-          {item.new && <h2 className="text-orange tracking-[.625rem] mb-4">NEW PRODUCT</h2>}
+          {item.new && (
+            <h2 className="text-orange tracking-[.625rem] mb-4">NEW PRODUCT</h2>
+          )}
           <h2 className="text-5xl text-black font-semibold uppercase leading-[60px]">
             {item.name} <br /> {item.category}
           </h2>

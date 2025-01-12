@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { Product } from "../../../types";
 
-const Others = ({ data }) => {
+const Others = ({ data }: {data: Product}) => {
   const { others } = data;
   return (
     <div className="my-32">
@@ -8,8 +9,8 @@ const Others = ({ data }) => {
         you may also like
       </h2>
       <div className="flex flex-col lg:flex-row gap-6">
-        {others.map((item, idx) => (
-          <div className="flex flex-col justify-center items-center" key={idx}>
+        {others.map((item) => (
+          <div className="flex flex-col justify-center items-center" key={item._id}>
             <img
               src={item.image.tablet}
               alt=""

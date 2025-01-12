@@ -1,21 +1,25 @@
-import React from "react";
+import { Product } from "../../../types";
 
-const Details = ({ data }) => {
+const Details = ({ data }: { data: Product }) => {
   const itemList = () => {
     const list = data.includes;
     return (
-        <>
-            {list.map((item, idx) => {
-                return (
-                    <div className="flex gap-5" key={idx}>
-                        <span className="text-orange font-semibold text-xl">{item.quantity}x</span>
-                        <span className="text-dimGray font-medium text-lg">{item.item}</span>
-                    </div>
-                )
-            })}
-        </>
-    ) 
-  }
+      <>
+        {list.map((item) => {
+          return (
+            <div className="flex gap-5" key={item._id}>
+              <span className="text-orange font-semibold text-xl">
+                {item.quantity}x
+              </span>
+              <span className="text-dimGray font-medium text-lg">
+                {item.item}
+              </span>
+            </div>
+          );
+        })}
+      </>
+    );
+  };
   return (
     <div className="flex flex-col lg:flex-row my-32 gap-20">
       <div className="flex-1">
@@ -29,9 +33,7 @@ const Details = ({ data }) => {
           <h2 className="uppercase text-4xl font-semibold tracking-wider mb-8">
             in the box
           </h2>
-          <div>
-            {itemList()}
-          </div>
+          <div>{itemList()}</div>
         </div>
       </div>
     </div>

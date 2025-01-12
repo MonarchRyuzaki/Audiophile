@@ -1,28 +1,31 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext, useRef } from "react";
-import { Link, } from "react-router-dom";
-import { CartContext, CartItem } from "../../../store/ShoppingCartContext";
+import { Link } from "react-router-dom";
+import { CartContext } from "../../../store/ShoppingCartContext";
+import { CartItem, Product } from "../../../types";
 
-const Hero = ({ data }) => {
+const Hero = ({ data }: { data: Product }) => {
   const { onAddToCart } = useContext(CartContext);
-  const itemCountRef = useRef();
-  function handleChange(qty) {
+  const itemCountRef = useRef<HTMLInputElement>(null!);
+  function handleChange(qty: number) {
     if (parseInt(itemCountRef.current.value) + qty < 1) return;
-    itemCountRef.current.value = parseInt(itemCountRef.current.value) + qty;
+    itemCountRef.current.value = String(
+      parseInt(itemCountRef.current.value) + qty
+    );
   }
   const handleClick = async () => {
     console.log("onClick");
-    if (itemCountRef.current.value < 1) return;
-    const item : CartItem = {
+    if (parseInt(itemCountRef.current.value) < 1) return;
+    const item: CartItem = {
       slug: data.slug,
       name: data.name,
       count: parseInt(itemCountRef.current.value),
       image: data.categoryImage.mobile,
       category: data.category,
       price: parseInt(data.price),
-    };  
+    };
     onAddToCart(item);
-  }
+  };
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   return (
     <>
@@ -67,22 +70,23 @@ const Hero = ({ data }) => {
               <div className="bg-lightGray px-4  flex justify-center items-center">
                 <span
                   className="text-[35px] text-dimGray cursor-pointer"
-                  onClick = {() => handleChange(-1)}
+                  onClick={() => handleChange(-1)}
                 >
                   -
                 </span>
                 <input
+                  title="item count"
                   type="number"
                   name="count"
                   id="itemCount"
                   className="w-[60px] ml-4 text-center bg-lightGray"
                   min={1}
                   defaultValue={1}
-                  ref = {itemCountRef}
+                  ref={itemCountRef}
                 />
                 <span
                   className="text-[35px] text-dimGray cursor-pointer"
-                  onClick = {() => handleChange(1)}
+                  onClick={() => handleChange(1)}
                 >
                   +
                 </span>

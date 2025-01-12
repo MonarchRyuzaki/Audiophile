@@ -3,6 +3,7 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import { getProduct } from "../../api";
 import { ItemCardList, ProductHeader } from "../../components";
 import { ItemListSkeleton } from "../../Skeleton";
+import { LoaderData, Product } from "../../types";
 
 export async function loader() {
   const productsPromise = getProduct("headphones");
@@ -15,8 +16,8 @@ const Headphones = () => {
     window.scrollTo(0, 0);
   }, []); // The empty dependency array ensures that this effect runs only once when the component mounts
 
-  const { productsPromise } = useLoaderData();
-  const renderData = (data) => <ItemCardList data={data} />;
+  const { productsPromise } = useLoaderData() as LoaderData;
+  const renderData = (data: Product[]) => <ItemCardList data={data} />;
   return (
     <>
       <ProductHeader title={"HEADPHONES"} />

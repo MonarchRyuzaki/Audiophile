@@ -40,3 +40,9 @@ export interface CartItem {
     category: string;
     price: number;
   }
+
+export interface LoaderData {
+    productsPromise?: Promise<Product[]>
+    productPromise?: Promise<Product>
+  }
+  
