@@ -1,13 +1,5 @@
 import { createContext, useReducer } from "react";
-
-export interface CartItem {
-  slug: string;
-  name: string;
-  count: number;
-  image: string;
-  category: string;
-  price: number;
-}
+import { CartItem } from "../types";
 
 interface CartDataType {
   items: CartItem[];
