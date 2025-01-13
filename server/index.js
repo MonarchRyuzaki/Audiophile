@@ -25,24 +25,72 @@ app.use(
 // const jsonArray = JSON.parse(jsonString);
 
 const formSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  phoneNumber: Joi.string().min(12).max(14).required(),
-  address: Joi.string().required(),
-  zip: Joi.number().required(),
-  city: Joi.string().required(),
-  country: Joi.string().required(),
-  paymentMethod: Joi.string().valid('eMoney', 'cashOnDelivery').required(),
-  eMoneyNumber: Joi.string().length(12).when('paymentMethod', {
-    is: 'eMoney',
-    then: Joi.required(),
-    otherwise: Joi.string().allow('').optional()
+  name: Joi.string().trim().required().messages({
+    "string.empty": "Name is required.",
+    "any.required": "Name is a mandatory field.",
   }),
-  eMoneyPIN: Joi.string().length(4).when('paymentMethod', {
-    is: 'eMoney',
-    then: Joi.required(),
-    otherwise: Joi.string().allow('').optional()
-  })
+
+  email: Joi.string().email().required().messages({
+    "string.empty": "Email is required.",
+    "string.email": "Please provide a valid email address.",
+  }),
+
+  phoneNumber: Joi.string()
+    .pattern(/^\d{12,14}$/)
+    .required()
+    .messages({
+      "string.empty": "Phone number is required.",
+      "string.pattern.base": "Phone number must contain 12 to 14 digits only.",
+    }),
+
+  address: Joi.string().trim().required().messages({
+    "string.empty": "Address is required.",
+  }),
+
+  zip: Joi.string().pattern(/^\d+$/).required().messages({
+    "string.empty": "ZIP code is required.",
+    "string.pattern.base": "ZIP code must be a valid number.",
+  }),
+
+  city: Joi.string().trim().required().messages({
+    "string.empty": "City is required.",
+  }),
+
+  country: Joi.string().trim().required().messages({
+    "string.empty": "Country is required.",
+  }),
+
+  paymentMethod: Joi.string()
+    .valid("eMoney", "cashOnDelivery")
+    .required()
+    .messages({
+      "string.empty": "Payment method is required.",
+      "any.only": 'Payment method must be either "eMoney" or "cashOnDelivery".',
+    }),
+
+  eMoneyNumber: Joi.string()
+    .length(12)
+    .when("paymentMethod", {
+      is: "eMoney",
+      then: Joi.required(),
+      otherwise: Joi.string().allow("").optional(),
+    })
+    .messages({
+      "string.empty": "eMoney number is required for eMoney payment.",
+      "string.length": "eMoney number must be exactly 12 characters.",
+    }),
+
+  eMoneyPIN: Joi.string()
+    .length(4)
+    .when("paymentMethod", {
+      is: "eMoney",
+      then: Joi.required(),
+      otherwise: Joi.string().allow("").optional(),
+    })
+    .messages({
+      "string.empty": "eMoney PIN is required for eMoney payment.",
+      "string.length": "eMoney PIN must be exactly 4 characters.",
+    }),
 });
 
 app.get("/:category", async (req, res) => {
@@ -67,7 +115,7 @@ app.post("/submit", (req, res) => {
   console.log("Inside Submit");
   const { error } = formSchema.validate(req.body);
   if (error) {
-    return res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error });
   }
   // Handle valid data
   res.status(200).json({ message: "Form submitted successfully" });
