@@ -111,9 +111,9 @@ app.post("/cart", async (req, res) => {
   res.send({ status: 200, name, image, category, price });
 });
 
-app.post("/submit", (req, res) => {
+app.post("/submit", async (req, res) => {
   console.log("Inside Submit");
-  const { error } = formSchema.validate(req.body);
+  const { error } = await formSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ error });
   }
