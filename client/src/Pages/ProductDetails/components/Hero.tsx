@@ -91,7 +91,14 @@ const Hero = ({ data }: { data: Product }) => {
                   +
                 </span>
               </div>
-              {isAuthenticated ? (
+              <button
+                className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
+                type="submit"
+                onClick={handleClick}
+              >
+                ADD TO CART
+              </button>
+              {/* {isAuthenticated ? (
                 <button
                   className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
                   type="submit"
@@ -107,7 +114,7 @@ const Hero = ({ data }: { data: Product }) => {
                 >
                   ADD TO CART
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>

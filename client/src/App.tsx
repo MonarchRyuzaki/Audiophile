@@ -44,7 +44,8 @@ const router = createHashRouter(
       </Route>
       <Route
         path="checkout"
-        element={<AuthenticationGuard component={Checkout} />}
+        // element={<AuthenticationGuard component={Checkout} />}
+        element={<Checkout />}
         action={checkoutAction}
         errorElement={<Error />}
       />
