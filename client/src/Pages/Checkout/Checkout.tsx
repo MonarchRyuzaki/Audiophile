@@ -20,7 +20,20 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const values = Object.fromEntries(formData.entries());
   console.log(values);
-  await postCheckoutData(values as CheckoutFormData);
+  const checkoutData : CheckoutFormData = {
+    name: values.name as string,
+    email: values.email as string,
+    phoneNumber: values.phoneNumber as string,
+    address: values.address as string,
+    zip: values.zip as string,
+    city: values.city as string,
+    country: values.country as string,
+    eMoneyNumber: values.eMoneyNumber as string,
+    eMoneyPIN: values.eMoneyPIN as string,
+    paymentMethod: values.paymentMethod as string,
+  }
+  await postCheckoutData(checkoutData);
+  return null;
 }
 
 const initialFormValues : CheckoutFormData = {

@@ -44,6 +44,7 @@ export async function postCheckoutData(values: CheckoutFormData) {
       body: JSON.stringify(values),
     });
     const data = await response.json();
+    console.log(data);
     if (!response.ok) {
       console.error("Error response from server:", data);
       alert(data.error);

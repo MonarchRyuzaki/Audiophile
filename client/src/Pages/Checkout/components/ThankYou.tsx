@@ -3,19 +3,19 @@ import { createPortal } from "react-dom";
 import { CartContext } from "../../../store/ShoppingCartContext";
 import { Link } from "react-router-dom";
 
-function ThankYou({ showModal, setSubmit }) {
+function ThankYou({ showModal }: { showModal: boolean }) {
   const { cartData, onRemoveAllItems } = useContext(CartContext);
-  const ref = useRef();
+  const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
+
     if (showModal) {
-      ref.current.showModal();
+      ref.current!.showModal();
     } else {
-      ref.current.close();
+      ref.current!.close();
     }
   }, [showModal]);
   const handleConfirm = () => {
     onRemoveAllItems();
-    setSubmit("");
   };
   return createPortal(
     <dialog
@@ -77,7 +77,7 @@ function ThankYou({ showModal, setSubmit }) {
         </Link>
       </div>
     </dialog>,
-    document.querySelector("#modal-root")
+    document.querySelector("#modal-root")!
   );
 }
 
