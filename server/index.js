@@ -113,7 +113,7 @@ app.post("/cart", async (req, res) => {
 
 app.post("/submit", async (req, res) => {
   console.log("Inside Submit");
-  const data = await formSchema.validate(req.body, {aboutEarly: false});
+  const data = await formSchema.validate(req.body, {abortEarly: false});
   console.log(data);
   if (data.error) {
     return res.status(400).json({ error: data.error });
