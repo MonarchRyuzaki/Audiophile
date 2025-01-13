@@ -35,7 +35,8 @@ export async function getProductDetails(slug: string) {
 export async function postCheckoutData(values: CheckoutFormData) {
   try {
     // const url = "http://localhost:8080/submit";
-    const url = "https://audiophile-backend-kog9.onrender.com/submit";
+    // const url = "https://audiophile-backend-kog9.onrender.com/submit";
+    const url = "https://audiophile-ohkm.onrender.com/submit";
     const response = await fetch(url, {
       method: "POST",
       headers: {
