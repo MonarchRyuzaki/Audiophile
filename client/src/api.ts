@@ -1,4 +1,4 @@
-import { CheckoutFormData, FetchError, Product } from "./types";
+import { ActionData, CheckoutFormData, FetchError, Product } from "./types";
 
 export async function getProduct(category: string) {
   const response = await fetch(
@@ -47,10 +47,10 @@ export async function postCheckoutData(values: CheckoutFormData) {
     const data = await response.json();
     console.log(data);
     if (!response.ok) {
-      console.error("Error response from server:", data);
-      alert(data.error);
+      const messages = data.error.details.map((detail: {message: string}) => detail.message);
+      return { success: false, messages : messages } as ActionData;
     } else {
-      console.log("Form submitted successfully:", data);
+      return { success: true, message: data.message } as ActionData;
     }
   } catch (error) {
     console.error("Error submitting form:", error);

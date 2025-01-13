@@ -35,12 +35,11 @@ const formSchema = Joi.object({
     "string.email": "Please provide a valid email address.",
   }),
 
-  phoneNumber: Joi.string()
+  phoneNumber: Joi.string().trim()
     .pattern(/^\d{12,14}$/)
     .required()
     .messages({
       "string.empty": "Phone number is required.",
-      "string.pattern.base": "Phone number must contain 12 to 14 digits only.",
     }),
 
   address: Joi.string().trim().required().messages({

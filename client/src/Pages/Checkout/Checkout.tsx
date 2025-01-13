@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
-import { useContext, useEffect, useState } from "react";
-import { ActionFunctionArgs, useNavigation, useSubmit } from "react-router-dom";
-import * as Yup from "yup";
-import { CartContext } from "../../store/ShoppingCartContext";
+import { useEffect } from "react";
+import { ActionFunctionArgs, useActionData, useSubmit } from "react-router-dom";
+import { postCheckoutData } from "../../api";
+import { ActionData, CheckoutFormData } from "../../types";
 import {
   BillingDetails,
   PaymentDetails,
@@ -13,14 +13,11 @@ import {
 } from "./components";
 import "./components/style.css";
 import { formValidationSchema } from "./utils";
-import { CheckoutFormData } from "../../types";
-import { postCheckoutData } from "../../api";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const values = Object.fromEntries(formData.entries());
-  console.log(values);
-  const checkoutData : CheckoutFormData = {
+  const checkoutData: CheckoutFormData = {
     name: values.name as string,
     email: values.email as string,
     phoneNumber: values.phoneNumber as string,
@@ -31,41 +28,38 @@ export async function action({ request }: ActionFunctionArgs) {
     eMoneyNumber: values.eMoneyNumber as string,
     eMoneyPIN: values.eMoneyPIN as string,
     paymentMethod: values.paymentMethod as string,
-  }
-  await postCheckoutData(checkoutData);
-  return null;
+  };
+  return await postCheckoutData(checkoutData);
 }
 
-const initialFormValues : CheckoutFormData = {
-    name: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
-    zip: "",
-    city: "",
-    country: "",
-    eMoneyNumber: "",
-    eMoneyPIN: "",
-    paymentMethod: "eMoney",
-}
+const initialFormValues: CheckoutFormData = {
+  name: "",
+  email: "",
+  phoneNumber: "",
+  address: "",
+  zip: "",
+  city: "",
+  country: "",
+  eMoneyNumber: "",
+  eMoneyPIN: "",
+  paymentMethod: "eMoney",
+};
 
 const Checkout = () => {
   const submit = useSubmit();
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const actionData = useActionData() as ActionData;
+  const showThankYou = actionData?.success;
 
   useEffect(() => {
     document.querySelector("body")!.style.overflow = "auto";
   });
-  const { cartData } = useContext(CartContext);
   const { user } = useAuth0();
   const { name, email } = { ...user };
-  // Formik Logic
+
   const formik = useFormik<CheckoutFormData>({
     initialValues: initialFormValues,
 
     onSubmit: async (values) => {
-      console.log(values);
       const formData = new FormData();
       Object.entries(values).forEach(([key, value]) => {
         formData.append(key, value);
@@ -77,7 +71,6 @@ const Checkout = () => {
   const goBack = () => {
     window.history.back();
   };
-  const summaryHeight = `${cartData.items.length * 90 + 370}px`;
   return (
     <div className="bg-lightGray min-h-[100vh] flex justify-center items-start px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
@@ -106,15 +99,14 @@ const Checkout = () => {
               </div>
             </div>
             <div
-              className={`bg-white px-10 py-10 w-full lg:w-1/3 mb-20 lg:mb-0`}
-              style={{ height: summaryHeight }}
+              className={`bg-white h-fit px-10 py-10 w-full lg:w-1/3 mb-20 lg:mb-0`}
             >
               <Summary />
             </div>
           </div>
         </form>
       </div>
-      {/* <ThankYou showModal={submit === "true"} setSubmit={setSubmit} /> */}
+      <ThankYou showModal={showThankYou} />
     </div>
   );
 };

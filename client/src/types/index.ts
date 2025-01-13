@@ -58,4 +58,10 @@ export interface CheckoutFormData {
   eMoneyPIN: string;
   paymentMethod: string;
 }
+
+export interface ActionData {
+  success: boolean;
+  messages?: string[];
+  message?: string;
+}
   
