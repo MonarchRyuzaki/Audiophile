@@ -2,9 +2,8 @@ import { ActionData, CheckoutFormData, FetchError, Product } from "./types";
 
 export async function getProduct(category: string) {
   const response = await fetch(
-    `https://audiophile-backend-kog9.onrender.com/${category}`
+    `${import.meta.env.VITE_API_SERVER_URL}/${category}`
   );
-  // const response = await fetch(`http://localhost:8080/${category}`);
   if (response.ok) {
     const res = await response.json();
     return res.data as Product[];
@@ -18,9 +17,8 @@ export async function getProduct(category: string) {
 
 export async function getProductDetails(slug: string) {
   const response = await fetch(
-    `https://audiophile-backend-kog9.onrender.com/product/${slug}`
+    `${import.meta.env.VITE_API_SERVER_URL}/product/${slug}`
   );
-  // const response = await fetch(`http://localhost:8080/product/${slug}`);
   if (response.ok) {
     const res = await response.json();
     return res.data as Product;
@@ -34,10 +32,7 @@ export async function getProductDetails(slug: string) {
 
 export async function postCheckoutData(values: CheckoutFormData) {
   try {
-    // const url = "http://localhost:8080/submit";
-    // const url = "https://audiophile-backend-kog9.onrender.com/submit";
-    const url = "https://audiophile-ohkm.onrender.com/submit";
-    const response = await fetch(url, {
+    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/submit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,4 +49,8 @@ export async function postCheckoutData(values: CheckoutFormData) {
   } catch (error) {
     console.error("Error submitting form:", error);
   }
+}
+
+export async function postCartItems() {
+
 }

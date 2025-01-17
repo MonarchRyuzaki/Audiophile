@@ -30,6 +30,10 @@ app.get("/product/:slug", async (req, res) => {
   res.json({ data });
 });
 
+app.post("/cart", async (req, res) => {
+  
+})
+
 app.post("/submit", async (req, res) => {
   console.log("Inside Submit");
   const data = await formSchema.validate(req.body, { abortEarly: false });

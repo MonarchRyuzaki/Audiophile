@@ -54,7 +54,6 @@ function cartReducer(
           ),
           total: state.total + price * count,
         };
-        localStorage.setItem("cart", JSON.stringify(updatedState));
         return updatedState;
       }
 
@@ -62,7 +61,6 @@ function cartReducer(
         items: [...state.items, { slug, name, count, image, category, price }],
         total: state.total + price * count,
       };
-      localStorage.setItem("cart", JSON.stringify(updatedState));
       return updatedState;
     }
     case "UPDATE_CART_ITEM_QUANTITY": {
@@ -89,7 +87,6 @@ function cartReducer(
         items: updatedItems,
         total: updatedTotal,
       };
-      localStorage.setItem("cart", JSON.stringify(updatedState));
       return updatedState;
     }
     case "REMOVE_ITEM": {
@@ -97,11 +94,9 @@ function cartReducer(
         items: state.items.filter((item) => item.slug !== action.payload.slug),
         total: state.total - action.payload.price * action.payload.count,
       };
-      localStorage.setItem("cart", JSON.stringify(updatedState));
       return updatedState;
     }
     case "REMOVE_ALL_ITEMS": {
-      localStorage.setItem("cart", JSON.stringify(initialState));
       return initialState;
     }
     default: {
@@ -115,12 +110,7 @@ export default function CartContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [state, dispatch] = useReducer(
-    cartReducer,
-    localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart")!)
-      : initialState
-  );
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   function onAddToCart(item: CartItem) {
     dispatch({ type: "ADD_TO_CART", payload: item });
