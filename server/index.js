@@ -1,11 +1,10 @@
 import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
-import session from "express-session";
-// import fs from "fs";
-import Joi from "joi";
+import session from "express-session";;
 import mongoose from "mongoose";
 import Product from "./models/product.js";
+import { formSchema } from "./utils/checkoutFormSchemaValidation.js";
 dotenv.config();
 
 const app = express();
@@ -18,79 +17,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-// // Read the JSON file
-// const jsonString = fs.readFileSync("./data.json", "utf-8");
-
-// // Parse the JSON string into a JavaScript array
-// const jsonArray = JSON.parse(jsonString);
-
-const formSchema = Joi.object({
-  name: Joi.string().trim().required().messages({
-    "string.empty": "Name is required.",
-    "any.required": "Name is a mandatory field.",
-  }),
-
-  email: Joi.string().email().required().messages({
-    "string.empty": "Email is required.",
-    "string.email": "Please provide a valid email address.",
-  }),
-
-  phoneNumber: Joi.string().trim()
-    .pattern(/^\d{12,14}$/)
-    .required()
-    .messages({
-      "string.empty": "Phone number is required.",
-    }),
-
-  address: Joi.string().trim().required().messages({
-    "string.empty": "Address is required.",
-  }),
-
-  zip: Joi.string().pattern(/^\d+$/).required().messages({
-    "string.empty": "ZIP code is required.",
-    "string.pattern.base": "ZIP code must be a valid number.",
-  }),
-
-  city: Joi.string().trim().required().messages({
-    "string.empty": "City is required.",
-  }),
-
-  country: Joi.string().trim().required().messages({
-    "string.empty": "Country is required.",
-  }),
-
-  paymentMethod: Joi.string()
-    .valid("eMoney", "cashOnDelivery")
-    .required()
-    .messages({
-      "string.empty": "Payment method is required.",
-      "any.only": 'Payment method must be either "eMoney" or "cashOnDelivery".',
-    }),
-
-  eMoneyNumber: Joi.string()
-    .length(12)
-    .when("paymentMethod", {
-      is: "eMoney",
-      then: Joi.required(),
-      otherwise: Joi.string().allow("").optional(),
-    })
-    .messages({
-      "string.empty": "eMoney number is required for eMoney payment.",
-      "string.length": "eMoney number must be exactly 12 characters.",
-    }),
-
-  eMoneyPIN: Joi.string()
-    .length(4)
-    .when("paymentMethod", {
-      is: "eMoney",
-      then: Joi.required(),
-      otherwise: Joi.string().allow("").optional(),
-    })
-    .messages({
-      "string.empty": "eMoney PIN is required for eMoney payment.",
-      "string.length": "eMoney PIN must be exactly 4 characters.",
-    }),
-});
 
 app.get("/:category", async (req, res) => {
   const { category } = req.params;
@@ -104,15 +30,9 @@ app.get("/product/:slug", async (req, res) => {
   res.json({ data });
 });
 
-app.post("/cart", async (req, res) => {
-  const { slug, count } = req.body;
-  const { name, image, category, price } = await Product.findOne({ slug });
-  res.send({ status: 200, name, image, category, price });
-});
-
 app.post("/submit", async (req, res) => {
   console.log("Inside Submit");
-  const data = await formSchema.validate(req.body, {abortEarly: false});
+  const data = await formSchema.validate(req.body, { abortEarly: false });
   console.log(data);
   if (data.error) {
     return res.status(400).json({ error: data.error });

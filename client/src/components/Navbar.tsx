@@ -4,11 +4,11 @@ import { Link, NavLink } from "react-router-dom";
 import cart from "../assets/shared/desktop/icon-cart.svg";
 import logo from "../assets/shared/desktop/logo.svg";
 import hamburger from "../assets/shared/tablet/icon-hamburger.svg";
+import { CartContext } from "../store/ShoppingCartContext";
 import Cart from "./Cart";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import "./hoverAnimation.css";
-import { CartContext } from "../store/ShoppingCartContext";
 
 const activeStyles = {
   textDecoration: "underline",
@@ -16,10 +16,11 @@ const activeStyles = {
   textDecorationThickness: "1.5px",
 };
 const Navbar = () => {
-  const {cartData} = useContext(CartContext);
+  const { cartData } = useContext(CartContext);
   const [toggle, setToggle] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   // console.log(user, isAuthenticated);
   return (
     <div className="bg-black flex justify-center items-center px-6 sm:px-16 sticky top-0 z-50">
@@ -108,7 +109,8 @@ const Navbar = () => {
                 <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
               )}
             </div>
-            {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+            {!isAuthenticated && <LoginButton />}
+            {isAuthenticated && <LogoutButton />}
           </div>
         </div>
         <div

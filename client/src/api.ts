@@ -45,7 +45,6 @@ export async function postCheckoutData(values: CheckoutFormData) {
       body: JSON.stringify(values),
     });
     const data = await response.json();
-    console.log(data);
     if (!response.ok) {
       const messages = data.error.details.map((detail: {message: string}) => detail.message);
       return { success: false, messages : messages } as ActionData;

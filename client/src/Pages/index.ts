@@ -4,6 +4,7 @@ import ProductDetails, {
   loader as productDetailsLoader,
 } from "./ProductDetails/ProductDetails";
 import Products, {loader as productsLoader} from "./Product/Products"
+import Callback from "./Callback/Callback";
 export {
   Checkout,
   checkoutAction,
@@ -12,4 +13,5 @@ export {
   productDetailsLoader,
   Products,
   productsLoader,
+  Callback
 };

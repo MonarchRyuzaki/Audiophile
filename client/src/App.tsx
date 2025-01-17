@@ -1,11 +1,14 @@
 import {
   Route,
   RouterProvider,
+  Routes,
   createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
 import { MainLayout, ProductListLayout } from "./Layouts";
 import {
+  Callback,
   Checkout,
   Home,
   ProductDetails,
@@ -18,7 +21,7 @@ import { AuthenticationGuard, Error, NotFound } from "./components";
 
 // to preserve state between two pages we can use search params url se search params lelo
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   // we need to use this instead of <HashRouter> for data layer apis
   createRoutesFromElements(
     // we need to use this instead of <Routes> for data layer apis
@@ -26,10 +29,10 @@ const router = createHashRouter(
       path="/"
       element={<MainLayout />} // loaders can be async
       errorElement={<Error />} // handles any sort of error that happens in the element (loader or the element)
-      >
+    >
       <Route index element={<Home />} />
       <Route element={<ProductListLayout />}>
-         <Route
+        <Route
           path=":productCategory"
           element={<Products />}
           loader={productsLoader} // fetches the data vefore we can visit the route if we use defer then we use suspense and await to show loading states and do things
@@ -54,6 +57,7 @@ const router = createHashRouter(
       {/* This is because loaders run in parallel and will run even before we enter the page. The route and its children ka loader will happen parallely*/}
       {/* We need to check in if the user is logged in every loader inside a route to prevent unauthorized access if we dont use auth0
       and use redirect to go to login page */}
+      <Route path="callback" element={<Callback />} errorElement={<Error />} />
       <Route path="*" element={<NotFound />} errorElement={<Error />} />
       {/* Catch all route */}
     </Route>

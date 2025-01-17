@@ -14,7 +14,6 @@ const Hero = ({ data }: { data: Product }) => {
     );
   }
   const handleClick = async () => {
-    console.log("onClick");
     if (parseInt(itemCountRef.current.value) < 1) return;
     const item: CartItem = {
       slug: data.slug,
