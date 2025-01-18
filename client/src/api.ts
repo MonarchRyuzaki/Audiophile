@@ -30,12 +30,13 @@ export async function getProductDetails(slug: string) {
   } as FetchError;
 }
 
-export async function postCheckoutData(values: CheckoutFormData) {
+export async function postCheckoutData(acceessToken: string, values: CheckoutFormData) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/order/submit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${acceessToken}`,
       },
       body: JSON.stringify(values),
     });

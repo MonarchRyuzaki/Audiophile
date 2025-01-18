@@ -46,9 +46,15 @@ export interface LoaderData {
     productPromise?: Promise<Product>
   }
 
+export interface CheckoutFormCartData {
+  slug: string; 
+  name: string; 
+  price: number; 
+  quantity: number
+}  
+
 export interface CheckoutFormData {
   name: string;
-  email: string;
   phoneNumber: string;
   address: string;
   zip: string;
@@ -57,6 +63,8 @@ export interface CheckoutFormData {
   eMoneyNumber: string;
   eMoneyPIN: string;
   paymentMethod: string;
+  totalAmount: number;
+  cartData: CheckoutFormCartData[];
 }
 
 export interface ActionData {

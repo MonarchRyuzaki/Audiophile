@@ -2,9 +2,6 @@ import * as Yup from "yup";
 
 export const formValidationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
     phoneNumber: Yup.string()
       .min(12, "Invalid Phone Number")
       .max(14, "Invalid Phone Number")
@@ -30,4 +27,13 @@ export const formValidationSchema = Yup.object({
       otherwise: () => Yup.string(),
     }),
     paymentMethod: Yup.string().required("Payment mode is required"),
+    totalAmount: Yup.number().required("Total amount is required"),
+    cartData: Yup.array().of(
+      Yup.object({
+        slug: Yup.string().required("Slug is required"),
+        name: Yup.string().required("Name is required"),
+        price: Yup.number().required("Price is required"),
+        quantity: Yup.number().required("Quantity is required"),
+      })
+    ),
   })

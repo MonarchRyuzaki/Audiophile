@@ -1,9 +1,15 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
 import { useContext, useEffect } from "react";
 import { ActionFunctionArgs, useActionData, useSubmit } from "react-router-dom";
 import { postCheckoutData } from "../../api";
 import { CartContext } from "../../store/ShoppingCartContext";
-import { ActionData, CheckoutFormData } from "../../types";
+import {
+  ActionData,
+  CartItem,
+  CheckoutFormCartData,
+  CheckoutFormData,
+} from "../../types";
 import {
   BillingDetails,
   PaymentDetails,
@@ -19,7 +25,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const values = Object.fromEntries(formData.entries());
   const checkoutData: CheckoutFormData = {
     name: values.name as string,
-    email: values.email as string,
     phoneNumber: values.phoneNumber as string,
     address: values.address as string,
     zip: values.zip as string,
@@ -28,13 +33,14 @@ export async function action({ request }: ActionFunctionArgs) {
     eMoneyNumber: values.eMoneyNumber as string,
     eMoneyPIN: values.eMoneyPIN as string,
     paymentMethod: values.paymentMethod as string,
+    totalAmount: parseFloat(values.totalAmount as string),
+    cartData: JSON.parse(values.cartData as string),
   };
-  return await postCheckoutData(checkoutData);
+  return await postCheckoutData(values.accessToken as string, checkoutData);
 }
 
 const initialFormValues: CheckoutFormData = {
   name: "",
-  email: "",
   phoneNumber: "",
   address: "",
   zip: "",
@@ -43,13 +49,20 @@ const initialFormValues: CheckoutFormData = {
   eMoneyNumber: "",
   eMoneyPIN: "",
   paymentMethod: "eMoney",
+  totalAmount: 0,
+  cartData: [],
 };
 
 const Checkout = () => {
   const submit = useSubmit();
   const actionData = useActionData() as ActionData;
   const showThankYou = actionData?.success;
-  const { onRemoveAllItems, onToggleCart } = useContext(CartContext);
+  const {
+    cartData: state,
+    onRemoveAllItems,
+    onToggleCart,
+  } = useContext(CartContext);
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     document.querySelector("body")!.style.overflow = "auto";
@@ -63,6 +76,16 @@ const Checkout = () => {
       Object.entries(values).forEach(([key, value]) => {
         formData.append(key, value);
       });
+      formData.append("totalAmount", state.total.toString());
+      const cartData = state.items.map((item: CartItem) => ({
+        slug: item.slug,
+        name: item.name,
+        price: item.price,
+        quantity: item.count,
+      })) as CheckoutFormCartData[];
+      formData.append("cartData", JSON.stringify(cartData));
+      const accessToken = await getAccessTokenSilently();
+      formData.append("accessToken", accessToken);
       submit(formData, { method: "post" });
       onToggleCart();
       onRemoveAllItems(true, false);

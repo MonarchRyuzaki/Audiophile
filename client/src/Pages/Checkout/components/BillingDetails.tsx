@@ -1,7 +1,11 @@
-import { FormikProps } from 'formik';
-import { CheckoutFormData } from '../../../types';
+import { FormikProps } from "formik";
+import { CheckoutFormData } from "../../../types";
 
-const BillingDetails = ({ formik }: { formik: FormikProps<CheckoutFormData> }) => {
+const BillingDetails = ({
+  formik,
+}: {
+  formik: FormikProps<CheckoutFormData>;
+}) => {
   return (
     <div>
       <div className="uppercase font-bold text-sm tracking-wide text-orange my-6">
@@ -37,37 +41,6 @@ const BillingDetails = ({ formik }: { formik: FormikProps<CheckoutFormData> }) =
               }`}
               onChange={formik.handleChange}
               value={formik.values.name}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="email"
-              className="text-sm font-bold text-black flex my-2 justify-between"
-            >
-              <div
-                className={`${
-                  formik.errors.email && formik.touched.email && "text-red-500"
-                }`}
-              >
-                Email Address
-              </div>
-              {formik.errors.email && formik.touched.email && (
-                <div className="text-red-500">{formik.errors.email}</div>
-              )}
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="alexei@mail.com"
-              className={`border-2 px-4 py-2 rounded-lg  w-full  focus:border-orange focus:ring-orange ${
-                formik.errors.email && formik.touched.email
-                  ? "border-red-500"
-                  : "border-lightGray"
-              }`}
-              onChange={formik.handleChange}
-              value={formik.values.email}
               onBlur={formik.handleBlur}
             />
           </div>

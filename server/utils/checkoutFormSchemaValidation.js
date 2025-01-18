@@ -66,4 +66,25 @@ export const formSchema = Joi.object({
         "string.empty": "eMoney PIN is required for eMoney payment.",
         "string.length": "eMoney PIN must be exactly 4 characters.",
       }),
+  
+    totalAmount: Joi.number().required().messages({
+      "string.empty": "Total amount is required.",
+    }),
+  
+    cartData: Joi.array().items(
+      Joi.object({
+        slug: Joi.string().required().messages({
+          "string.empty": "Slug is required.",
+        }),
+        name: Joi.string().required().messages({
+          "string.empty": "Name is required.",
+        }),
+        price: Joi.number().required().messages({
+          "string.empty": "Price is required.",
+        }),
+        quantity: Joi.number().required().messages({
+          "string.empty": "Quantity is required.",
+        }),
+      })  
+    ),
   });
