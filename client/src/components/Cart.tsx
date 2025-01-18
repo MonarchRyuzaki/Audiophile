@@ -9,9 +9,12 @@ const Cart = ({
   isCartVisible: boolean;
   setIsCartVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { cartData, onRemoveAllItems, onUpdateCartItemQuantity } =
-    useContext(CartContext);
-
+  const {
+    cartData: data,
+    onRemoveAllItems,
+    onUpdateCartItemQuantity,
+  } = useContext(CartContext);
+  const cartData = (data.showCart && data) || { items: [], total: 0 };
   useEffect(() => {
     if (isCartVisible) {
       document.body.style.overflow = "hidden";
@@ -74,7 +77,7 @@ const Cart = ({
                 </h3>
                 <button
                   className="font-normal text-sm underline"
-                  onClick={() => onRemoveAllItems(true)}
+                  onClick={() => onRemoveAllItems(true, true)}
                 >
                   Remove All
                 </button>

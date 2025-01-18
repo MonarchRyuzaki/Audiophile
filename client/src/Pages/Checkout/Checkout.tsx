@@ -1,8 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { ActionFunctionArgs, useActionData, useSubmit } from "react-router-dom";
 import { postCheckoutData } from "../../api";
+import { CartContext } from "../../store/ShoppingCartContext";
 import { ActionData, CheckoutFormData } from "../../types";
 import {
   BillingDetails,
@@ -49,12 +49,11 @@ const Checkout = () => {
   const submit = useSubmit();
   const actionData = useActionData() as ActionData;
   const showThankYou = actionData?.success;
+  const { onRemoveAllItems, onToggleCart } = useContext(CartContext);
 
   useEffect(() => {
     document.querySelector("body")!.style.overflow = "auto";
   });
-  const { user } = useAuth0();
-  const { name, email } = { ...user };
 
   const formik = useFormik<CheckoutFormData>({
     initialValues: initialFormValues,
@@ -65,6 +64,8 @@ const Checkout = () => {
         formData.append(key, value);
       });
       submit(formData, { method: "post" });
+      onToggleCart();
+      onRemoveAllItems(true, false);
     },
     validationSchema: formValidationSchema,
   });
@@ -101,12 +102,12 @@ const Checkout = () => {
             <div
               className={`bg-white h-fit px-10 py-10 w-full lg:w-1/3 mb-20 lg:mb-0`}
             >
-              <Summary />
+              <Summary key={showThankYou?.toString()} />
             </div>
           </div>
         </form>
       </div>
-      <ThankYou showModal={showThankYou} />
+      {showThankYou && <ThankYou showModal={showThankYou} />}
     </div>
   );
 };

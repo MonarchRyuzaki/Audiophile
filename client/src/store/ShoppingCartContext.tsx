@@ -11,6 +11,7 @@ import { CartItem } from "../types";
 interface CartDataType {
   items: CartItem[];
   total: number;
+  showCart?: boolean;
 }
 
 interface CartContextType {
@@ -18,20 +19,23 @@ interface CartContextType {
   onAddToCart: (item: CartItem) => void;
   onUpdateCartItemQuantity: (item: CartItem, change: number) => void;
   onRemoveItem: (item: CartItem) => void;
-  onRemoveAllItems: (removeFromDB: boolean) => void;
+  onRemoveAllItems: (removeFromDB: boolean, removeFromState: boolean) => void;
+  onToggleCart: () => void;
 }
 
 export const CartContext = createContext<CartContextType>({
-  cartData: { items: [], total: 0 },
+  cartData: { items: [], total: 0, showCart: false },
   onAddToCart: (item) => {},
   onUpdateCartItemQuantity: (item) => {},
   onRemoveItem: (item) => {},
-  onRemoveAllItems: (removeFromDB) => {},
+  onRemoveAllItems: (removeFromDB, removeFromState) => {},
+  onToggleCart: () => {},
 });
 
 const initialState: CartDataType = {
   items: [],
   total: 0,
+  showCart: true,
 };
 
 type CartActionType =
@@ -41,6 +45,7 @@ type CartActionType =
       type: "UPDATE_CART_ITEM_QUANTITY";
       payload: { slug: string; change: number };
     }
+  | { type: "TOGGLE_CART" }
   | { type: "REMOVE_ITEM"; payload: CartItem }
   | { type: "REMOVE_ALL_ITEMS" };
 
@@ -51,7 +56,10 @@ function cartReducer(
   switch (action.type) {
     case "SET_CART_ITEMS": {
       const { items, total } = action.payload;
-      return { items, total };
+      return { items, total, showCart: true };
+    }
+    case "TOGGLE_CART": {
+      return { ...state, showCart: !state.showCart };
     }
     case "ADD_TO_CART": {
       const { slug, name, count, image, category, price } = action.payload;
@@ -65,6 +73,7 @@ function cartReducer(
             item.slug === slug ? { ...item, count: item.count + count } : item
           ),
           total: state.total + price * count,
+          showCart: state.showCart,
         };
         return updatedState;
       }
@@ -72,6 +81,7 @@ function cartReducer(
       const updatedState = {
         items: [...state.items, { slug, name, count, image, category, price }],
         total: state.total + price * count,
+        showCart: state.showCart,
       };
       return updatedState;
     }
@@ -98,6 +108,7 @@ function cartReducer(
       const updatedState = {
         items: updatedItems,
         total: updatedTotal,
+        showCart: state.showCart,
       };
       return updatedState;
     }
@@ -105,6 +116,7 @@ function cartReducer(
       const updatedState = {
         items: state.items.filter((item) => item.slug !== action.payload.slug),
         total: state.total - action.payload.price * action.payload.count,
+        showCart: state.showCart,
       };
       return updatedState;
     }
@@ -172,9 +184,16 @@ export default function CartContextProvider({
     dispatch({ type: "REMOVE_ITEM", payload: item });
   }
 
-  async function onRemoveAllItems(removeFromDB: boolean = false) {
+  function onToggleCart() {
+    dispatch({ type: "TOGGLE_CART" });
+  }
+
+  async function onRemoveAllItems(
+    removeFromDB: boolean = false,
+    removeFromState: boolean
+  ) {
     const backupItems = state;
-    dispatch({ type: "REMOVE_ALL_ITEMS" });
+    if (removeFromState) dispatch({ type: "REMOVE_ALL_ITEMS" });
     if (removeFromDB) {
       const accessToken = await getAccessTokenSilently();
       const res = await onClearingCart(accessToken);
@@ -190,6 +209,7 @@ export default function CartContextProvider({
     onUpdateCartItemQuantity,
     onRemoveItem,
     onRemoveAllItems,
+    onToggleCart,
   };
 
   return (

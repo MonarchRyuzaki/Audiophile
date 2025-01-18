@@ -85,9 +85,9 @@ export async function onAddToCartItems(accessToken: string, item: CartItem) {
     });
     const resData = await response.json();
     if (!response.ok) {
-      return {success: false, message: resData.message}
+      return {success: false, message: resData.message} as {success: boolean, message: string}
     }
-    return {success: true, message: resData.message}
+    return {success: true, message: resData.message} as {success: boolean, message: string}
   } catch (error) {
     console.error("Error fetching cart items:", error);
   }
@@ -105,9 +105,9 @@ export async function onUpdateItemQuantity(accessToken: string, item: CartItem, 
     });
     const resData = await response.json();
     if (!response.ok) {
-      return {success: false, message: resData.message}
+      return {success: false, message: resData.message} as {success: boolean, message: string}
     }
-    return {success: true, message: resData.message}
+    return {success: true, message: resData.message} as {success: boolean, message: string}
   } catch (error) {
     console.error("Error fetching cart items:", error);
   }
@@ -123,9 +123,9 @@ export async function onClearingCart(accessToken: string) {
     });
     const resData = await response.json();
     if (!response.ok) {
-      return {success: false, message: resData.message}
+      return {success: false, message: resData.message} as {success: boolean, message: string}
     }
-    return {success: true, message: resData.message}
+    return {success: true, message: resData.message} as {success: boolean, message: string}
   } catch (error) {
     console.error("Error fetching cart items:", error);
   }

@@ -1,13 +1,15 @@
 import { useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../../../store/ShoppingCartContext";
-import { Link } from "react-router-dom";
 
 function ThankYou({ showModal }: { showModal: boolean }) {
-  const { cartData, onRemoveAllItems } = useContext(CartContext);
+  const { cartData, onRemoveAllItems, onToggleCart } = useContext(CartContext);
+  const vat = Math.round(0.2 * cartData.total);
+  const shipping = cartData.items.length > 0 ? 50 : 0;
+  const navigate = useNavigate();
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-
     if (showModal) {
       ref.current!.showModal();
     } else {
@@ -15,7 +17,9 @@ function ThankYou({ showModal }: { showModal: boolean }) {
     }
   }, [showModal]);
   const handleConfirm = () => {
-    onRemoveAllItems(true);
+    onToggleCart();
+    onRemoveAllItems(false, true);
+    navigate("/");
   };
   return createPortal(
     <dialog
@@ -38,11 +42,7 @@ function ThankYou({ showModal }: { showModal: boolean }) {
             } px-4 flex-1 flex flex-col gap-3 w-full`}
           >
             <div className="flex justify-between lg:flex-row items-center gap-3">
-              <img
-                src={cartData.items[0].image}
-                className="w-[60px]"
-                alt=""
-              />
+              <img src={cartData.items[0].image} className="w-[60px]" alt="" />
               <div className="flex flex-col justify-center">
                 <div className="text-md font-semibold">
                   {cartData.items[0].name}
@@ -65,7 +65,9 @@ function ThankYou({ showModal }: { showModal: boolean }) {
           </div>
           <div className="bg-black rounded-md py-9 px-4 flex-1 w-full">
             <div className="text-gray mb-2 text-md ">GRAND TOTAL</div>
-            <div className="text-primary mb-2 text-lg ">$ {cartData.total}</div>
+            <div className="text-primary mb-2 text-lg ">
+              $ {cartData.total + shipping + vat}
+            </div>
           </div>
         </div>
         <Link

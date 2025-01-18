@@ -6,7 +6,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
   const { onRemoveAllItems } = useContext(CartContext);
   const handleClick = () => {
-    onRemoveAllItems(false);
+    onRemoveAllItems(false, true);
     logout({ logoutParams: { returnTo: window.location.origin } });
   };
   return (

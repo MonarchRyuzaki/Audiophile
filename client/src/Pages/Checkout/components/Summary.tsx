@@ -13,6 +13,7 @@ const Summary = () => {
   const shipping = data.length > 0 ? 50 : 0;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const buttonText = data.length === 0 ? "Cart is Empty" : "Place Order";
   return (
     <div className="flex flex-col">
       <h1 className="font-bold uppercase text-xl tracking-wider mb-5">
@@ -59,12 +60,13 @@ const Summary = () => {
         </div>
       </div>
       <button
-        className="bg-orange w-full mt-4 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80"
+        className={`bg-orange ${
+          isSubmitting || data.length === 0 ? "opacity-80" : ""
+        } w-full mt-4 uppercase text-primary tracking-wide font-semibold text-md py-3 hover:bg-opacity-80`}
         type="submit"
         disabled={data.length === 0 || isSubmitting}
       >
-        {data.length === 0 && "Cart is Empty"}
-        {isSubmitting ? "Submitting..." : "Place Order"}
+        {isSubmitting ? "Submitting..." : buttonText}
       </button>
       {actionData?.success === false && <FormErrorDetails />}
     </div>

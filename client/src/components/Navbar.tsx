@@ -82,7 +82,7 @@ const Navbar = () => {
               className="cursor-pointer"
               onClick={() => setIsCartVisible((curr) => !curr)}
             />
-            {cartData.items.length > 0 && (
+            {cartData.showCart && cartData.items.length > 0 && (
               <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
             )}
           </div>
@@ -105,7 +105,7 @@ const Navbar = () => {
                 className="cursor-pointer"
                 onClick={() => setIsCartVisible((curr) => !curr)}
               />
-              {cartData.items.length > 0 && (
+              {cartData.showCart && cartData.items.length > 0 && (
                 <span className="w-[15px] h-[15px] rounded-full text-primary bg-red-600 absolute text-center bottom-4 left-4"></span>
               )}
             </div>
