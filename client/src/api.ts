@@ -96,12 +96,30 @@ export async function onAddToCartItems(accessToken: string, item: CartItem) {
 export async function onUpdateItemQuantity(accessToken: string, item: CartItem, change: number) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/cart/update-item-quantity`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({slug: item.slug, change: change})
+    });
+    const resData = await response.json();
+    if (!response.ok) {
+      return {success: false, message: resData.message}
+    }
+    return {success: true, message: resData.message}
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+  }
+}
+
+export async function onClearingCart(accessToken: string) {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/cart`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     const resData = await response.json();
     if (!response.ok) {

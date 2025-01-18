@@ -1,6 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useEffect, useReducer } from "react";
-import { getCartItems, onAddToCartItems, onUpdateItemQuantity } from "../api";
+import {
+  getCartItems,
+  onAddToCartItems,
+  onClearingCart,
+  onUpdateItemQuantity,
+} from "../api";
 import { CartItem } from "../types";
 
 interface CartDataType {
@@ -13,7 +18,7 @@ interface CartContextType {
   onAddToCart: (item: CartItem) => void;
   onUpdateCartItemQuantity: (item: CartItem, change: number) => void;
   onRemoveItem: (item: CartItem) => void;
-  onRemoveAllItems: () => void;
+  onRemoveAllItems: (removeFromDB: boolean) => void;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -21,7 +26,7 @@ export const CartContext = createContext<CartContextType>({
   onAddToCart: (item) => {},
   onUpdateCartItemQuantity: (item) => {},
   onRemoveItem: (item) => {},
-  onRemoveAllItems: () => {},
+  onRemoveAllItems: (removeFromDB) => {},
 });
 
 const initialState: CartDataType = {
@@ -153,7 +158,6 @@ export default function CartContextProvider({
       type: "UPDATE_CART_ITEM_QUANTITY",
       payload: { slug: item.slug, change: change },
     });
-    console.log("UPDATE");
     const accessToken = await getAccessTokenSilently();
     const res = await onUpdateItemQuantity(accessToken, item, change);
     if (!res?.success) {
@@ -168,8 +172,16 @@ export default function CartContextProvider({
     dispatch({ type: "REMOVE_ITEM", payload: item });
   }
 
-  function onRemoveAllItems() {
+  async function onRemoveAllItems(removeFromDB: boolean = false) {
+    const backupItems = state;
     dispatch({ type: "REMOVE_ALL_ITEMS" });
+    if (removeFromDB) {
+      const accessToken = await getAccessTokenSilently();
+      const res = await onClearingCart(accessToken);
+      if (!res?.success) {
+        dispatch({ type: "SET_CART_ITEMS", payload: backupItems });
+      }
+    }
   }
 
   const ctxValue = {

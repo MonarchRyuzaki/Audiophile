@@ -43,8 +43,9 @@ export const onAddToCart = async (req, res) => {
 export const getCart = async (req, res) => {
   const accessToken = req.auth.token;
   const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
-  const userCart = await UserCart.findOne({ email: userInfo.email });
-  res.json({ cartItems: userCart.cartData || [] });
+  const userEmail = userInfo.email;
+  const userCart = await UserCart.findOne({ email: userEmail });
+  res.json({ cartItems: userCart?.cartData || [] });
 };
 
 export const onUpdateItemQuantity = async (req, res) => {
@@ -54,7 +55,7 @@ export const onUpdateItemQuantity = async (req, res) => {
     if (!slug || !Number.isInteger(change)) {
       return res.status(400).json({ error: "Invalid request data" });
     }
-    
+
     const accessToken = req.auth.token;
     const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
     const userEmail = userInfo.email;
@@ -85,6 +86,25 @@ export const onUpdateItemQuantity = async (req, res) => {
     res
       .status(200)
       .json({ message: "Cart updated successfully", cart: userCart.cartData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const onClearingCart = async (req, res) => {
+  try {
+    const accessToken = req.auth.token;
+    const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
+    const userEmail = userInfo.email;
+
+    const result = await UserCart.findOneAndDelete({ email: userEmail });
+
+    if (!result) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+
+    res.status(200).json({ message: "Cart cleared successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

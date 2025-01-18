@@ -1,11 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import { CartContext } from "../store/ShoppingCartContext";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
+  const { onRemoveAllItems } = useContext(CartContext);
   const handleClick = () => {
-    localStorage.removeItem("cart");
+    onRemoveAllItems(false);
     logout({ logoutParams: { returnTo: window.location.origin } });
-  }
+  };
   return (
     <button
       onClick={handleClick}

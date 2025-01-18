@@ -74,7 +74,7 @@ const Cart = ({
                 </h3>
                 <button
                   className="font-normal text-sm underline"
-                  onClick={onRemoveAllItems}
+                  onClick={() => onRemoveAllItems(true)}
                 >
                   Remove All
                 </button>

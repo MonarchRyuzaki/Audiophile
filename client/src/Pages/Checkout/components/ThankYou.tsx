@@ -15,7 +15,7 @@ function ThankYou({ showModal }: { showModal: boolean }) {
     }
   }, [showModal]);
   const handleConfirm = () => {
-    onRemoveAllItems();
+    onRemoveAllItems(true);
   };
   return createPortal(
     <dialog
