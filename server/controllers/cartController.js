@@ -46,3 +46,47 @@ export const getCart = async (req, res) => {
   const userCart = await UserCart.findOne({ email: userInfo.email });
   res.json({ cartItems: userCart.cartData || [] });
 };
+
+export const onUpdateItemQuantity = async (req, res) => {
+  try {
+    const { slug, change } = req.body;
+
+    if (!slug || !Number.isInteger(change)) {
+      return res.status(400).json({ error: "Invalid request data" });
+    }
+    
+    const accessToken = req.auth.token;
+    const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
+    const userEmail = userInfo.email;
+
+    const userCart = await UserCart.findOne({ email: userEmail });
+
+    if (!userCart) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+
+    const itemIndex = userCart.cartData.findIndex((item) => item.slug === slug);
+
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: "Item not found in cart" });
+    }
+
+    const currentItem = userCart.cartData[itemIndex];
+    const newCount = currentItem.count + change;
+
+    if (newCount < 1) {
+      userCart.cartData.splice(itemIndex, 1);
+    } else {
+      userCart.cartData[itemIndex].count = newCount;
+    }
+
+    await userCart.save();
+
+    res
+      .status(200)
+      .json({ message: "Cart updated successfully", cart: userCart.cartData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

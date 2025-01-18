@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useEffect, useReducer } from "react";
-import { getCartItems, onAddToCartItems } from "../api";
+import { getCartItems, onAddToCartItems, onUpdateItemQuantity } from "../api";
 import { CartItem } from "../types";
 
 interface CartDataType {
@@ -140,9 +140,7 @@ export default function CartContextProvider({
   }, [isAuthenticated, getAccessTokenSilently]);
 
   async function onAddToCart(item: CartItem) {
-    console.log("ADD");
     dispatch({ type: "ADD_TO_CART", payload: item });
-    console.log("Dispatched Item\n",item);
     const accessToken = await getAccessTokenSilently();
     const res = await onAddToCartItems(accessToken, item);
     if (!res?.success) {
@@ -150,11 +148,20 @@ export default function CartContextProvider({
     }
   }
 
-  function onUpdateCartItemQuantity(item: CartItem, change: number) {
+  async function onUpdateCartItemQuantity(item: CartItem, change: number) {
     dispatch({
       type: "UPDATE_CART_ITEM_QUANTITY",
       payload: { slug: item.slug, change: change },
     });
+    console.log("UPDATE");
+    const accessToken = await getAccessTokenSilently();
+    const res = await onUpdateItemQuantity(accessToken, item, change);
+    if (!res?.success) {
+      dispatch({
+        type: "UPDATE_CART_ITEM_QUANTITY",
+        payload: { slug: item.slug, change: -change },
+      });
+    }
   }
 
   function onRemoveItem(item: CartItem) {
