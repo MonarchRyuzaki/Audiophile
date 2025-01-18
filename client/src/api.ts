@@ -4,13 +4,13 @@ export async function getProduct(category: string) {
   const response = await fetch(
     `${import.meta.env.VITE_API_SERVER_URL}/product/category/${category}`
   );
+  const res = await response.json();
   if (response.ok) {
-    const res = await response.json();
     return res.data as Product[];
   }
   throw {
-    message: "Failed to fetch data",
-    status: response.status,
+    message: res.error,
+    status: res.status,
     text: response.statusText,
   } as FetchError;
 }
@@ -19,13 +19,13 @@ export async function getProductDetails(slug: string) {
   const response = await fetch(
     `${import.meta.env.VITE_API_SERVER_URL}/product/${slug}`
   );
+  const res = await response.json();
   if (response.ok) {
-    const res = await response.json();
     return res.data as Product;
   }
   throw {
-    message: "Failed to fetch data",
-    status: response.status,
+    message: res.error,
+    status: res.status,
     text: response.statusText,
   } as FetchError;
 }
