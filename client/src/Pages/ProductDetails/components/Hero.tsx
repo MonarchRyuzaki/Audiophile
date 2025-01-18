@@ -93,27 +93,10 @@ const Hero = ({ data }: { data: Product }) => {
               <button
                 className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
                 type="submit"
-                onClick={handleClick}
+                onClick={() => isAuthenticated ? handleClick() : loginWithRedirect()}
               >
                 ADD TO CART
               </button>
-              {/* {isAuthenticated ? (
-                <button
-                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-                  type="submit"
-                  onClick={handleClick}
-                >
-                  ADD TO CART
-                </button>
-              ) : (
-                <button
-                  onClick={() => loginWithRedirect()}
-                  className={`uppercase bg-orange text-primary text-[.8125rem] px-8 py-4 hover:opacity-[89%] transition duration-300 ease-in-out`}
-                  type="submit"
-                >
-                  ADD TO CART
-                </button>
-              )} */}
             </div>
           </div>
         </div>

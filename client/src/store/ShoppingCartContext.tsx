@@ -1,4 +1,6 @@
-import { createContext, useReducer } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { createContext, useEffect, useReducer } from "react";
+import { getCartItems, onAddToCartItems } from "../api";
 import { CartItem } from "../types";
 
 interface CartDataType {
@@ -29,6 +31,7 @@ const initialState: CartDataType = {
 
 type CartActionType =
   | { type: "ADD_TO_CART"; payload: CartItem }
+  | { type: "SET_CART_ITEMS"; payload: { items: CartItem[]; total: number } }
   | {
       type: "UPDATE_CART_ITEM_QUANTITY";
       payload: { slug: string; change: number };
@@ -41,6 +44,10 @@ function cartReducer(
   action: CartActionType
 ): CartDataType {
   switch (action.type) {
+    case "SET_CART_ITEMS": {
+      const { items, total } = action.payload;
+      return { items, total };
+    }
     case "ADD_TO_CART": {
       const { slug, name, count, image, category, price } = action.payload;
       const existingItemIndex = state.items.findIndex(
@@ -112,8 +119,35 @@ export default function CartContextProvider({
 }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  function onAddToCart(item: CartItem) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    async function getItems() {
+      if (isAuthenticated) {
+        const accessToken = await getAccessTokenSilently();
+        const cartData = await getCartItems(accessToken);
+        const total = cartData?.reduce(
+          (acc, item) => acc + item.price * item.count,
+          0
+        );
+        dispatch({
+          type: "SET_CART_ITEMS",
+          payload: { items: cartData || [], total: total || 0 },
+        });
+      }
+    }
+    getItems();
+  }, [isAuthenticated, getAccessTokenSilently]);
+
+  async function onAddToCart(item: CartItem) {
+    console.log("ADD");
     dispatch({ type: "ADD_TO_CART", payload: item });
+    console.log("Dispatched Item\n",item);
+    const accessToken = await getAccessTokenSilently();
+    const res = await onAddToCartItems(accessToken, item);
+    if (!res?.success) {
+      dispatch({ type: "REMOVE_ITEM", payload: item });
+    }
   }
 
   function onUpdateCartItemQuantity(item: CartItem, change: number) {

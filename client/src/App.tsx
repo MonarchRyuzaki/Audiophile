@@ -47,8 +47,7 @@ const router = createBrowserRouter(
       </Route>
       <Route
         path="checkout"
-        // element={<AuthenticationGuard component={Checkout} />}
-        element={<Checkout />}
+        element={<AuthenticationGuard component={Checkout} />}
         action={checkoutAction}
         errorElement={<Error />}
       />
