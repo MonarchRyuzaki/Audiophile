@@ -1,179 +1,169 @@
 # Frontend Mentor - Audiophile e-commerce website solution
 
-This is a solution to the [Audiophile e-commerce website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+This is a solution to the [Audiophile e-commerce website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx). Frontend Mentor challenges help you improve your coding skills by building realistic projects. It combines a modern frontend with a secure backend, showcasing advanced features like user authentication, persistent cart storage, and enhanced UX.
 
 ## Table of contents
 
-* [Overview](https://github.com/mbart13/audiophile-ecommerce-website#overview)
-  * [The challenge](https://github.com/mbart13/audiophile-ecommerce-website#the-challenge)
-  * [Links](https://github.com/mbart13/audiophile-ecommerce-website#links)
-  * [Setup](https://github.com/mbart13/audiophile-ecommerce-website#setup)
-* [My process](https://github.com/mbart13/audiophile-ecommerce-website#my-process)
-  * [Built with](https://github.com/mbart13/audiophile-ecommerce-website#built-with)
-  * [What I learned](https://github.com/mbart13/audiophile-ecommerce-website#what-i-learned)
-* [Author](https://github.com/mbart13/audiophile-ecommerce-website#author)
+* [Overview](#overview)
+* [Features](#features)
+* [Links](#links)
+* [Setup](#setup)
+* [Tech Stack](#tech-stack)
+* [What I Learned](#what-i-learned)
+* [Challenges Faced](#challenges-faced)
+* [Future Improvements](#future-improvements)
+* [Author](#author)
 
 ## Overview
 
-### The challenge
+The Audiophile e-commerce website is a responsive web application that provides an intuitive user experience for browsing, adding to cart, and completing purchases. The application integrates secure authentication, dynamic cart management tied to user accounts, and smooth interactions with real-time feedback.
 
-Users should be able to:
+## Features
 
-* View the optimal layout for the app depending on their device's screen size ✔️
-* See hover states for all interactive elements on the page ✔️
-* Add/Remove products from the cart ✔️
-* Edit product quantities in the cart ✔️
-* Fill in all fields in the checkout ✔️
-* Receive form validations if fields are missed or incorrect during checkout ✔️
-* See correct checkout totals depending on the products in the cart ✔️
-  * Shipping always adds $50 to the order ✔️
-  * VAT is calculated as 20% of the product total, excluding shipping ✔️
-* See an order confirmation modal after checking out with an order summary ✔️
-* **Bonus** : Keep track of what's in the cart, even after refreshing the browser (`localStorage` could be used for this if you're not building out a full-stack app) ✔️
+* Responsive design with a mobile-first approach.
+* User-specific cart storage fetched from the backend, ensuring persistence across sessions.
+* Form validation with meaningful error feedback using Formik and Yup.
+* Real-time notifications for user actions and events with  **React Toast** .
+* Secure authentication and authorization using Auth0.
+* Dynamic VAT and shipping calculations.
+* Order confirmation modal with a summary of purchased items.
 
-[![](https://github.com/mbart13/audiophile-ecommerce-website/raw/main/screenshot.png)](https://github.com/mbart13/audiophile-ecommerce-website/blob/main/screenshot.png)
+## Links
 
-### Links
+* **Live Demo** : [Audiophile E-commerce Website](https://audiophile-nu-murex.vercel.app)
+* **Frontend Repository** : [GitHub Repo](https://github.com/MonarchRyuzaki/Audiophile/tree/master/client)
+* **Backend Repository** : [GitHub Repo](https://github.com/MonarchRyuzaki/Audiophile/tree/master/server)
 
-[Live Site URL](https://audiophile-nu-murex.vercel.app/)
-
-### Setup
+## Setup
 
 To run this project locally:
 
-```
-cd ./client && npm install && npm run dev
-```
+1. Clone the repository:
 
-## My process
+   ```bash
+   git clone https://github.com/MonarchRyuzaki/Audiophile.git
+   ```
+2. Frontend Setup:
 
-### Built with
+   1. Navigate to the client directory
 
-* React
-* React Router DOM v6
-* Tailwind CSS
-* **Auth0** for authentication
-* **Express** (for backend API)
-* **MongoDB** (database)
-* Formik
-* Yup
-* Mobile-first workflow
+   ```bash
+   cd client
+   ```
 
-### What I learned
+   2. Install the required dependencies:
 
-#### React Router DOM
+   ```bash
+   npm install
+   ```
 
-In this project, React Router DOM has been seamlessly integrated to manage navigation within the application. This allows for a single-page application feel by dynamically updating the URL as the user interacts with different components.
+   3. Create a .env file in the client directory and add the following environment variables:
 
-**Loaders:**
-Loaders play a crucial role in managing asynchronous operations within the application. They enhance the user experience by providing feedback during data fetching, ensuring a smooth and responsive interface.
+   ```env
+   VITE_AUTH0_DOMAIN = "your-auth0-domain"
+   VITE_AUTH0_CLIENT_ID = "your-auth0-client-id"
+   VITE_AUTH0_CALLBACK_URL = "http://localhost:5173/callback"
+   VITE_AUTH0_AUDIENCE = "your-auth0-audience"
+   VITE_API_SERVER_URL = "http://localhost:8080"
+   ```
 
-**Actions:**
-While actions are not actively utilized in this project, they serve as a powerful tool for handling complex state changes. Future iterations of the project could explore incorporating actions to further streamline data management and enhance code modularity.
+   4. Start the development server:
 
-**Boilerplate Code Reduction**:
+   ```bash
+   npm run dev
+   ```
+3. Backend Setup:
 
-One of the notable advantages of using React Router DOM and the data layer API is the significant reduction in boilerplate code. This leads to cleaner and more maintainable code, making it easier for developers to understand and contribute to the project.
+   1. Navigate to the server directory
 
-**Benefits:**
+   ```bash
+   cd ../server
+   ```
 
-* **Enhanced Readability:** Reduced boilerplate code contributes to clearer and more readable components, improving the overall maintainability of the codebase.
-* **Development Efficiency:** With less boilerplate to manage, developers can focus more on implementing features and functionality rather than dealing with repetitive code structures.
+   2. Install the required dependencies:
 
-#### Authentication with Auth0
+   ```bash
+   npm install
+   ```
 
-Incorporating Auth0 provided secure authentication and authorization functionalities, ensuring seamless user authentication and access control within the Audiophile e-commerce website. Auth0's robust features enhanced user management capabilities and protected sensitive application data.
+   3. Create a .env file in the client directory and add the following environment variables:
 
-**Key Features:**
+   ```env
+   MONGODB_URL = "your-mongodb-url"
+   AUTH0_DOMAIN = "your-auth0-domain"
+   AUTH0_AUDIENCE = "your-auth0-audience"
+   CLIENT_URL = "http://localhost:5173"
+   ```
 
-* **Secure Authentication:** Auth0 supported various authentication methods, including social logins and passwordless authentication, ensuring secure user access.
-* **Authorization:** Implementing role-based access control (RBAC) with Auth0 allowed defining granular permissions for different user roles, enhancing application security.
-* **User Management:** Auth0 simplified user management tasks such as user registration, profile updates, and password resets, improving overall user experience and engagement.
+   4. Start the server:
 
-#### Backend Validation
+   ```bash
+   node index.js
+   ```
+4. Auth0 Setup:
 
-Implementing backend validation with Express and Joi ensured data integrity and security during form submissions, validating input data before processing within the Audiophile e-commerce website. This approach prevented invalid data from entering the application's database, maintaining data consistency and reliability.
+* Refer to the official [Auth0 documentation](https://auth0.com/docs) to learn how to set up and configure your Auth0 account.
+* You'll need to create an Auth0 application to obtain the AUTH0_DOMAIN and AUTH0_CLIENT_ID for the .env file.
 
-#### Formik
+5. Testing the Setup:
 
-In addition to React Router DOM and the data layer API, the project leverages Formik and Yup for efficient form handling, state management, and validation.
+  Once both frontend and backend are running, navigate to http://localhost:3000 in your browser. You should be able to:
 
-**Formik Integration:**
-Formik simplifies the often complex task of managing forms in React applications. By providing a set of intuitive APIs, Formik streamlines form state management, form submission, and error handling. This integration proves invaluable in creating a seamless user experience when dealing with various input forms within the application.
+* Add/remove products to/from the cart
+* Proceed with the checkout process
+* Complete authentication via Auth0
 
-**Key Aspects:**
+## Tech Stack
 
-* **Declarative Form Structure:** Formik allows for the creation of forms in a declarative manner, reducing the boilerplate associated with form implementation.
-* **Form State Management:** Efficiently manage form state, including values, errors, and submission status, making it easier to handle user inputs and interactions.
+* **Frontend** : React, React Router DOM v6, Tailwind CSS.
+* **Authentication** : Auth0.
+* **Backend** : Express.js, MongoDB, Joi.
+* **State Management** : React Context API.
+* **Form Handling** : Formik and Yup.
+* **Notifications** : React Toast for real-time feedback.
 
-**Yup for Form Validation:**
-Yup is employed for form validation, ensuring that data submitted through forms adheres to specific criteria. This enhances the reliability of the application by preventing invalid or inconsistent data from being processed.
+## What I learned
 
-**Validation Features:**
+#### Persistent Cart Storage
 
-* **Schema-based Validation:** Define validation rules using Yup schemas, enabling a clear and concise representation of the expected form data structure.
-* **Error Messaging:** Formik and Yup work seamlessly together to provide meaningful error messages to users, improving the overall user experience.
+* The cart is dynamically stored in the backend database and is user-specific. This ensures that even if the user logs out or refreshes the page, their cart data is preserved across sessions.
 
-**Simplifying Form Workflows**
+#### Secure Authentication
 
-The combined use of Formik and Yup significantly eases the process of working with forms, from state management to validation. This not only reduces development time but also enhances the robustness of form interactions in the application.
+* Implemented secure user authentication and authorization using Auth0, with role-based access control (RBAC) to manage user-specific actions and permissions.
 
-**Benefits:**
+#### Real-Time Feedback with React Toast
 
-* **Efficient Error Handling:** Formik and Yup contribute to efficient error handling by providing clear feedback to users, guiding them through the form submission process.
-* **Modular Form Components:** Formik's modular approach allows for the creation of reusable form components, promoting code reusability and maintainability.
+* Integrated React Toast for dynamic notifications, enhancing UX by providing clear and immediate feedback for user actions such as adding items to the cart, completing a purchase, or encountering errors.
 
-```javascript
-const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      phoneNumber: "",
-      address: "",
-      zip: "",
-      city: "",
-      country: "",
-      eMoneyNumber: "",
-      eMoneyPIN: "",
-      paymentMethod: "",
-    },
+#### Simplified Forms
 
-    onSubmit: () => {
-      // Function for backend Validation
-      setSubmit("true");
-    },
+* Leveraged Formik and Yup for declarative form creation, efficient validation, and error management.
 
-    validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      phoneNumber: Yup.string()
-        .min(12, "Invalid Phone Number")
-        .max(14, "Invalid Phone Number")
-        .required("Phone number is required"),
-      address: Yup.string().required("Address is required"),
-      zip: Yup.number().required("Zip Code is required"),
-      city: Yup.string().required("City is required"),
-      country: Yup.string().required("Country is required"),
-      eMoneyNumber: Yup.string().when("paymentMethod", {
-        is: "eMoney",
-        then: () => Yup.string()
-          .required("Field is required")
-          .length(12, "Invalid E-Money Number"),
-        otherwise: () => Yup.string(),
-      }),
-      eMoneyPIN: Yup.string().when("paymentMethod", {
-        is: "eMoney",
-        then: () => Yup.string()
-          .required("Field is required")
-          .length(4, "Invalid E-Money PIN"),
-        otherwise: () => Yup.string(),
-      }),
-      paymentMethod: Yup.string().required("Payment mode is required"),
-    }),
-  })
-```
+## **Challenges Faced**
+
+1. **Backend-Frontend Synchronization** :
+
+* Managed persistent cart storage by integrating backend APIs to ensure data consistency.
+
+2. **Authentication Integration** :
+
+* Encountered challenges with configuring Auth0 for seamless authentication and role-based authorization.
+
+3. **CORS Errors in Production** :
+
+* Resolved CORS issues by correctly setting up headers in the backend for cross-origin requests.
+
+4. **Route Handling in Production** :
+
+* Added a `vercel.json` file to handle React Router routes in production without encountering 404 errors on page refresh.
+
+## **Future Improvements**
+
+* Introduce a search functionality for quicker product navigation.
+* Implement server-side rendering (SSR) with Next.js for improved SEO and performance.
+* Add admin functionality for managing products and orders.
+* Incorporate unit and integration testing with Jest and React Testing Library.
 
 ## Author
 
