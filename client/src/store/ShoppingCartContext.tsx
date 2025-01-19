@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useEffect, useReducer } from "react";
+import { Slide, toast } from "react-toastify";
 import {
   getCartItems,
   onAddToCartItems,
@@ -158,10 +159,12 @@ export default function CartContextProvider({
 
   async function onAddToCart(item: CartItem) {
     dispatch({ type: "ADD_TO_CART", payload: item });
+    toast.success(`${item.name} added to cart!`);
     const accessToken = await getAccessTokenSilently();
     const res = await onAddToCartItems(accessToken, item);
     if (!res?.success) {
       dispatch({ type: "REMOVE_ITEM", payload: item });
+      toast.error(`Failed to add ${item.name} to cart. Please try again.`);
     }
   }
 
@@ -177,6 +180,9 @@ export default function CartContextProvider({
         type: "UPDATE_CART_ITEM_QUANTITY",
         payload: { slug: item.slug, change: -change },
       });
+      toast.error(
+        `Failed to update quantity for ${item.name}. Please try again.`
+      );
     }
   }
 
