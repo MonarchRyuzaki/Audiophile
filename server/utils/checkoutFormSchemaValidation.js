@@ -36,11 +36,11 @@ export const formSchema = Joi.object({
     }),
   
     paymentMethod: Joi.string()
-      .valid("eMoney", "cashOnDelivery")
+      .valid("razorpay", "eMoney", "cashOnDelivery")
       .required()
       .messages({
         "string.empty": "Payment method is required.",
-        "any.only": 'Payment method must be either "eMoney" or "cashOnDelivery".',
+        "any.only": 'Payment method must be either "razorpay", "eMoney" or "cashOnDelivery".',
       }),
   
     eMoneyNumber: Joi.string()
