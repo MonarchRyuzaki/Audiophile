@@ -9,8 +9,6 @@ const checkoutSchema = new mongoose.Schema(
     zip: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },
-    eMoneyNumber: { type: String },
-    eMoneyPIN: { type: String },
     paymentMethod: { type: String, required: true },
     paymentStatus: {
       type: String,

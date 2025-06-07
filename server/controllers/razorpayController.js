@@ -1,13 +1,12 @@
-import Razorpay from 'razorpay';
-import crypto from 'crypto';
+import crypto from "crypto";
+import dotenv from "dotenv";
+import Razorpay from "razorpay";
 import Checkout from "../models/checkout.js";
 import UserCart from "../models/user_cart-data.js";
 import { getUserInfo } from "../utils/auth.js";
-import dotenv from 'dotenv';
+import { formSchema } from "../utils/checkoutFormSchemaValidation.js";
 dotenv.config();
-console.log("Razorpay Key ID:", process.env.RAZORPAY_KEY_ID);
-console.log("Razorpay Key Secret:", process.env.RAZORPAY_KEY_SECRET);
-// Ensure that the environment variables are loaded correctly
+
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -15,9 +14,18 @@ const razorpay = new Razorpay({
 
 export const createOrder = async (req, res) => {
   try {
-    const { amount, currency = 'INR', orderData } = req.body;
+    const { amount, currency = "USD", orderData } = req.body;
     const accessToken = req.auth.token;
     const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
+    const checkoutData = {
+      ...orderData,
+      email: userInfo.email,
+    };
+    const data = formSchema.validate(checkoutData, { abortEarly: false });
+    console.log(data.error);
+    if (data.error) {
+      return res.status(400).json({ error: data.error });
+    }
 
     const options = {
       amount: Math.round(amount * 100), // Convert to paise
@@ -27,16 +35,16 @@ export const createOrder = async (req, res) => {
     };
 
     const order = await razorpay.orders.create(options);
-    
+
     res.status(200).json({
       id: order.id,
       amount: order.amount,
       currency: order.currency,
-      userEmail: userInfo.email
+      userEmail: userInfo.email,
     });
   } catch (error) {
-    console.error('Error creating Razorpay order:', error);
-    res.status(500).json({ error: 'Failed to create order' });
+    console.error("Error creating Razorpay order:", error);
+    res.status(500).json({ error: "Failed to create order" });
   }
 };
 
@@ -46,7 +54,7 @@ export const verifyPayment = async (req, res) => {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      orderData
+      orderData,
     } = req.body;
 
     const accessToken = req.auth.token;
@@ -66,11 +74,11 @@ export const verifyPayment = async (req, res) => {
       const checkoutData = {
         ...orderData,
         email: userInfo.email,
-        paymentMethod: 'razorpay',
-        paymentStatus: 'paid',
+        paymentMethod: "razorpay",
+        paymentStatus: "paid",
         razorpayOrderId: razorpay_order_id,
         razorpayPaymentId: razorpay_payment_id,
-        razorpaySignature: razorpay_signature
+        razorpaySignature: razorpay_signature,
       };
 
       const newCheckout = new Checkout(checkoutData);
@@ -85,13 +93,13 @@ export const verifyPayment = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Payment verified and order placed successfully",
-        orderId: newCheckout._id
+        orderId: newCheckout._id,
       });
     } else {
       res.status(400).json({ error: "Payment verification failed" });
     }
   } catch (error) {
-    console.error('Payment verification error:', error);
+    console.error("Payment verification error:", error);
     res.status(500).json({ error: "Payment verification failed" });
   }
 };

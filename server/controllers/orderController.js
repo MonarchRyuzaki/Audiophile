@@ -14,8 +14,6 @@ export const onCheckout = async (req, res) => {
     const checkoutData = {
       ...formData,
       email: userEmail,
-      paymentStatus:
-        formData.paymentMethod === "cashOnDelivery" ? "pending" : "paid",
     };
 
     const data = formSchema.validate(checkoutData, { abortEarly: false });
