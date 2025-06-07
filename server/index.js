@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "https://audiophile-nu-murex.vercel.app", // Your frontend domain
+    origin: process.env.CLIENT_URL || "https://audiophile-nu-murex.vercel.app", //Your frontend domain
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
     credentials: true, // Allow cookies if needed
   })
