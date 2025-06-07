@@ -17,6 +17,7 @@
     "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
     "joi": "^17.13.3",
-    "mongoose": "^8.0.3"
+    "mongoose": "^8.0.3",
+    "razorpay": "^2.9.6"
   }
 }
