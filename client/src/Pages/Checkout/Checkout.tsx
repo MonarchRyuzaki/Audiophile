@@ -1,8 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useFormik } from "formik";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ActionFunctionArgs, useActionData, useSubmit } from "react-router-dom";
-import { postCheckoutData } from "../../api";
+import {
+  createRazorpayOrder,
+  loadRazorpayScript,
+  postCheckoutData,
+  verifyRazorpayPayment,
+} from "../../api";
 import { CartContext } from "../../store/ShoppingCartContext";
 import {
   ActionData,
@@ -20,9 +25,22 @@ import {
 import "./components/style.css";
 import { formValidationSchema } from "./utils";
 
+// Declare Razorpay global type
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const values = Object.fromEntries(formData.entries());
+
+  // Handle payment success from Razorpay
+  if (values.paymentSuccess === "true") {
+    return { success: true, message: "Payment successful" } as ActionData;
+  }
+
   const checkoutData: CheckoutFormData = {
     name: values.name as string,
     phoneNumber: values.phoneNumber as string,
@@ -30,13 +48,35 @@ export async function action({ request }: ActionFunctionArgs) {
     zip: values.zip as string,
     city: values.city as string,
     country: values.country as string,
-    eMoneyNumber: values.eMoneyNumber as string,
-    eMoneyPIN: values.eMoneyPIN as string,
     paymentMethod: values.paymentMethod as string,
     totalAmount: parseFloat(values.totalAmount as string),
     cartData: JSON.parse(values.cartData as string),
   };
-  return await postCheckoutData(values.accessToken as string, checkoutData);
+
+  if (checkoutData.paymentMethod === "razorpay") {
+    try {
+      const data = await createRazorpayOrder(
+        values.accessToken as string,
+        checkoutData
+      );
+      if (data.success) {
+        return {
+          success: true,
+          status: "order_created",
+          isRazorpayOrder: true,
+          orderData: data.order,
+          checkoutData: checkoutData,
+          accessToken: values.accessToken as string,
+        };
+      } else {
+        return data;
+      }
+    } catch (error) {
+      return { success: false, error: "Failed to create Razorpay order" };
+    }
+  } else {
+    return await postCheckoutData(values.accessToken as string, checkoutData);
+  }
 }
 
 const initialFormValues: CheckoutFormData = {
@@ -46,17 +86,22 @@ const initialFormValues: CheckoutFormData = {
   zip: "",
   city: "",
   country: "",
-  eMoneyNumber: "",
-  eMoneyPIN: "",
-  paymentMethod: "eMoney",
+  paymentMethod: "razorpay",
   totalAmount: 0,
   cartData: [],
 };
 
 const Checkout = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
   const submit = useSubmit();
-  const actionData = useActionData() as ActionData;
-  const showThankYou = actionData?.success;
+  const actionData = useActionData() as ActionData & {
+    isRazorpayOrder?: boolean;
+    orderData?: any;
+    checkoutData?: CheckoutFormData;
+    accessToken?: string;
+  };
+
+  const showThankYou = actionData?.message === "Payment successful" || actionData?.message === "Order placed successfully";
   const {
     cartData: state,
     onRemoveAllItems,
@@ -68,33 +113,125 @@ const Checkout = () => {
     document.querySelector("body")!.style.overflow = "auto";
   });
 
+  useEffect(() => {
+    if (actionData?.isRazorpayOrder && actionData.orderData) {
+      handleRazorpayPayment(actionData.orderData, actionData.checkoutData);
+    }
+    if (!actionData?.success) {
+      setIsProcessing(false);
+    }
+  }, [actionData]);
+
+  const handleRazorpayPayment = async (order: any, checkoutData: any) => {
+    const accessToken = await getAccessTokenSilently();
+    const res = await loadRazorpayScript();
+    if (!res) {
+      alert(
+        "Razorpay SDK failed to load. Please check your internet connection."
+      );
+      setIsProcessing(false);
+      return;
+    }
+
+    try {
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Audiophile",
+        description: "Purchase from Audiophile Store",
+        order_id: order.id,
+        handler: async (response: any) => {
+          try {
+            const result = await verifyRazorpayPayment(
+              accessToken,
+              response,
+              checkoutData
+            );
+            if (result.success) {
+              onRemoveAllItems(true, false);
+              onToggleCart();
+              const formData = new FormData();
+              formData.append("paymentSuccess", "true");
+              formData.append("accessToken", accessToken);
+              submit(formData, { method: "post" });
+            } else {
+              alert("Payment verification failed. Please contact support.");
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error);
+            alert("Payment verification failed. Please try again.");
+          } finally {
+            setIsProcessing(false);
+          }
+        },
+        prefill: {
+          name: `${checkoutData.name}`,
+          email: checkoutData.email,
+          contact: checkoutData.phoneNumber,
+        },
+        theme: {
+          color: "#D87D4A",
+        },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          },
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("Payment failed. Please try again.");
+      setIsProcessing(false);
+    }
+  };
+
   const formik = useFormik<CheckoutFormData>({
     initialValues: initialFormValues,
+    validationSchema: formValidationSchema,
 
     onSubmit: async (values) => {
-      const formData = new FormData();
-      Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-      formData.append("totalAmount", state.total.toString());
+      setIsProcessing(true);
+
       const cartData = state.items.map((item: CartItem) => ({
         slug: item.slug,
         name: item.name,
         price: item.price,
         quantity: item.count,
       })) as CheckoutFormCartData[];
-      formData.append("cartData", JSON.stringify(cartData));
-      const accessToken = await getAccessTokenSilently();
-      formData.append("accessToken", accessToken);
-      submit(formData, { method: "post" });
-      onToggleCart();
-      onRemoveAllItems(true, false);
+
+      try {
+        const formData = new FormData();
+        Object.entries(values).forEach(([key, value]) => {
+          formData.append(key, value);
+        });
+        formData.append("totalAmount", state.total.toString());
+        formData.append("cartData", JSON.stringify(cartData));
+        const accessToken = await getAccessTokenSilently();
+        formData.append("accessToken", accessToken);
+
+        submit(formData, { method: "post" });
+
+        // For cash on delivery, clear cart immediately
+        if (values.paymentMethod !== "razorpay") {
+          onToggleCart();
+          onRemoveAllItems(true, false);
+        }
+      } catch (error) {
+        console.error("Order error:", error);
+        setIsProcessing(false);
+        alert("Order failed. Please try again.");
+      }
     },
-    validationSchema: formValidationSchema,
   });
+
   const goBack = () => {
     window.history.back();
   };
+
   return (
     <div className="bg-lightGray min-h-[100vh] flex justify-center items-start px-6 sm:px-16">
       <div className="w-full xl:max-w-[1100px]">
@@ -107,9 +244,6 @@ const Checkout = () => {
           </div>
         </div>
         <form method="post" onSubmit={formik.handleSubmit}>
-          {" "}
-          {/* We are not using actions here so this is good for now but can be changed using action later*/}
-          {/* We can also use useNavigation hook to disable button when form is submitting */}
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-2/3 bg-white px-10 py-16 mb-10 lg:mb-20">
               <h1 className="font-bold uppercase text-3xl tracking-wider">
@@ -125,7 +259,10 @@ const Checkout = () => {
             <div
               className={`bg-white h-fit px-10 py-10 w-full lg:w-1/3 mb-20 lg:mb-0`}
             >
-              <Summary key={showThankYou?.toString()} />
+              <Summary
+                key={showThankYou?.toString()}
+                isProcessing={isProcessing}
+              />
             </div>
           </div>
         </form>

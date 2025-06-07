@@ -36,35 +36,11 @@ export const formSchema = Joi.object({
     }),
   
     paymentMethod: Joi.string()
-      .valid("eMoney", "cashOnDelivery")
+      .valid("razorpay", "cashOnDelivery")
       .required()
       .messages({
         "string.empty": "Payment method is required.",
-        "any.only": 'Payment method must be either "eMoney" or "cashOnDelivery".',
-      }),
-  
-    eMoneyNumber: Joi.string()
-      .length(12)
-      .when("paymentMethod", {
-        is: "eMoney",
-        then: Joi.required(),
-        otherwise: Joi.string().allow("").optional(),
-      })
-      .messages({
-        "string.empty": "eMoney number is required for eMoney payment.",
-        "string.length": "eMoney number must be exactly 12 characters.",
-      }),
-  
-    eMoneyPIN: Joi.string()
-      .length(4)
-      .when("paymentMethod", {
-        is: "eMoney",
-        then: Joi.required(),
-        otherwise: Joi.string().allow("").optional(),
-      })
-      .messages({
-        "string.empty": "eMoney PIN is required for eMoney payment.",
-        "string.length": "eMoney PIN must be exactly 4 characters.",
+        "any.only": 'Payment method must be either "razorpay" or "cashOnDelivery".',
       }),
   
     totalAmount: Joi.number().required().messages({

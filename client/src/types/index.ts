@@ -60,8 +60,6 @@ export interface CheckoutFormData {
   zip: string;
   city: string;
   country: string;
-  eMoneyNumber: string;
-  eMoneyPIN: string;
   paymentMethod: string;
   totalAmount: number;
   cartData: CheckoutFormCartData[];
@@ -71,4 +69,6 @@ export interface ActionData {
   success: boolean;
   messages?: string[];
   message?: string;
+  order?: any;
+  status?: string;
 }

@@ -4,7 +4,7 @@ import { CartContext } from "../../../store/ShoppingCartContext";
 import { ActionData, CartItem } from "../../../types";
 import FormErrorDetails from "./FormErrorDetails";
 
-const Summary = () => {
+const Summary = ({isProcessing} : {isProcessing: boolean}) => {
   const { cartData } = useContext(CartContext);
   const actionData = useActionData() as ActionData;
   const data = cartData.items;
@@ -12,7 +12,7 @@ const Summary = () => {
   const vat = Math.round(0.2 * total);
   const shipping = data.length > 0 ? 50 : 0;
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const isSubmitting = navigation.state === "submitting" || isProcessing;
   const buttonText = data.length === 0 ? "Cart is Empty" : "Place Order";
   return (
     <div className="flex flex-col">
@@ -66,7 +66,7 @@ const Summary = () => {
         type="submit"
         disabled={data.length === 0 || isSubmitting}
       >
-        {isSubmitting ? "Submitting..." : buttonText}
+        {isSubmitting ? "Processing..." : buttonText}
       </button>
       {actionData?.success === false && <FormErrorDetails />}
     </div>
