@@ -101,14 +101,21 @@ const Checkout = () => {
     accessToken?: string;
   };
 
-  const showThankYou = actionData?.message === "Payment successful" || actionData?.message === "Order placed successfully";
+  const showThankYou =
+    actionData?.message === "Payment successful" ||
+    actionData?.message === "Order placed successfully";
   const {
     cartData: state,
     onRemoveAllItems,
     onToggleCart,
   } = useContext(CartContext);
   const { getAccessTokenSilently } = useAuth0();
-
+  useEffect(() => {
+    if (showThankYou) {
+      onToggleCart();
+      onRemoveAllItems(true, false);
+    }
+  }, [showThankYou]);
   useEffect(() => {
     document.querySelector("body")!.style.overflow = "auto";
   });
@@ -214,12 +221,6 @@ const Checkout = () => {
         formData.append("accessToken", accessToken);
 
         submit(formData, { method: "post" });
-
-        // For cash on delivery, clear cart immediately
-        if (values.paymentMethod !== "razorpay") {
-          onToggleCart();
-          onRemoveAllItems(true, false);
-        }
       } catch (error) {
         console.error("Order error:", error);
         setIsProcessing(false);
