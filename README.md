@@ -1,170 +1,381 @@
-# Frontend Mentor - Audiophile e-commerce website solution
+# 🎧 Audiophile E-commerce Website
 
-This is a solution to the [Audiophile e-commerce website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx). Frontend Mentor challenges help you improve your coding skills by building realistic projects. It combines a modern frontend with a secure backend, showcasing advanced features like user authentication, persistent cart storage, and enhanced UX.
+<div align="center">
 
-## Table of contents
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-* [Overview](#overview)
-* [Features](#features)
-* [Links](#links)
-* [Setup](#setup)
-* [Tech Stack](#tech-stack)
-* [What I Learned](#what-i-learned)
-* [Challenges Faced](#challenges-faced)
-* [Future Improvements](#future-improvements)
-* [Author](#author)
+**A modern, full-stack e-commerce website for premium audio equipment**
 
-## Overview
+[🚀 Live Demo](https://audiophile-nu-murex.vercel.app) • [📱 Frontend Code](https://github.com/MonarchRyuzaki/Audiophile/tree/master/client) • [⚡ Backend Code](https://github.com/MonarchRyuzaki/Audiophile/tree/master/server)
 
-The Audiophile e-commerce website is a responsive web application that provides an intuitive user experience for browsing, adding to cart, and completing purchases. The application integrates secure authentication, dynamic cart management tied to user accounts, and smooth interactions with real-time feedback.
+</div>
 
-## Features
+---
 
-* Responsive design with a mobile-first approach.
-* User-specific cart storage fetched from the backend, ensuring persistence across sessions.
-* Form validation with meaningful error feedback using Formik and Yup.
-* Real-time notifications for user actions and events with  **React Toast** .
-* Secure authentication and authorization using Auth0.
-* Dynamic VAT and shipping calculations.
-* Order confirmation modal with a summary of purchased items.
+## 📋 Table of Contents
 
-## Links
+- [🎯 Overview](#-overview)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📱 Screenshots](#-screenshots)
+- [🚀 Quick Start](#-quick-start)
+- [⚙️ Environment Setup](#️-environment-setup)
+- [🏗️ Project Structure](#️-project-structure)
+- [🔧 API Documentation](#-api-documentation)
+- [💡 What I Learned](#-what-i-learned)
+- [🎯 Challenges Faced](#-challenges-faced)
+- [🔮 Future Improvements](#-future-improvements)
+- [👤 Author](#-author)
 
-* **Live Demo** : [Audiophile E-commerce Website](https://audiophile-nu-murex.vercel.app)
-* **Frontend Repository** : [GitHub Repo](https://github.com/MonarchRyuzaki/Audiophile/tree/master/client)
-* **Backend Repository** : [GitHub Repo](https://github.com/MonarchRyuzaki/Audiophile/tree/master/server)
+## 🎯 Overview
 
-## Setup
+This is a solution to the [Audiophile e-commerce website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx).
 
-To run this project locally:
+The Audiophile e-commerce website is a **full-stack, responsive web application** that delivers an exceptional user experience for browsing premium audio equipment, managing shopping carts, and completing secure purchases. Built with modern technologies, it showcases advanced features like user authentication, persistent cart storage, real-time notifications, and seamless payment integration.
 
-1. Clone the repository:
+### 🎯 Challenge Requirements
+
+✅ **Responsive Design** - Optimal layout across all device sizes
+✅ **Interactive Elements** - Hover states for all interactive components
+✅ **Cart Management** - Add/remove products and edit quantities
+✅ **Form Validation** - Comprehensive checkout form validation
+✅ **Order Processing** - Complete checkout with order confirmation
+✅ **Price Calculations** - Dynamic VAT (20%) and shipping ($50) calculations
+✅ **Persistent Storage** - Cart data preserved across browser sessions
+
+## ✨ Features
+
+### 🛒 **E-commerce Functionality**
+
+- 🎯 Browse premium audio products by category
+- 🛍️ Add/remove items to/from cart with quantity controls
+- 💰 Real-time price calculations (subtotal, VAT, shipping)
+- 📦 Persistent cart storage tied to user accounts
+- ✅ Order confirmation with detailed summary
+
+### 🔐 **Authentication & Security**
+
+- 🔒 Secure user authentication via Auth0
+- 👤 User-specific cart and order management
+- 🛡️ Role-based access control (RBAC)
+- 🔄 Session persistence across browser refreshes
+
+### 🎨 **User Experience**
+
+- 📱 Mobile-first responsive design
+- 🚀 Fast loading with optimized images
+- 🔔 Real-time notifications for user actions
+- ✨ Smooth animations and hover effects
+- 🎭 Loading skeletons for better perceived performance
+
+### 🧪 **Form Handling**
+
+- ✅ Advanced form validation with Formik & Yup
+- 💳 Payment method selection (Cash on Delivery)
+- 📍 Shipping address validation
+- ⚠️ Real-time error feedback
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+
+- ⚛️ **React 18** - Modern UI library with hooks
+- 🔷 **TypeScript** - Type-safe development
+- 🎨 **Tailwind CSS** - Utility-first CSS framework
+- 🚀 **Vite** - Fast build tool and dev server
+- 🛣️ **React Router DOM v6** - Client-side routing
+- 📋 **Formik & Yup** - Form handling and validation
+- 🔔 **React Toast** - User notifications
+
+### **Backend**
+
+- 🟢 **Node.js & Express.js** - Server-side runtime and framework
+- 🍃 **MongoDB** - NoSQL database
+- 🔐 **Auth0** - Authentication and authorization
+- ✅ **Joi** - Server-side validation
+- 🌐 **CORS** - Cross-origin resource sharing
+
+### **DevOps & Deployment**
+
+- ☁️ **Vercel** - Frontend deployment
+- 🐙 **GitHub** - Version control
+- 🔧 **ESLint & Prettier** - Code quality tools
+
+## 📱 Screenshots
+
+> **Note:** Add screenshots of your application here showcasing:
+>
+> - Homepage on desktop and mobile
+> - Product detail pages
+> - Shopping cart
+> - Checkout process
+> - Order confirmation
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- 📦 Node.js (v16 or higher)
+- 🍃 MongoDB database
+- 🔐 Auth0 account
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/MonarchRyuzaki/Audiophile.git
+cd "Audiophile Website"
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+# Frontend dependencies
+cd client
+npm install
+
+# Backend dependencies
+cd ../server
+npm install
+```
+
+### 3️⃣ Environment Configuration
+
+Create `.env` files in both `client` and `server` directories:
+
+**Frontend (.env)**
+
+```env
+VITE_AUTH0_DOMAIN=your-auth0-domain
+VITE_AUTH0_CLIENT_ID=your-auth0-client-id
+VITE_AUTH0_CALLBACK_URL=http://localhost:5173/callback
+VITE_AUTH0_AUDIENCE=your-auth0-audience
+VITE_API_SERVER_URL=http://localhost:8080
+VITE_RAZORPAY_KEY_ID=your-razorpay-key
+```
+
+**Backend (.env)**
+
+```env
+MONGODB_URL=your-mongodb-connection-string
+AUTH0_DOMAIN=your-auth0-domain
+AUTH0_AUDIENCE=your-auth0-audience
+CLIENT_URL=http://localhost:5173
+PORT=8080
+RAZORPAY_KEY_ID=your-razropay-key
+RAZORPAY_KEY_SECRET=your-razorpay-secret
+```
+
+### 4️⃣ Start Development Servers
+
+```bash
+# Start backend (from server directory)
+npm start
+
+# Start frontend (from client directory)
+npm run dev
+```
+
+🎉 **Your application will be running at:**
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8080
+
+## ⚙️ Environment Setup
+
+### 🔐 Auth0 Configuration
+
+1. **Create Auth0 Application:**
+
+   - Go to [Auth0 Dashboard](https://manage.auth0.com/)
+   - Create a new Single Page Application
+   - Configure allowed callback URLs, logout URLs, and web origins
+2. **Required Settings:**
+
+   ```
+   Allowed Callback URLs: http://localhost:5173/callback
+   Allowed Logout URLs: http://localhost:5173
+   Allowed Web Origins: http://localhost:5173
+   ```
+3. **API Configuration:**
+
+   - Create an API in Auth0
+   - Set identifier as your AUTH0_AUDIENCE value
+
+### 🍃 MongoDB Setup
+
+1. **Local MongoDB:**
 
    ```bash
-   git clone https://github.com/MonarchRyuzaki/Audiophile.git
+   # Install MongoDB locally or use MongoDB Atlas
+   # Connection string format: mongodb://localhost:27017/audiophile
    ```
-2. Frontend Setup:
+2. **MongoDB Atlas (Cloud):**
 
-   1. Navigate to the client directory
+   - Create account at [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Create cluster and get connection string
+   - Whitelist your IP address
 
-   ```bash
-   cd client
-   ```
+## 🏗️ Project Structure
 
-   2. Install the required dependencies:
+```
+📁 Audiophile Website/
+├── 📁 client/                 # Frontend React application
+│   ├── 📁 public/            # Static assets
+│   ├── 📁 src/
+│   │   ├── 📁 components/    # Reusable UI components
+│   │   ├── 📁 Pages/         # Route components
+│   │   ├── 📁 Layouts/       # Layout components
+│   │   ├── 📁 store/         # Context API state management
+│   │   ├── 📁 types/         # TypeScript type definitions
+│   │   ├── 📁 Skeleton/      # Loading skeleton components
+│   │   └── 📄 main.tsx       # Application entry point
+│   ├── 📄 package.json
+│   ├── 📄 vite.config.ts
+│   └── 📄 tailwind.config.js
+├── 📁 server/                 # Backend Express application
+│   ├── 📁 controllers/       # Route handlers
+│   ├── 📁 models/            # Database models
+│   ├── 📁 routes/            # API routes
+│   ├── 📁 utils/             # Utility functions
+│   ├── 📄 index.js           # Server entry point
+│   └── 📄 data.json          # Product data
+└── 📄 README.md
+```
 
-   ```bash
-   npm install
-   ```
+## 🔧 API Documentation
 
-   3. Create a .env file in the client directory and add the following environment variables:
+### **Base URL:** `http://localhost:8080`
 
-   ```env
-   VITE_AUTH0_DOMAIN = "your-auth0-domain"
-   VITE_AUTH0_CLIENT_ID = "your-auth0-client-id"
-   VITE_AUTH0_CALLBACK_URL = "http://localhost:5173/callback"
-   VITE_AUTH0_AUDIENCE = "your-auth0-audience"
-   VITE_API_SERVER_URL = "http://localhost:8080"
-   ```
+### 🛍️ Products Endpoints
 
-   4. Start the development server:
+```http
+GET /products/:slug          # Get product by slug
+GET /products/category/:category  # Get products by category
+```
 
-   ```bash
-   npm run dev
-   ```
-3. Backend Setup:
+### 🛒 Cart Endpoints
 
-   1. Navigate to the server directory
+```http
+GET /cart                  # Get user's cart
+POST /cart/add                 # Add item to cart
+PUT /cart/update-item-quantity              # Update cart item
+DELETE /cart               # Clear entire cart
+```
 
-   ```bash
-   cd ../server
-   ```
+### 📦 Orders Endpoints
 
-   2. Install the required dependencies:
+```http
+POST /orders/submit               # Checkout (COD)
+```
 
-   ```bash
-   npm install
-   ```
+### 💳 Payment Endpoints
 
-   3. Create a .env file in the client directory and add the following environment variables:
+```http
+POST /api/payment/create-order # Create order
+POST /api/payment/verify       # Verify payment 
+```
 
-   ```env
-   MONGODB_URL = "your-mongodb-url"
-   AUTH0_DOMAIN = "your-auth0-domain"
-   AUTH0_AUDIENCE = "your-auth0-audience"
-   CLIENT_URL = "http://localhost:5173"
-   ```
+## 💡 What I Learned
 
-   4. Start the server:
+### 🔄 **Persistent Cart Storage**
 
-   ```bash
-   node index.js
-   ```
-4. Auth0 Setup:
+Implemented a robust cart system where user cart data is stored in MongoDB and tied to authenticated users. This ensures cart persistence across browser sessions and devices, providing a seamless shopping experience.
 
-* Refer to the official [Auth0 documentation](https://auth0.com/docs) to learn how to set up and configure your Auth0 account.
-* You'll need to create an Auth0 application to obtain the AUTH0_DOMAIN and AUTH0_CLIENT_ID for the .env file.
+### 🔐 **Advanced Authentication**
 
-5. Testing the Setup:
+Integrated Auth0 for secure authentication with role-based access control. Users can securely log in, and their session data persists across application restarts, with automatic token refresh handling.
 
-  Once both frontend and backend are running, navigate to http://localhost:3000 in your browser. You should be able to:
+### 🔔 **Enhanced User Experience**
 
-* Add/remove products to/from the cart
-* Proceed with the checkout process
-* Complete authentication via Auth0
+- **Real-time Feedback:** React Toast notifications provide instant feedback for user actions
+- **Form Validation:** Comprehensive validation using Formik and Yup with custom error messages
+- **Loading States:** Skeleton components improve perceived performance during data loading
 
-## Tech Stack
+### 🎨 **Modern Frontend Architecture**
 
-* **Frontend** : React, React Router DOM v6, Tailwind CSS.
-* **Authentication** : Auth0.
-* **Backend** : Express.js, MongoDB, Joi.
-* **State Management** : React Context API.
-* **Form Handling** : Formik and Yup.
-* **Notifications** : React Toast for real-time feedback.
+- **TypeScript Integration:** Type-safe development with custom interfaces and types
+- **Component Architecture:** Reusable, modular components with proper separation of concerns
+- **State Management:** Context API for global state management without Redux complexity
 
-## What I learned
+## 🎯 Challenges Faced
 
-#### Persistent Cart Storage
+### 1️⃣ **Backend-Frontend Synchronization**
 
-* The cart is dynamically stored in the backend database and is user-specific. This ensures that even if the user logs out or refreshes the page, their cart data is preserved across sessions.
+**Challenge:** Ensuring cart data consistency between frontend state and backend database.
+**Solution:** Implemented optimistic updates with fallback error handling and real-time synchronization.
 
-#### Secure Authentication
+### 2️⃣ **Auth0 Integration Complexity**
 
-* Implemented secure user authentication and authorization using Auth0, with role-based access control (RBAC) to manage user-specific actions and permissions.
+**Challenge:** Configuring Auth0 with proper RBAC and handling token refresh.
+**Solution:** Created custom Auth0 provider wrapper with automatic token management and error boundaries.
 
-#### Real-Time Feedback with React Toast
+### 3️⃣ **Production CORS Issues**
 
-* Integrated React Toast for dynamic notifications, enhancing UX by providing clear and immediate feedback for user actions such as adding items to the cart, completing a purchase, or encountering errors.
+**Challenge:** Cross-origin request failures in production environment.
+**Solution:** Properly configured CORS middleware with environment-specific origins and headers.
 
-#### Simplified Forms
+### 4️⃣ **React Router Production Deployment**
 
-* Leveraged Formik and Yup for declarative form creation, efficient validation, and error management.
+**Challenge:** 404 errors on direct route access in production.
+**Solution:** Added `vercel.json` configuration to handle client-side routing properly.
 
-## **Challenges Faced**
+### 5️⃣ **Performance Optimization**
 
-1. **Backend-Frontend Synchronization** :
+**Challenge:** Slow initial load times and image loading.
+**Solution:** Implemented lazy loading, image optimization, and skeleton loading states.
 
-* Managed persistent cart storage by integrating backend APIs to ensure data consistency.
+## 🔮 Future Improvements
 
-2. **Authentication Integration** :
+### 🔍 **Enhanced Features**
 
-* Encountered challenges with configuring Auth0 for seamless authentication and role-based authorization.
+- [ ] **Search & Filters** - Advanced product search with filtering options
+- [ ] **Wishlist** - Save products for later purchase
+- [ ] **Product Reviews** - User ratings and review system
+- [ ] **Inventory Management** - Real-time stock tracking
 
-3. **CORS Errors in Production** :
+### 🏗️ **Technical Enhancements**
 
-* Resolved CORS issues by correctly setting up headers in the backend for cross-origin requests.
+- [ ] **Next.js Migration** - Server-side rendering for better SEO
+- [ ] **Payment Integration** - Stripe/PayPal payment processing
+- [ ] **Admin Dashboard** - Product and order management interface
+- [ ] **PWA Features** - Offline support and push notifications
 
-4. **Route Handling in Production** :
+### 🧪 **Quality Assurance**
 
-* Added a `vercel.json` file to handle React Router routes in production without encountering 404 errors on page refresh.
+- [ ] **Testing Suite** - Unit and integration tests with Jest/React Testing Library
+- [ ] **E2E Testing** - Cypress for end-to-end testing
+- [ ] **Performance Monitoring** - Analytics and performance tracking
+- [ ] **Error Logging** - Comprehensive error tracking with Sentry
 
-## **Future Improvements**
+### 📱 **Mobile Experience**
 
-* Introduce a search functionality for quicker product navigation.
-* Implement server-side rendering (SSR) with Next.js for improved SEO and performance.
-* Add admin functionality for managing products and orders.
-* Incorporate unit and integration testing with Jest and React Testing Library.
+- [ ] **Mobile App** - React Native mobile application
+- [ ] **Enhanced Mobile UX** - Touch gestures and mobile-specific interactions
 
-## Author
+## 👤 Author
 
-* LinkedIn - [Shivam Ganguly](https://www.linkedin.com/in/shivam-ganguly-357b90255/)
+<div align="center">
+
+**Shivam Ganguly**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shivam-ganguly-357b90255/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MonarchRyuzaki)
+
+*Full-Stack Developer passionate about creating exceptional web experiences*
+
+</div>
+
+---
+
+<div align="center">
+
+**⭐ If you found this project helpful, please give it a star! ⭐**
+
+*Built with ❤️ for the Frontend Mentor community*
+
+</div>
