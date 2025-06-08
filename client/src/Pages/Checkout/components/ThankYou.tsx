@@ -48,7 +48,7 @@ function ThankYou({ showModal }: { showModal: boolean }) {
                   {cartData.items[0].name}
                 </div>
                 <div className="text-md font-semibold text-dimGray">
-                  $ {cartData.items[0].price}
+                  ₹ {cartData.items[0].price}
                 </div>
               </div>
               <div className="text-md font-semibold text-dimGray">
@@ -66,7 +66,7 @@ function ThankYou({ showModal }: { showModal: boolean }) {
           <div className="bg-black rounded-md py-9 px-4 flex-1 w-full">
             <div className="text-gray mb-2 text-md ">GRAND TOTAL</div>
             <div className="text-primary mb-2 text-lg ">
-              $ {cartData.total + shipping + vat}
+              ₹ {cartData.total + shipping + vat}
             </div>
           </div>
         </div>

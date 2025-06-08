@@ -31,7 +31,7 @@ const Summary = ({isProcessing} : {isProcessing: boolean}) => {
                 <img src={item.image} alt="" className="w-[75px]" />
                 <div className="flex flex-col uppercase text-md font-semibold">
                   <div>{item.name}</div>
-                  <div className="text-dimGray">${item.price}</div>
+                  <div className="text-dimGray">₹{item.price}</div>
                 </div>
               </div>
               <div className="text-dimGray text-sm">x{item.count}</div>
@@ -41,22 +41,22 @@ const Summary = ({isProcessing} : {isProcessing: boolean}) => {
       </div>
       <div className="flex justify-between mt-6">
         <div className="uppercase text-dimGray tracking-wide">TOTAL</div>
-        <div className="font-bold text-lg">${total}</div>
+        <div className="font-bold text-lg">₹{total}</div>
       </div>
       <div className="flex justify-between mt-2">
         <div className="uppercase text-dimGray tracking-wide">SHIPPING</div>
-        <div className="font-bold text-lg">${shipping}</div>
+        <div className="font-bold text-lg">₹{shipping}</div>
       </div>
       <div className="flex justify-between mt-2">
         <div className="uppercase text-dimGray tracking-wide">
           VAT(INCLUDED)
         </div>
-        <div className="font-bold text-lg">${vat}</div>
+        <div className="font-bold text-lg">₹{vat}</div>
       </div>
       <div className="flex justify-between mt-6">
         <div className="uppercase text-dimGray tracking-wide">GRAND TOTAL</div>
         <div className="font-bold text-lg text-orange">
-          ${vat + total + shipping}
+        ₹{vat + total + shipping}
         </div>
       </div>
       <button

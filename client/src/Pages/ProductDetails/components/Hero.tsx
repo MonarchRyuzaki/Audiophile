@@ -64,7 +64,7 @@ const Hero = ({ data }: { data: Product }) => {
               {data.name} <br /> {data.category}
             </h2>
             <div className="text-dimGray text-lg my-9">{data.description}</div>
-            <div className="text-2xl font-semibold my-4">$ {data.price}</div>
+            <div className="text-2xl font-semibold my-4">₹ {data.price}</div>
             <div className="flex mt-4 gap-4">
               <div className="bg-lightGray px-4  flex justify-center items-center">
                 <span

@@ -30,7 +30,7 @@ const Cart = ({
             <img src={item.image} alt="" className="w-[50px] xs:w-[80px]" />
             <div className="flex flex-col uppercase text-md font-semibold">
               <div>{item.name}</div>
-              <div className="text-dimGray">${item.price}</div>
+              <div className="text-dimGray">₹{item.price}</div>
             </div>
           </div>
           <div className="bg-lightGray px-4  flex justify-center items-center w-[80px] xs:w-[142px]">
@@ -95,7 +95,7 @@ const Cart = ({
                 <div className="uppercase text-dimGray tracking-wider">
                   TOTAL
                 </div>
-                <div className="font-semibold">${cartData.total}</div>
+                <div className="font-semibold">₹{cartData.total}</div>
               </div>
               <Link to="/checkout" onClick={() => setIsCartVisible(false)}>
                 <button className="bg-orange w-full mt-3 uppercase text-primary tracking-wider py-3">

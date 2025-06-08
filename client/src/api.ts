@@ -74,7 +74,7 @@ export async function createRazorpayOrder(accessToken: string, orderData: any) {
         },
         body: JSON.stringify({
           amount: orderData.totalAmount + 50 + 0.2 * orderData.totalAmount,
-          currency: "USD",
+          currency: "INR",
           orderData: orderData,
         }),
       }

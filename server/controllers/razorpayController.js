@@ -14,7 +14,7 @@ const razorpay = new Razorpay({
 
 export const createOrder = async (req, res) => {
   try {
-    const { amount, currency = "USD", orderData } = req.body;
+    const { amount, currency = "INR", orderData } = req.body;
     const accessToken = req.auth.token;
     const userInfo = await getUserInfo(req.auth.payload.aud[1], accessToken);
     const checkoutData = {
